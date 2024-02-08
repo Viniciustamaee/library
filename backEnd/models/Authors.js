@@ -1,6 +1,6 @@
 const con = require('../database/db')
 
-
+// Terminar o crud
 con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");

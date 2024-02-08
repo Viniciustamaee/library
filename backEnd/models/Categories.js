@@ -1,5 +1,6 @@
 const con = require('../database/db')
 
+// Terminar o crud
 con.connect(function (err) {
     const sql = "CREATE TABLE IF NOT EXISTS categories (category_name VARCHAR(45), id INT NOT NULL AUTO_INCREMENT PRIMARY KEY)";
     con.query(sql, function (err, result) {
