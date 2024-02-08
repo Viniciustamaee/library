@@ -1,5 +1,4 @@
-const Authors = require('../model/Authors')
-
+const Authors = require('../models/Authors')
 
 module.exports.new = async (req, res) => {
     const { name } = req.body;
