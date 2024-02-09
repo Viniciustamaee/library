@@ -3,12 +3,10 @@ const router = express();
 const authorsControllers = require('../controllers/author');
 
 
-router.get('/', (req, res) => {
-    res.send('All the authors')
-});
 
-router.post('/new', authorsControllers.new);
-
+router.post('/', (authorsControllers.new));
+router.delete('/:id', (authorsControllers.delete));
+router.put('/:id', authorsControllers.updateName);
 
 
 module.exports = router
