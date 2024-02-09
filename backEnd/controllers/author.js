@@ -1,4 +1,3 @@
-const { status } = require('express/lib/response');
 const Authors = require('../models/Authors')
 
 module.exports.new = async (req, res) => {
