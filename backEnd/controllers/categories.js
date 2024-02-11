@@ -1,5 +1,18 @@
 const Categories = require('../models/Categories')
 
+
+
+module.exports.allCategories = async (req, res) => {
+    try {
+        const allCategoriesResult = await Categories.allCategory();
+        console.log(allCategoriesResult);
+        res.status(200).json({ "mensagem": `Pego todas as informações` });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+    }
+}
+
 module.exports.new = async (req, res) => {
     const { category_name } = req.body
 

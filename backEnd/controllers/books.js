@@ -19,21 +19,21 @@ module.exports.newBooks = async (req, res) => {
     const { title, quantity_available, img, author_id, category_id } = req.body
 
     if (!title || !quantity_available || !img || !author_id || !category_id) {
-        res.status(422).json({ "mensagem": "Campo é obrigatório!" });
+        return res.status(422).json({ "mensagem": "Campo é obrigatório!" });
     }
 
     try {
         const existingTitle = await Books.foundOneName(title);
         if (existingTitle.length >= 1) {
-            res.status(422).json({ "mensagem": "Este livro já existe!" });
+            return res.status(422).json({ "mensagem": "Este livro já existe!" });
 
         } else {
             await Books.newBooks(title, quantity_available, img, author_id, category_id);
-            res.status(200).json({ "mensagem": "Livro inserido com sucesso!" });
+            return res.status(200).json({ "mensagem": "Livro inserido com sucesso!" });
 
         }
     } catch (error) {
-        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
 };
 

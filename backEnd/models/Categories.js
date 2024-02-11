@@ -9,6 +9,26 @@ con.connect(function (err) {
     });
 });
 
+// all
+function allCategory() {
+    return new Promise((resolve, reject) => {
+        con.connect((err) => {
+            if (err) {
+                reject(err);
+            } else {
+                let sql = `SELECT * FROM categories`;
+                con.query(sql, (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            }
+        });
+    });
+};
+
 // new
 function insertCategory(category_name) {
     return new Promise((resolve, reject) => {
@@ -91,6 +111,8 @@ function Delete(id) {
     });
 };
 
+
+// update
 function update(name, id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -111,6 +133,7 @@ function update(name, id) {
 }
 
 module.exports = {
+    allCategory,
     insertCategory,
     foundOneName,
     Delete,

@@ -1,13 +1,12 @@
 const con = require('../database/db')
 
 con.connect(function (err) {
-    const sql = "CREATE TABLE IF NOT EXISTS books (title VARCHAR(45) UNIQUE, quantity_available INT(45), img VARCHAR(200), author_id INT, category_id INT, id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY(author_id) REFERENCES authors(id), FOREIGN KEY(category_id) REFERENCES categories(id))";
+    const sql = "CREATE TABLE IF NOT EXISTS books (title VARCHAR(45) UNIQUE, quantity_available INT(45), img VARCHAR(200),admin enum('0','1') DEFAULT '0', author_id INT, category_id INT, id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY(author_id) REFERENCES authors(id), FOREIGN KEY(category_id) REFERENCES categories(id))";
     con.query(sql, function (err, result) {
         if (err) throw err;
         console.log("Books table created");
     });
 });
-
 
 // Select all
 function allTheBooks() {
