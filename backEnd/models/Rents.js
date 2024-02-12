@@ -127,7 +127,7 @@ function quantityAvailable(id_book) {
             if (err) {
                 reject(err);
             } else {
-                let sql = `SELECT * FROM books WHERE id='${id_book}'`;
+                let sql = `SELECT quantity_available FROM books WHERE id='${id_book}'`;
                 con.query(sql, (err, result) => {
                     if (err) {
                         reject(err);
