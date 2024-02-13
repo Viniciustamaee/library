@@ -12,6 +12,7 @@ module.exports.allRents = async (req, res) => {
     }
 };
 
+// insert
 module.exports.newRents = async (req, res) => {
     const { rented_date, due_date, id_book } = req.body
 
@@ -21,16 +22,16 @@ module.exports.newRents = async (req, res) => {
 
     try {
         const bookData = await Rents.oneBook(id_book);
-        const quantityArray = await Rents.quantityAvailable(id_book);
-        const quantity = quantityArray[0].quantity_available;
 
+        if (bookData !== null) {
+            const quantityArray = await Rents.quantityAvailable(id_book);
+            const quantity = quantityArray[0].quantity_available;
 
-        if (bookData.length > 0) {
             if (quantity > 0) {
                 await Rents.newRents(rented_date, due_date, id_book);
                 return res.status(200).json({ "mensagem": "rents inserido com sucesso!" });
             }
-            else{
+            else {
                 res.status(422).json({ "mensagem": "Não existe produtos dentro do estoque" });
 
             }
@@ -44,3 +45,5 @@ module.exports.newRents = async (req, res) => {
     }
 };
 
+
+// update

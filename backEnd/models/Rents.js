@@ -41,7 +41,11 @@ function oneBook(id_book) {
                     if (err) {
                         reject(err);
                     } else {
-                        resolve(result);
+                        if (result.length > 0) {
+                            resolve(result);
+                        } else {
+                            resolve(null);
+                        }
                     }
                 });
             }
