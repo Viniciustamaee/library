@@ -48,7 +48,7 @@ function foundOneName(name) {
             }
         });
     });
-}
+};
 
 // Delete
 function Delete(id) {

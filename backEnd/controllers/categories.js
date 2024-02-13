@@ -6,10 +6,10 @@ module.exports.allCategories = async (req, res) => {
     try {
         const allCategoriesResult = await Categories.allCategory();
         console.log(allCategoriesResult);
-        res.status(200).json({ "mensagem": `Pego todas as informações` });
+        return res.status(200).json({ "mensagem": `Pego todas as informações` });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
 }
 
@@ -25,15 +25,15 @@ module.exports.new = async (req, res) => {
         const existingCategory = await Categories.foundOneName(category_name);
 
         if (existingCategory.length >= 1) {
-            res.status(422).json({ "mensagem": "Este category já existe!" });
+            return res.status(422).json({ "mensagem": "Este category já existe!" });
 
         } else {
             await Categories.insertCategory(category_name);
-            res.status(200).json({ "mensagem": "Category inserido com sucesso!" });
+            return res.status(200).json({ "mensagem": "Category inserido com sucesso!" });
         }
 
     } catch (error) {
-        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
 }
 
