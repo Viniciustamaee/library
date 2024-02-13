@@ -105,13 +105,13 @@ function Delete(id) {
 };
 
 // update
-function update(rented_date, due_date, id) {
+function update(rented_date, due_date, id_book, id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
                 reject(err);
             } else {
-                let sql = `UPDATE rents SET rented_date = '${rented_date}', due_date = '${due_date}' WHERE id = '${id}'`;
+                let sql = `UPDATE rents SET rented_date = '${rented_date}', due_date = '${due_date}', id_book = '${id_book}' WHERE id = '${id}'`;
                 con.query(sql, (err, result) => {
                     if (err) {
                         reject(err);
@@ -124,7 +124,7 @@ function update(rented_date, due_date, id) {
     });
 };
 
-// 
+
 function quantityAvailable(id_book) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -132,6 +132,25 @@ function quantityAvailable(id_book) {
                 reject(err);
             } else {
                 let sql = `SELECT quantity_available FROM books WHERE id='${id_book}'`;
+                con.query(sql, (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            }
+        });
+    });
+};
+
+function oneRents(id) {
+    return new Promise((resolve, reject) => {
+        con.connect((err) => {
+            if (err) {
+                reject(err);
+            } else {
+                let sql = `SELECT * FROM rents WHERE id='${id}'`;
                 con.query(sql, (err, result) => {
                     if (err) {
                         reject(err);
@@ -153,6 +172,7 @@ module.exports = {
     Delete,
     update,
     oneBook,
-    quantityAvailable
+    quantityAvailable,
+    oneRents
 }
 

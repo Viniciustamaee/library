@@ -32,11 +32,11 @@ module.exports.newRents = async (req, res) => {
                 return res.status(200).json({ "mensagem": "rents inserido com sucesso!" });
             }
             else {
-                res.status(422).json({ "mensagem": "Não existe produtos dentro do estoque" });
+                return res.status(422).json({ "mensagem": "Não existe produtos dentro do estoque" });
 
             }
         } else {
-            res.status(422).json({ "mensagem": "Não existe esse id de Books" });
+            return res.status(422).json({ "mensagem": "Não existe esse id de Books" });
         }
 
     } catch (error) {
@@ -47,3 +47,37 @@ module.exports.newRents = async (req, res) => {
 
 
 // update
+module.exports.update = async (req, res) => {
+    const { rented_date, due_date, id_book } = req.body
+    const { id } = req.params
+
+    if (!/^[1-9]\d*$/.test(id)) {
+        res.status(400).json({ "mensagem": "O 'id' deve ser um número inteiro positivo e não pode ter letras!!" });
+        return;
+    }
+
+    if (!rented_date || !due_date || !id_book) {
+        return res.status(406).json({ "erros": "Dados insuficientes" })
+    }
+
+    try {
+        const bookData = await Rents.oneBook(id_book);
+
+        if (bookData !== null) {
+            const existingId = await Rents.oneRents(id);
+            if (existingId.length >= 1) {
+                await Rents.update(rented_date, due_date, id_book, id)
+                return res.status(200).json({ "mensagem": "Troca atualizado com sucesso" });
+
+            } else {
+                return res.status(422).json({ "mensagem": "Não existe esse id de troca" });
+            }
+
+        } else {
+            return res.status(422).json({ "mensagem": "Não existe esse id de Books" });
+        }
+
+    } catch (erro) {
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
+    }
+}

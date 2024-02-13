@@ -9,7 +9,7 @@ router.post('/', rentsControllers.newRents)
 // router.get('/:id');
 // router.delete('/:id');
 // // router.get('/:id/edit',);
-// router.put('/:id');
+router.put('/:id', rentsControllers.update);
 
 
 module.exports = router
