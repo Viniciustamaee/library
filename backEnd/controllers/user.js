@@ -37,7 +37,6 @@ module.exports.passwordValid = new LocalStrategy(async function (username, passw
     try {
         const rows = await Users.login(username);
 
-
         if (rows.length === 0) {
             return done(null, false, { message: 'Usuário não encontrado.' });
         }

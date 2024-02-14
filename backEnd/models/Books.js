@@ -8,7 +8,6 @@ con.connect(function (err) {
     });
 });
 
-// Select all
 function allTheBooks() {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -28,7 +27,6 @@ function allTheBooks() {
     });
 };
 
-// oneBook
 function oneBook(id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -48,7 +46,6 @@ function oneBook(id) {
     });
 };
 
-// foundName
 function foundOneName(title) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -68,9 +65,6 @@ function foundOneName(title) {
     });
 };
 
-
-
-// insert
 function newBooks(title, quantity_available, img, author_id, category_id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -90,7 +84,6 @@ function newBooks(title, quantity_available, img, author_id, category_id) {
     });
 }
 
-// delete
 function Delete(id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -110,7 +103,6 @@ function Delete(id) {
     });
 };
 
-// update
 function update(title, quantity_available, img, author_id, category_id, id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -131,10 +123,10 @@ function update(title, quantity_available, img, author_id, category_id, id) {
 }
 
 module.exports = {
-    allTheBooks,
-    oneBook,
     foundOneName,
+    allTheBooks,
     newBooks,
+    oneBook,
     Delete,
     update
 

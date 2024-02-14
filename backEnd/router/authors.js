@@ -1,12 +1,13 @@
+const authorsControllers = require('../controllers/author');
+const { isLoggin } = require('../middleware')
 const express = require('express')
 const router = express();
-const authorsControllers = require('../controllers/author');
 
 
 
-router.post('/', (authorsControllers.new));
-router.delete('/:id', (authorsControllers.delete));
-router.put('/:id', authorsControllers.updateName);
+router.post('/', isLoggin, (authorsControllers.new));
+router.delete('/:id', isLoggin, (authorsControllers.delete));
+router.put('/:id', isLoggin, authorsControllers.updateName);
 
 
 module.exports = router

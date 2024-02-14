@@ -1,10 +1,8 @@
 const Rents = require('../models/Rents')
 
-// all
 module.exports.allRents = async (req, res) => {
     try {
         const allrentsResult = await Rents.allrents();
-        console.log(allrentsResult);
         return res.status(200).json({ "mensagem": `Pego todas as informações` });
     } catch (error) {
         console.error(error);
@@ -12,7 +10,6 @@ module.exports.allRents = async (req, res) => {
     }
 };
 
-// insert
 module.exports.newRents = async (req, res) => {
     const { rented_date, due_date, id_book } = req.body
 
@@ -45,8 +42,6 @@ module.exports.newRents = async (req, res) => {
     }
 };
 
-
-// update
 module.exports.update = async (req, res) => {
     const { rented_date, due_date, id_book } = req.body
     const { id } = req.params
@@ -82,7 +77,6 @@ module.exports.update = async (req, res) => {
     }
 }
 
-// delete
 module.exports.delete = async (req, res) => {
     const { id } = req.params
 

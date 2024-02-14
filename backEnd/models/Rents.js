@@ -1,6 +1,5 @@
 const con = require('../database/db')
 
-
 con.connect(function (err) {
     const sql = "CREATE TABLE IF NOT EXISTS rents (	rented_date DATE,  due_date DATE,id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, id_book int, FOREIGN KEY(id_book) REFERENCES books(id))";
     con.query(sql, function (err, result) {
@@ -8,7 +7,6 @@ con.connect(function (err) {
         console.log("Rents table created");
     });
 });
-
 
 function allrents() {
     return new Promise((resolve, reject) => {
@@ -28,7 +26,6 @@ function allrents() {
         });
     });
 };
-
 
 function oneBook(id_book) {
     return new Promise((resolve, reject) => {
@@ -53,7 +50,6 @@ function oneBook(id_book) {
     });
 };
 
-// New
 function newRents(rented_date, due_date, id_book) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -83,8 +79,6 @@ function newRents(rented_date, due_date, id_book) {
     });
 }
 
-
-// Delete
 function Delete(id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -104,7 +98,6 @@ function Delete(id) {
     });
 };
 
-// update
 function update(rented_date, due_date, id_book, id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -123,7 +116,6 @@ function update(rented_date, due_date, id_book, id) {
         });
     });
 };
-
 
 function quantityAvailable(id_book) {
     return new Promise((resolve, reject) => {
@@ -163,16 +155,13 @@ function oneRents(id) {
     });
 };
 
-
-
-
 module.exports = {
+    quantityAvailable,
     allrents,
     newRents,
-    Delete,
-    update,
+    oneRents,
     oneBook,
-    quantityAvailable,
-    oneRents
+    Delete,
+    update
 }
 

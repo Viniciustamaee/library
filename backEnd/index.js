@@ -13,8 +13,8 @@ const categories = require('./router/categories')
 const authors = require('./router/authors');
 const books = require('./router/books')
 const rents = require('./router/rents')
+const admin = require('./seeds/admin')
 const user = require('./router/user')
-
 
 const sessionConfig = {
     secret: 'secredo',

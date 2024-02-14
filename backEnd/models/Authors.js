@@ -9,7 +9,6 @@ con.connect(function (err) {
     });
 });
 
-// new
 function newAuthors(name) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -29,8 +28,6 @@ function newAuthors(name) {
     });
 }
 
-
-// FountOneName
 function foundOneName(name) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -50,7 +47,6 @@ function foundOneName(name) {
     });
 };
 
-// Delete
 function Delete(id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -70,7 +66,6 @@ function Delete(id) {
     });
 }
 
-// foundOneId
 function foundOneId(id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -90,7 +85,6 @@ function foundOneId(id) {
     });
 }
 
-// Update
 function update(name, id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -110,11 +104,10 @@ function update(name, id) {
     });
 }
 
-
 module.exports = {
-    newAuthors,
     foundOneName,
-    Delete,
     foundOneId,
+    newAuthors,
+    Delete,
     update
 }

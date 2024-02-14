@@ -1,10 +1,11 @@
+const categoriesControllers = require('../controllers/categories')
+const { isLoggin } = require('../middleware')
 const express = require('express')
 const router = express();
-const categoriesControllers = require('../controllers/categories')
 
 router.get('/', categoriesControllers.allCategories)
-router.post('/', categoriesControllers.new)
-router.delete('/:id', categoriesControllers.delete);
-router.put('/:id', categoriesControllers.updateCategory);
+router.post('/', isLoggin, categoriesControllers.new)
+router.delete('/:id', isLoggin, categoriesControllers.delete);
+router.put('/:id', isLoggin, categoriesControllers.updateCategory);
 
 module.exports = router

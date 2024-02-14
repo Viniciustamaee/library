@@ -1,6 +1,6 @@
 const con = require('../database/db')
-const salts = 10;
 const bcrypt = require('bcrypt');
+const salts = 10;
 
 con.connect(function () {
     let sql = "CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT,email VARCHAR(255) UNIQUE, username VARCHAR(255) UNIQUE, password VARCHAR(255), img VARCHAR(255),admin ENUM('0','1') DEFAULT '0')";
@@ -59,7 +59,6 @@ function existUser(username, email) {
     });
 };
 
-
 function login(username) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -80,8 +79,8 @@ function login(username) {
 };
 
 module.exports = {
-    newUser,
     existUser,
+    newUser,
     login
 }
 

@@ -1,20 +1,15 @@
 const Books = require('../models/Books')
 
-
-// all
 module.exports.allBooks = async (req, res) => {
     try {
         const allBooksResult = await Books.allTheBooks();
-        console.log(allBooksResult);
-        res.status(200).json({ "mensagem": `Pego todas as informações` });
+        return res.status(200).json({ "mensagem": `Pego todas as informações` });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
 }
 
-
-// new Validar no front, se caso fique faltando algo
 module.exports.newBooks = async (req, res) => {
     const { title, quantity_available, img, author_id, category_id } = req.body
 
@@ -37,7 +32,6 @@ module.exports.newBooks = async (req, res) => {
     }
 };
 
-// FoundOneBook
 module.exports.oneBooks = async (req, res) => {
     const { id } = req.params
 
@@ -48,15 +42,13 @@ module.exports.oneBooks = async (req, res) => {
 
     try {
         const achei = await Books.oneBook(id);
-        console.log(achei)
-        res.status(200).json({ "mensagem": "ACHEI" });
+        return res.status(200).json({ "mensagem": "Um book" });
 
     } catch (error) {
-        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
 };
 
-// delete
 module.exports.delete = async (req, res) => {
     const { id } = req.params
 
@@ -74,17 +66,15 @@ module.exports.delete = async (req, res) => {
         const existingId = await Books.oneBook(id);
         if (existingId.length >= 1) {
             await Books.Delete(id)
-            res.status(200).json({ "mensagem": "Book apagado com sucesso" });
+            return res.status(200).json({ "mensagem": "Book apagado com sucesso" });
         } else {
-            res.status(422).json({ "mensagem": "Não existe esse id de Books" });
+            return res.status(422).json({ "mensagem": "Não existe esse id de Books" });
         }
     } catch (error) {
-        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
 }
 
-
-// update
 module.exports.updateBooks = async (req, res) => {
     let { title, quantity_available, img, author_id, category_id } = req.body;
     let { id } = req.params
@@ -93,12 +83,12 @@ module.exports.updateBooks = async (req, res) => {
         const existingId = await Books.oneBook(id);
         if (existingId.length >= 1) {
             await Books.update(title, quantity_available, img, author_id, category_id, id)
-            res.status(200).json({ "mensagem": "Autor atualizado com sucesso" });
+            return res.status(200).json({ "mensagem": "Autor atualizado com sucesso" });
         } else {
-            res.status(422).json({ "mensagem": "Não existe esse id de author" });
+            return res.status(422).json({ "mensagem": "Não existe esse id de author" });
         }
 
     } catch (erro) {
-        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
 }

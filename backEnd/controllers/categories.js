@@ -1,11 +1,8 @@
 const Categories = require('../models/Categories')
 
-
-
 module.exports.allCategories = async (req, res) => {
     try {
         const allCategoriesResult = await Categories.allCategory();
-        console.log(allCategoriesResult);
         return res.status(200).json({ "mensagem": `Pego todas as informações` });
     } catch (error) {
         console.error(error);
@@ -55,15 +52,15 @@ module.exports.delete = async (req, res) => {
 
         if (existingId.length >= 1) {
             await Categories.Delete(id)
-            res.status(200).json({ "mensagem": "Autor apagado com sucesso" });
+            return res.status(200).json({ "mensagem": "Autor apagado com sucesso" });
 
         } else {
-            res.status(422).json({ "mensagem": "Não existe esse id de author" });
+            return res.status(422).json({ "mensagem": "Não existe esse id de author" });
 
         }
 
     } catch (error) {
-        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
 
     };
 };
@@ -78,19 +75,19 @@ module.exports.updateCategory = async (req, res) => {
     }
 
     if (category_name == "") {
-        res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });
+        return res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });
     }
 
     try {
         const existingId = await Categories.foundOneId(id);
         if (existingId.length >= 1) {
             await Categories.update(category_name, id)
-            res.status(200).json({ "mensagem": "Autor atualizado com sucesso" });
+            return res.status(200).json({ "mensagem": "Autor atualizado com sucesso" });
         } else {
-            res.status(422).json({ "mensagem": "Não existe esse id de author" });
+            return res.status(422).json({ "mensagem": "Não existe esse id de author" });
         }
 
     } catch (erro) {
-        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
 }

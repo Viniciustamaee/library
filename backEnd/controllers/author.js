@@ -4,19 +4,19 @@ module.exports.new = async (req, res) => {
     const { name } = req.body;
 
     if (name === "") {
-        res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });
+        return res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });
     }
 
     try {
         const existingAuthor = await Authors.foundOneName(name);
         if (existingAuthor.length >= 1) {
-            res.status(422).json({ "mensagem": "Este autor já existe!" });
+            return res.status(422).json({ "mensagem": "Este autor já existe!" });
         } else {
             await Authors.newAuthors(name);
-            res.status(200).json({ "mensagem": "Autor inserido com sucesso!" });
+            return res.status(200).json({ "mensagem": "Autor inserido com sucesso!" });
         }
     } catch (error) {
-        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
 };
 
@@ -37,12 +37,12 @@ module.exports.delete = async (req, res) => {
         const existingId = await Authors.foundOneId(id);
         if (existingId.length >= 1) {
             await Authors.Delete(id)
-            res.status(200).json({ "mensagem": "Autor apagado com sucesso" });
+            return res.status(200).json({ "mensagem": "Autor apagado com sucesso" });
         } else {
-            res.status(422).json({ "mensagem": "Não existe esse id de author" });
+            return res.status(422).json({ "mensagem": "Não existe esse id de author" });
         }
     } catch (error) {
-        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
 }
 
@@ -60,23 +60,21 @@ module.exports.updateName = async (req, res) => {
         return;
     }
 
-
     if (name == "") {
-        res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });
+        return res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });
     }
-
 
     try {
         const existingId = await Authors.foundOneId(id);
         if (existingId.length >= 1) {
             await Authors.update(name, id)
-            res.status(200).json({ "mensagem": "Autor atualizado com sucesso" });
+            return res.status(200).json({ "mensagem": "Autor atualizado com sucesso" });
         } else {
-            res.status(422).json({ "mensagem": "Não existe esse id de author" });
+            return res.status(422).json({ "mensagem": "Não existe esse id de author" });
         }
 
     } catch (erro) {
-        res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
 }
 

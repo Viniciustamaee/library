@@ -1,6 +1,5 @@
 const con = require('../database/db')
 
-// Terminar o crud
 con.connect(function (err) {
     const sql = "CREATE TABLE IF NOT EXISTS categories (category_name VARCHAR(45), id INT NOT NULL AUTO_INCREMENT PRIMARY KEY)";
     con.query(sql, function (err, result) {
@@ -9,7 +8,6 @@ con.connect(function (err) {
     });
 });
 
-// all
 function allCategory() {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -29,7 +27,6 @@ function allCategory() {
     });
 };
 
-// new
 function insertCategory(category_name) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -49,7 +46,6 @@ function insertCategory(category_name) {
     });
 }
 
-// foundName
 function foundOneName(category_name) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -69,7 +65,6 @@ function foundOneName(category_name) {
     });
 };
 
-// FoundOneId
 function foundOneId(id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -89,9 +84,6 @@ function foundOneId(id) {
     });
 }
 
-
-
-// delete
 function Delete(id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -111,8 +103,6 @@ function Delete(id) {
     });
 };
 
-
-// update
 function update(name, id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -133,10 +123,10 @@ function update(name, id) {
 }
 
 module.exports = {
-    allCategory,
     insertCategory,
     foundOneName,
-    Delete,
+    allCategory,
     foundOneId,
+    Delete,
     update
 }
