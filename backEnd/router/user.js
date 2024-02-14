@@ -1,12 +1,18 @@
 const userControllers = require('../controllers/user')
 const passport = require('passport')
-const express = require('express')
+const express = require('express');
 const router = express();
+
+
+// const multer = require('multer');
+// const { storage } = require('../cloud/config')
+// const upload = multer({ storage })
+
 
 
 
 // router.get('/register', userControll.scrennRegister)
-router.post('/register', userControllers.new);
+router.post('/register', upload.array('img'), userControllers.new);
 // router.get('/login', userControll.screenLogin);
 
 passport.serializeUser(userControllers.valid);

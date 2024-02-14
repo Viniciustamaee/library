@@ -1,4 +1,5 @@
 const Books = require('../models/Books')
+const cloudinary = require('../cloud/config')
 
 module.exports.allBooks = async (req, res) => {
     try {
@@ -70,6 +71,7 @@ module.exports.delete = async (req, res) => {
         } else {
             return res.status(422).json({ "mensagem": "Não existe esse id de Books" });
         }
+
     } catch (error) {
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }

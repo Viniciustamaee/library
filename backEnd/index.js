@@ -13,8 +13,8 @@ const categories = require('./router/categories')
 const authors = require('./router/authors');
 const books = require('./router/books')
 const rents = require('./router/rents')
-const admin = require('./seeds/admin')
 const user = require('./router/user')
+const admin = require('./seeds/admin')
 
 const sessionConfig = {
     secret: 'secredo',
@@ -27,11 +27,9 @@ const sessionConfig = {
     }
 }
 
-
 app.use(session(sessionConfig))
 app.use(passport.initialize())
 app.use(passport.session())
-
 
 app.use('/Categories', categories)
 app.use('/Authors', authors)
