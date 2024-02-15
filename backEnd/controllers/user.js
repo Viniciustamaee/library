@@ -1,4 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
+const foundDueDate = require('../cron/job1')
 const Users = require('../models/Users');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
@@ -56,23 +57,38 @@ module.exports.passwordValid = new LocalStrategy(async function (username, passw
     }
 });
 
-module.exports.login = (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            console.log(info);
-            return res.status(422).json({ "mensagem": 'Usuário não encontrado ou senha incorreta.' });
-        }
-
-        req.logIn(user, (err) => {
+module.exports.login = async (req, res, next) => {
+    passport.authenticate('local', async (err, user, info) => {
+        try {
             if (err) {
                 return next(err);
             }
 
-            return res.status(400).json({ "mensagem": 'Bem-vindo' });
-        });
+            if (!user) {
+                return res.status(422).json({ "mensagem": 'Usuário não encontrado ou senha incorreta.' });
+            }
+
+            const expiredBooks = await foundDueDate();
+
+            const expiredBooksUser = expiredBooks.find(book => book.user_id === user);
+
+            req.logIn(user, (err) => {
+                if (err) {
+                    return next(err);
+                }
+
+                if (expiredBooksUser) {
+
+                    return res.status(400).json({ "mensagem": 'Bem-vindo! Você tem livros para devolver hoje.' });
+                }
+
+                return res.status(200).json({ "mensagem": 'Bem-vindo!' });
+
+            });
+
+        } catch (error) {
+            return next(error);
+        }
     })(req, res, next);
 };
 

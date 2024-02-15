@@ -1,6 +1,7 @@
 const Rents = require('../models/Rents')
 
 module.exports.allRents = async (req, res) => {
+
     try {
         const allrentsResult = await Rents.allrents();
         return res.status(200).json({ "mensagem": `Pego todas as informações` });
@@ -12,8 +13,9 @@ module.exports.allRents = async (req, res) => {
 
 module.exports.newRents = async (req, res) => {
     const { rented_date, due_date, id_book } = req.body
+    const user_id = res.locals.user;
 
-    if (!rented_date || !due_date || !id_book) {
+    if (!rented_date || !due_date || !id_book || !user_id) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
     }
 
@@ -25,7 +27,7 @@ module.exports.newRents = async (req, res) => {
             const quantity = quantityArray[0].quantity_available;
 
             if (quantity > 0) {
-                await Rents.newRents(rented_date, due_date, id_book);
+                await Rents.newRents(rented_date, due_date, id_book, user_id);
                 return res.status(200).json({ "mensagem": "rents inserido com sucesso!" });
             }
             else {
@@ -44,6 +46,7 @@ module.exports.newRents = async (req, res) => {
 
 module.exports.update = async (req, res) => {
     const { rented_date, due_date, id_book } = req.body
+    const user_id = res.locals.user;
     const { id } = req.params
 
     if (!/^[1-9]\d*$/.test(id)) {
@@ -51,7 +54,7 @@ module.exports.update = async (req, res) => {
         return;
     }
 
-    if (!rented_date || !due_date || !id_book) {
+    if (!rented_date || !due_date || !id_book || !user_id) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
     }
 
@@ -61,7 +64,7 @@ module.exports.update = async (req, res) => {
         if (bookData !== null) {
             const existingId = await Rents.oneRents(id);
             if (existingId.length >= 1) {
-                await Rents.update(rented_date, due_date, id_book, id)
+                await Rents.update(rented_date, due_date, id_book, user_id, id)
                 return res.status(200).json({ "mensagem": "Troca atualizado com sucesso" });
 
             } else {
