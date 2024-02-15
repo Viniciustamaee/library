@@ -83,12 +83,14 @@ module.exports.update = async (req, res) => {
 module.exports.delete = async (req, res) => {
     const { id } = req.params
 
+
     if (!/^[1-9]\d*$/.test(id)) {
         res.status(400).json({ "mensagem": "O 'id' deve ser um número inteiro positivo e não pode ter letras!!" });
         return;
     }
 
     try {
+
         const existingId = await Rents.oneRents(id);
         if (existingId.length > 0) {
             await Rents.Delete(id)
@@ -99,4 +101,4 @@ module.exports.delete = async (req, res) => {
     } catch (error) {
         res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
-}
+};

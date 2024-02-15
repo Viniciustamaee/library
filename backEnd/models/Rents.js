@@ -86,18 +86,45 @@ function Delete(id) {
             if (err) {
                 reject(err);
             } else {
-                let sql = `DELETE FROM rents WHERE id='${id}'`;
-                con.query(sql, (err, result) => {
+                let id_book_query = `SELECT id_book FROM rents WHERE id=${id}`;
+
+                con.query(id_book_query, (err, result) => {
                     if (err) {
+                        console.log(err);
                         reject(err);
                     } else {
-                        resolve(result);
+                        const id_book = result[0].id_book;
+
+                        let sql2 = `UPDATE books SET quantity_available = quantity_available + 1 WHERE id = ${id_book}`;
+
+                        con.query(sql2, (err, updateResult) => {
+                            if (err) {
+                                console.log(err);
+                                reject(err);
+                            } else {
+                                console.log(updateResult);
+
+                                let deleteQuery = `DELETE FROM rents WHERE id=${id};`;
+
+                                con.query(deleteQuery, (err, deleteResult) => {
+                                    if (err) {
+                                        console.log(err);
+                                        reject(err);
+                                    } else {
+                                        console.log(deleteResult);
+                                        resolve(deleteResult);
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
             }
         });
     });
 };
+
+
 
 function update(rented_date, due_date, id_book, user_id, id) {
     return new Promise((resolve, reject) => {
