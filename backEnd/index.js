@@ -37,13 +37,6 @@ app.use('/Books', books)
 app.use('/Rents', rents)
 app.use('/User', user)
 
-
-// cron.schedule('* * * * *', () => {
-//     console.log('Executando a verificação diária de livros com data de vencimento.');
-//     foundDueDate()
-// });
-
-
 app.listen(port, () => {
     console.log('A porta está conectada')
 });
