@@ -8,7 +8,6 @@ con.connect(function (err) {
     });
 });
 
-
 function allrents() {
     return new Promise((resolve, reject) => {
         con.connect((err) => {

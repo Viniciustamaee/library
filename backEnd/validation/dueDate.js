@@ -21,8 +21,6 @@ function foundDueDate() {
                     return moment(livro.due_date).isSame(todayDate, 'day');
                 });
 
-                // console.log('Livros com data de vencimento hoje:', booksExpired);
-
                 resolve(booksExpired);
             });
         });

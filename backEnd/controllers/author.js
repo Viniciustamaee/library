@@ -1,4 +1,5 @@
 const Authors = require('../models/Authors')
+const idEmpty = require('../validation/id')
 
 module.exports.new = async (req, res) => {
     const { name } = req.body;
@@ -10,7 +11,7 @@ module.exports.new = async (req, res) => {
     try {
         const existingAuthor = await Authors.foundOneName(name);
         if (existingAuthor.length >= 1) {
-            return res.status(422).json({ "mensagem": "Este autor já existe!" });
+            return res.status(409).json({ "mensagem": "Este autor já existe!" });
         } else {
             await Authors.newAuthors(name);
             return res.status(200).json({ "mensagem": "Autor inserido com sucesso!" });
@@ -22,16 +23,7 @@ module.exports.new = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     const { id } = req.params
-
-    if (!id) {
-        res.status(404).json({ "mensagem": "Id vazio" });
-        return
-    }
-
-    if (!/^[1-9]\d*$/.test(id)) {
-        res.status(400).json({ "mensagem": "O 'id' deve ser um número inteiro positivo e não pode ter letras!!" });
-        return;
-    }
+    idEmpty(res, id)
 
     try {
         const existingId = await Authors.foundOneId(id);
@@ -49,16 +41,8 @@ module.exports.delete = async (req, res) => {
 module.exports.updateName = async (req, res) => {
     let { name } = req.body;
     let { id } = req.params
+    idEmpty(res, id)
 
-    if (!id) {
-        res.status(404).json({ "mensagem": "Id vazio" });
-        return
-    }
-
-    if (!/^[1-9]\d*$/.test(id)) {
-        res.status(400).json({ "mensagem": "O 'id' deve ser um número inteiro positivo e não pode ter letras!!" });
-        return;
-    }
 
     if (name == "") {
         return res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });

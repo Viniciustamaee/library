@@ -1,4 +1,6 @@
 const Categories = require('../models/Categories')
+const idEmpty = require('../validation/id')
+
 
 module.exports.allCategories = async (req, res) => {
     try {
@@ -36,16 +38,7 @@ module.exports.new = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     const { id } = req.params
-
-    if (!id) {
-        res.status(404).json({ "mensagem": "Id vazio" });
-        return
-    }
-
-    if (!/^[1-9]\d*$/.test(id)) {
-        res.status(400).json({ "mensagem": "O 'id' deve ser um número inteiro positivo e não pode ter letras!!" });
-        return;
-    }
+    idEmpty(req,id)
 
     try {
         const existingId = await Categories.foundOneId(id);
@@ -68,11 +61,7 @@ module.exports.delete = async (req, res) => {
 module.exports.updateCategory = async (req, res) => {
     let { category_name } = req.body;
     let { id } = req.params
-
-    if (!/^[1-9]\d*$/.test(id)) {
-        res.status(400).json({ "mensagem": "O 'id' deve ser um número inteiro positivo e não pode ter letras!!" });
-        return;
-    }
+    idEmpty(req,id)
 
     if (category_name == "") {
         return res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });

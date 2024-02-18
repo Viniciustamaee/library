@@ -1,5 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
-const foundDueDate = require('../cron/job1')
+const foundDueDate = require('../validation/dueDate')
 const Users = require('../models/Users');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
@@ -65,7 +65,7 @@ module.exports.login = async (req, res, next) => {
             }
 
             if (!user) {
-                return res.status(422).json({ "mensagem": 'Usuário não encontrado ou senha incorreta.' });
+                return res.status(401).json({ "mensagem": 'Usuário não encontrado ou senha incorreta.' });
             }
 
             const expiredBooks = await foundDueDate();
