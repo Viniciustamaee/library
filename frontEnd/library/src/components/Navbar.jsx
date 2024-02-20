@@ -12,7 +12,7 @@ import {
 } from 'flowbite-react';
 
 import { Button } from 'flowbite-react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 export default function Component() {
@@ -30,8 +30,8 @@ export default function Component() {
 
 
                     <div className="flex flex-wrap gap-2 " >
-                        <Button color="blue" >Register</Button>
-                        <Button color="success" className='mr-2'>Login</Button>
+                        <Button color="blue" href='/User/Register'>Register</Button>
+                        <Button color="success" className='mr-2' href='/User/Login'>Login</Button>
                     </div>
 
                     {/* <Dropdown
