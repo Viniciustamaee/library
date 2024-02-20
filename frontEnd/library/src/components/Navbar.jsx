@@ -12,11 +12,11 @@ import {
 } from 'flowbite-react';
 
 import { Button } from 'flowbite-react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+
 
 export default function Component() {
     return (
-        // ARRUMAR AQUI
         <div className="fixed w-full z-50 ">
             <Navbar fluid rounded className="bg-transpaent" >
                 <NavbarBrand href="/" >
@@ -27,6 +27,7 @@ export default function Component() {
                     <span className="self-center whitespace-nowrap text-xl font-semibold text-white">Library</span>
                 </NavbarBrand>
                 <div className="flex md:order-2 text-lg ">
+
 
                     <div className="flex flex-wrap gap-2 " >
                         <Button color="blue" >Register</Button>
@@ -51,12 +52,10 @@ export default function Component() {
                 </Dropdown> */}
                     <NavbarToggle />
                 </div>
-                <NavbarCollapse>
-                    <NavbarLink active className='text-lg text-white'>
-                        <Link to="/">Home</Link>
-                    </NavbarLink>
-                    <NavbarLink className='text-lg text-white' ><Link to="/Books">Books</Link></NavbarLink>
-                    <NavbarLink href="#" className='text-lg text-white'> <Link to="/Rents">Rents</Link></NavbarLink>
+                <NavbarCollapse >
+                    <NavbarLink className='text-lg text-white '  ><Link to="/" >Home</Link></NavbarLink>
+                    <NavbarLink className='text-lg text-white'  ><Link to="/Books">Books</Link></NavbarLink>
+                    <NavbarLink href="#" className='text-lg text-white'  ><Link to="/Rents">Rents</Link></NavbarLink>
                 </NavbarCollapse>
             </Navbar>
         </div>
