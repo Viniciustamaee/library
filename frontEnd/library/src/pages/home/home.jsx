@@ -3,7 +3,7 @@ import './home.css'
 
 export default function home() {
     return (
-        <div className='text-white'>
+        <div className='text-white' id='container'>
             <div id="content">
                 <h1 className='text-4xl font-normal text-white-900 '>Bem vindo a Library</h1>
                 <p className='text-4xl font-thin text-white-900 '>Um site a onde você pode alugar livros</p>
