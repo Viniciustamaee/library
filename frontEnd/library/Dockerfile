@@ -4,7 +4,7 @@ COPY . .
 
 COPY package*.json ./ 
 
-WORKDIR /usr/scr/app
+WORKDIR /usr/scr/app/frontEnd/library
 
 EXPOSE 8000
 

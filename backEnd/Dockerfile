@@ -6,7 +6,7 @@ COPY package*.json ./
 
 RUN npm i -g nodemon
 
-WORKDIR /usr/scr/app
+WORKDIR /usr/scr/app/backEnd
 
 EXPOSE 3000
 
