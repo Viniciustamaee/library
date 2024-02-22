@@ -78,11 +78,10 @@ module.exports.login = async (req, res, next) => {
                 }
 
                 if (expiredBooksUser) {
-
                     return res.status(400).json({ "mensagem": 'Bem-vindo! Você tem livros para devolver hoje.' });
                 }
 
-                return res.status(200).json({ "mensagem": 'Bem-vindo!' });
+                return res.status(200).json(user);
 
             });
 

@@ -5,7 +5,7 @@ module.exports.allRents = async (req, res) => {
 
     try {
         const allrentsResult = await Rents.allrents();
-        return res.status(200).json({ "mensagem": `Pego todas as informações` });
+        return res.status(200).json(allrentsResult);
     } catch (error) {
         console.error(error);
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });
@@ -49,7 +49,7 @@ module.exports.update = async (req, res) => {
     const { rented_date, due_date, id_book } = req.body
     const user_id = res.locals.user;
     const { id } = req.params
-    idEmpty(req,id)
+    idEmpty(req, id)
 
     if (!rented_date || !due_date || !id_book || !user_id) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
@@ -79,7 +79,7 @@ module.exports.update = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     const { id } = req.params
-    idEmpty(req,id)
+    idEmpty(req, id)
 
     try {
 

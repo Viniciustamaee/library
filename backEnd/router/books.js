@@ -5,7 +5,7 @@ const router = express();
 
 
 
-router.get('/', booksControllers.allBooks);
+router.get('/', isLoggin, booksControllers.allBooks);
 // router.get('/new',);
 router.post('/', isLoggin, booksControllers.newBooks)
 router.get('/:id', isLoggin, booksControllers.oneBooks);

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"; // Certifique-se de ter o React Router configurado para usar o Link
+import { Link } from "react-router-dom";
 
 
 export default function CardBooks({ title, img, id, quantity }) {
