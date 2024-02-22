@@ -4,7 +4,7 @@ const Books = require('../models/Books')
 module.exports.allBooks = async (req, res) => {
     try {
         const allBooksResult = await Books.allTheBooks();
-        return res.status(200).json({ "mensagem": `Pego todas as informações` });
+        return res.status(200).json(allBooksResult);
     } catch (error) {
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
@@ -40,7 +40,7 @@ module.exports.newBooks = async (req, res) => {
 
 module.exports.oneBooks = async (req, res) => {
     const { id } = req.params
-    idEmpty(res,id)
+    idEmpty(res, id)
 
     try {
         const oneBook = await Books.oneBook(id);
@@ -53,7 +53,7 @@ module.exports.oneBooks = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     const { id } = req.params
-    idEmpty(req,id)
+    idEmpty(req, id)
 
     try {
         const existingId = await Books.oneBook(id);
@@ -72,7 +72,7 @@ module.exports.delete = async (req, res) => {
 module.exports.updateBooks = async (req, res) => {
     let { title, quantity_available, img, author_id, category_id } = req.body;
     let { id } = req.params
-    idEmpty(req,id)
+    idEmpty(req, id)
 
 
     if (!title || !quantity_available || !img || !author_id || !category_id) {

@@ -2,6 +2,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const express = require('express')
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
@@ -27,6 +28,9 @@ const sessionConfig = {
     }
 }
 
+app.use(cors({  // Adicionado o middleware CORS aqui
+    origin: 'http://localhost:8000',
+}));
 
 app.use(session(sessionConfig))
 app.use(passport.initialize())

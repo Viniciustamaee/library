@@ -5,7 +5,7 @@ const idEmpty = require('../validation/id')
 module.exports.allCategories = async (req, res) => {
     try {
         const allCategoriesResult = await Categories.allCategory();
-        return res.status(200).json({ "mensagem": `Pego todas as informações` });
+        return res.status(200).json(allCategoriesResult);
     } catch (error) {
         console.error(error);
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });
@@ -38,7 +38,7 @@ module.exports.new = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     const { id } = req.params
-    idEmpty(req,id)
+    idEmpty(req, id)
 
     try {
         const existingId = await Categories.foundOneId(id);
@@ -61,7 +61,7 @@ module.exports.delete = async (req, res) => {
 module.exports.updateCategory = async (req, res) => {
     let { category_name } = req.body;
     let { id } = req.params
-    idEmpty(req,id)
+    idEmpty(req, id)
 
     if (category_name == "") {
         return res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });

@@ -4,6 +4,8 @@ import Navbar from './components/Navbar'
 import Books from "./pages/books/books"
 import Login from "./pages/user/login"
 import Home from "./pages/home/home"
+import Perfil from "./pages/user/perfil"
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -20,7 +22,10 @@ function App() {
       <Routes>
         <Route path='/User/Login' element={<Login />} />
         <Route path='/User/Register' element={<Register />} />
+        <Route path='User/Perfil' element={<Perfil />} />
       </Routes>
+
+      <Footer />
     </>
   );
 }
