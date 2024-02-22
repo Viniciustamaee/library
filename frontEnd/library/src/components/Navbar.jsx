@@ -16,9 +16,8 @@ import { Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
 export default function Component() {
-    const loggin = false; // Replace with your actual login state
+    const loggin = false;
 
-    // Conditionally render the Dropdown only if loggin is false
     const renderDropdown = () => {
         if (loggin) {
             return (
@@ -40,7 +39,7 @@ export default function Component() {
                 </Dropdown>
             );
         } else {
-            return null; // Render nothing if loggin is true
+            return null;
         }
     };
 
@@ -48,7 +47,7 @@ export default function Component() {
         <div className="fixed w-full z-50">
             <Navbar fluid rounded className="bg-transparent">
 
-                <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                     <svg className="w-10 h-10 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                         <path fillRule="evenodd" d="M11 4.7C8.7 4.1 6.8 4 4 4a2 2 0 0 0-2 2v11c0 1.1 1 2 2 2 2.8 0 4.5.2 7 .8v-15Zm2 15.1c2.5-.6 4.2-.8 7-.8a2 2 0 0 0 2-2V6c0-1-.9-2-2-2-2.8 0-4.7.1-7 .7v15.1Z" clipRule="evenodd" />
                     </svg>

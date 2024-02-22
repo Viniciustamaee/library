@@ -27,6 +27,7 @@ export default function Rents() {
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <RentsHead />
                     {rents.map((rents) => (
+                        // Devovler os nomes ao invés do id
                         <RentsList
                             key={rents.id}
                             rented_date={rents.rented_date.slice(0, 10)}
