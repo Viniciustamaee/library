@@ -16,6 +16,7 @@ const books = require('./router/books')
 const user = require('./router/user')
 const rents = require('./router/rents')
 const admin = require('./seeds/admin')
+const category = require('./seeds/categories')
 
 const sessionConfig = {
     secret: 'secredo',
