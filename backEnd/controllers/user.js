@@ -1,14 +1,12 @@
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-const JwtStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const foundDueDate = require('../validation/dueDate')
+const JwtStrategy = require('passport-jwt').Strategy;
 const Users = require('../models/Users');
+const secretKey = 'sua_chave_secreta';
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const secretKey = 'sua_chave_secreta';
-const foundDueDate = require('../validation/dueDate')
-
-
 
 const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

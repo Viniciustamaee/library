@@ -29,7 +29,7 @@ const sessionConfig = {
     }
 }
 
-app.use(cors({  // Adicionado o middleware CORS aqui
+app.use(cors({
     origin: 'http://localhost:8000',
 }));
 
