@@ -17,7 +17,7 @@ con.connect((err) => {
                 } else if (result.length > 0) {
                     console.log('Usuário administrador já existe');
                 } else {
-                    const insertAdminQuery = `INSERT INTO users (email, username, password, img, admin) VALUES ('admin@library.com', 'admin', '${passwordHash}', 'HAAHAAHA', '1')`;
+                    const insertAdminQuery = `INSERT INTO users (email, username, password, img, description ,admin) VALUES ('admin@library.com', 'admin', '${passwordHash}', 'HAAHAAHA', 'Eu amo livros HAHAHAHAHAH','1')`;
 
                     con.query(insertAdminQuery, (err, result) => {
                         if (err) {

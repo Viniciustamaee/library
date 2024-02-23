@@ -1,7 +1,7 @@
 const con = require('../database/db')
 
 con.connect(function (err) {
-    const sql = "CREATE TABLE IF NOT EXISTS rents (	rented_date DATE,  due_date DATE,id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,  user_id int ,FOREIGN KEY(user_id) REFERENCES users(id), id_book int, FOREIGN KEY(id_book) REFERENCES books(id))";
+    const sql = "CREATE TABLE IF NOT EXISTS rents (	rented_date DATE,  due_date DATE,id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,  user_id int ,FOREIGN KEY(user_id) REFERENCES users(id), book_id int, FOREIGN KEY(book_id) REFERENCES books(id))";
     con.query(sql, function (err, result) {
         if (err) throw err;
         console.log("Rents table created");
@@ -27,13 +27,13 @@ function allrents() {
     });
 };
 
-function oneBook(id_book) {
+function oneBook(book_id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
                 reject(err);
             } else {
-                let sql = `SELECT id FROM books WHERE id='${id_book}'`;
+                let sql = `SELECT id FROM books WHERE id='${book_id}'`;
                 con.query(sql, (err, result) => {
                     if (err) {
                         reject(err);
@@ -50,15 +50,15 @@ function oneBook(id_book) {
     });
 };
 
-function newRents(rented_date, due_date, id_book, user_id) {
+function newRents(rented_date, due_date, book_id, user_id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
                 reject(err);
             } else {
-                let sql = `UPDATE books SET quantity_available = quantity_available - 1 WHERE id = ${id_book}`;
+                let sql = `UPDATE books SET quantity_available = quantity_available - 1 WHERE id = ${book_id}`;
 
-                let sql2 = `INSERT INTO rents (rented_date, due_date,id_book,user_id) VALUES ('${rented_date}', '${due_date}', '${id_book}', '${user_id}')`;
+                let sql2 = `INSERT INTO rents (rented_date, due_date,book_id,user_id) VALUES ('${rented_date}', '${due_date}', '${book_id}', '${user_id}')`;
                 con.query(sql2, sql, (err, result) => {
                     if (err) {
                         reject(err);
@@ -85,16 +85,16 @@ function Delete(id) {
             if (err) {
                 reject(err);
             } else {
-                let id_book_query = `SELECT id_book FROM rents WHERE id=${id}`;
+                let book_id_query = `SELECT book_id FROM rents WHERE id=${id}`;
 
-                con.query(id_book_query, (err, result) => {
+                con.query(book_id_query, (err, result) => {
                     if (err) {
                         console.log(err);
                         reject(err);
                     } else {
-                        const id_book = result[0].id_book;
+                        const book_id = result[0].book_id;
 
-                        let sql2 = `UPDATE books SET quantity_available = quantity_available + 1 WHERE id = ${id_book}`;
+                        let sql2 = `UPDATE books SET quantity_available = quantity_available + 1 WHERE id = ${book_id}`;
 
                         con.query(sql2, (err, updateResult) => {
                             if (err) {
@@ -125,13 +125,13 @@ function Delete(id) {
 
 
 
-function update(rented_date, due_date, id_book, user_id, id) {
+function update(rented_date, due_date, book_id, user_id, id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
                 reject(err);
             } else {
-                let sql = `UPDATE rents SET rented_date = '${rented_date}', due_date = '${due_date}', id_book = '${id_book}', user_id = '${user_id}' WHERE id = '${id}'`;
+                let sql = `UPDATE rents SET rented_date = '${rented_date}', due_date = '${due_date}', book_id = '${book_id}', user_id = '${user_id}' WHERE id = '${id}'`;
                 con.query(sql, (err, result) => {
                     if (err) {
                         reject(err);
@@ -144,13 +144,13 @@ function update(rented_date, due_date, id_book, user_id, id) {
     });
 };
 
-function quantityAvailable(id_book) {
+function quantityAvailable(book_id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
                 reject(err);
             } else {
-                let sql = `SELECT quantity_available FROM books WHERE id='${id_book}'`;
+                let sql = `SELECT quantity_available FROM books WHERE id='${book_id}'`;
                 con.query(sql, (err, result) => {
                     if (err) {
                         reject(err);

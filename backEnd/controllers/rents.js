@@ -1,3 +1,5 @@
+// Não da para fazer eu preciso jwt
+
 const Rents = require('../models/Rents');
 const idEmpty = require('../validation/id');
 
@@ -13,22 +15,22 @@ module.exports.allRents = async (req, res) => {
 };
 
 module.exports.newRents = async (req, res) => {
-    const { rented_date, due_date, id_book } = req.body
+    const { rented_date, due_date, book_id } = req.body
     const user_id = res.locals.user;
 
-    if (!rented_date || !due_date || !id_book || !user_id) {
+    if (!rented_date || !due_date || !book_id || !user_id) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
     }
 
     try {
-        const bookData = await Rents.oneBook(id_book);
+        const bookData = await Rents.oneBook(book_id);
 
         if (bookData !== null) {
-            const quantityArray = await Rents.quantityAvailable(id_book);
+            const quantityArray = await Rents.quantityAvailable(book_id);
             const quantity = quantityArray[0].quantity_available;
 
             if (quantity > 0) {
-                await Rents.newRents(rented_date, due_date, id_book, user_id);
+                await Rents.newRents(rented_date, due_date, book_id, user_id);
                 return res.status(200).json({ "mensagem": "rents inserido com sucesso!" });
             }
             else {
@@ -46,22 +48,22 @@ module.exports.newRents = async (req, res) => {
 };
 
 module.exports.update = async (req, res) => {
-    const { rented_date, due_date, id_book } = req.body
+    const { rented_date, due_date, book_id } = req.body
     const user_id = res.locals.user;
     const { id } = req.params
     idEmpty(req, id)
 
-    if (!rented_date || !due_date || !id_book || !user_id) {
+    if (!rented_date || !due_date || !book_id || !user_id) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
     }
 
     try {
-        const bookData = await Rents.oneBook(id_book);
+        const bookData = await Rents.oneBook(book_id);
 
         if (bookData !== null) {
             const existingId = await Rents.oneRents(id);
             if (existingId.length >= 1) {
-                await Rents.update(rented_date, due_date, id_book, user_id, id)
+                await Rents.update(rented_date, due_date, book_id, user_id, id)
                 return res.status(200).json({ "mensagem": "Troca atualizado com sucesso" });
 
             } else {

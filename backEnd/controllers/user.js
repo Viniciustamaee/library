@@ -1,9 +1,27 @@
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const JwtStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
-const foundDueDate = require('../validation/dueDate')
 const Users = require('../models/Users');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const secretKey = 'sua_chave_secreta';
+const foundDueDate = require('../validation/dueDate')
 
+
+
+const opts = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: 'HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA',
+};
+
+passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
+    Users.existUser(jwt_payload.sub, (err, user) => {
+        if (err) return done(err, false);
+        if (user) return done(null, user);
+        return done(null, false);
+    });
+}))
 
 module.exports.new = async (req, res) => {
     const { email, username, password, img } = req.body
@@ -29,7 +47,6 @@ module.exports.new = async (req, res) => {
     }
 };
 
-
 module.exports.valid = function (user, done) {
     done(null, user);
 }
@@ -47,7 +64,8 @@ module.exports.passwordValid = new LocalStrategy(async function (username, passw
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (passwordMatch) {
-            return done(null, user.id);
+            const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
+            return done(null, { userId: user.id, token: token });
 
         } else {
             return done(null, false, { message: 'Senha incorreta.' });
@@ -72,7 +90,8 @@ module.exports.login = async (req, res, next) => {
 
             const expiredBooksUser = expiredBooks.find(book => book.user_id === user);
 
-            req.logIn(user, (err) => {
+
+            req.logIn(user, async (err) => {
                 if (err) {
                     return next(err);
                 }
@@ -81,8 +100,9 @@ module.exports.login = async (req, res, next) => {
                     return res.status(400).json({ "mensagem": 'Bem-vindo! Você tem livros para devolver hoje.' });
                 }
 
-                return res.status(200).json(user);
-
+                const profile = await Users.oneUser(user.userId);
+                const token = await user.token
+                return res.status(200).json({ profile, token });
             });
 
         } catch (error) {
