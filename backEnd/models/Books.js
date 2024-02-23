@@ -2,7 +2,7 @@ const con = require('../database/db')
 
 con.connect(function (err) {
     // Criar descrição
-    const sql = "CREATE TABLE IF NOT EXISTS books (title VARCHAR(45) UNIQUE, quantity_available INT(45), img VARCHAR(200), author_id INT, category_id INT, id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY(author_id) REFERENCES authors(id), FOREIGN KEY(category_id) REFERENCES categories(id))";
+    const sql = "CREATE TABLE IF NOT EXISTS books (title VARCHAR(45) UNIQUE, quantity_available INT(45), img VARCHAR(200), description VARCHAR(255),author_id INT, category_id INT, id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY(author_id) REFERENCES authors(id), FOREIGN KEY(category_id) REFERENCES categories(id))";
     con.query(sql, function (err, result) {
         if (err) throw err;
         console.log("Books table created");
@@ -66,13 +66,14 @@ function foundOneName(title) {
     });
 };
 
-function newBooks(title, quantity_available, img, author_id, category_id) {
+
+function newBooks(title, quantity_available, img, description, author_id, category_id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
                 reject(err);
             } else {
-                var sql = `INSERT INTO books (title, quantity_available, img, author_id, category_id) VALUES ('${title}','${quantity_available}','${img}','${author_id}','${category_id}')`;
+                var sql = `INSERT INTO books (title, quantity_available, img, description ,author_id, category_id) VALUES ('${title}','${quantity_available}','${img}','${description}','${author_id}','${category_id}')`;
                 con.query(sql, (err, result) => {
                     if (err) {
                         reject(err);
@@ -104,15 +105,17 @@ function Delete(id) {
     });
 };
 
-function update(title, quantity_available, img, author_id, category_id, id) {
+function update(title, quantity_available, img, description, author_id, category_id, id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
                 reject(err);
             } else {
-                let sql = `UPDATE books SET title = '${title}',quantity_available = "${quantity_available}", img='${img}', author_id = '${author_id}',  category_id = '${category_id}' WHERE id = '${id}'`;
+                let sql = `UPDATE books 
+                SET title = '${title}', quantity_available = "${quantity_available}", img = '${img}', description = '${description}', author_id = '${author_id}', category_id = '${category_id}' WHERE id = '${id}'`;
                 con.query(sql, (err, result) => {
                     if (err) {
+                        console.log(err)
                         reject(err);
                     } else {
                         resolve(result);
