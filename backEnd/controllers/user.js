@@ -72,12 +72,11 @@ module.exports.login = ('/login', async (req, res, next) => {
                 { session: false },
                 async (error) => {
                     if (error) return next(error);
-                    console.log(user)
-
+                    const dateUser = await Users.oneUser(user.id)
                     const body = { id: user.id, username: user.username };
                     const token = jwt.sign({ user: body }, scretKey, { expiresIn: 3600 });
 
-                    return res.json({ token });
+                    return res.json({ dateUser, token });
                 }
             );
         } catch (error) {

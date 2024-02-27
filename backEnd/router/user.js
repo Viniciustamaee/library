@@ -1,7 +1,9 @@
 const userControllers = require('../controllers/user');
 const passport = require('passport');
 const express = require('express');
+const valid = require('../middleware')
 const router = express();
+
 
 
 passport.use('login', userControllers.passwordValid);
@@ -13,7 +15,7 @@ router.post('/register', userControllers.new);
 
 router.post('/login', userControllers.login);
 
-router.get('/rota-protegida', passport.authenticate('teste', { session: false }), (req, res, next) => {
+router.get('/rota-protegida', valid, (req, res, next) => {
     res.json({ message: 'Autenticação bem-sucedida:' });
 });
 

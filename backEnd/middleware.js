@@ -1,7 +1,7 @@
-module.exports.isLoggin = (req, res, next) => {
-    if (!req.isAuthenticated()) {
-        return res.status(403).json({ error: 'User is not connected.' });
-    }
-    res.locals.user = req.user;
-    next();
-}
+const passport = require('passport');
+
+const authenticateTeste = (req, res, next) => {
+    passport.authenticate('teste', { session: false })(req, res, next);
+};
+
+module.exports = authenticateTeste;
