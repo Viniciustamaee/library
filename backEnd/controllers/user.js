@@ -1,25 +1,16 @@
 const LocalStrategy = require('passport-local').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-const foundDueDate = require('../validation/dueDate')
-const JwtStrategy = require('passport-jwt').Strategy;
 const Users = require('../models/Users');
-const secretKey = 'sua_chave_secreta';
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const JWTstrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
 
-const opts = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA',
-};
+const scretKey = 'teste'
 
-passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
-    Users.existUser(jwt_payload.sub, (err, user) => {
-        if (err) return done(err, false);
-        if (user) return done(null, user);
-        return done(null, false);
-    });
-}))
+module.exports.valid = function (user, done) {
+    done(null, user);
+}
 
 module.exports.new = async (req, res) => {
     const { email, username, password, img } = req.body
@@ -45,76 +36,70 @@ module.exports.new = async (req, res) => {
     }
 };
 
-module.exports.valid = function (user, done) {
-    done(null, user);
-}
+module.exports.passwordValid = new LocalStrategy(function (username, password, done) {
+    Users.login(username)
+        .then(rows => {
+            if (rows.length === 0) {
+                return done(null, false, { message: 'Usuário não encontrado.' });
+            }
 
-module.exports.passwordValid = new LocalStrategy(async function (username, password, done) {
-    try {
-        const rows = await Users.login(username);
+            const user = rows[0];
 
-        if (rows.length === 0) {
-            return done(null, false, { message: 'Usuário não encontrado.' });
-        }
-
-        const user = rows[0];
-
-        const passwordMatch = await bcrypt.compare(password, user.password);
-
-        if (passwordMatch) {
-            const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
-            return done(null, { userId: user.id, token: token });
-
-        } else {
-            return done(null, false, { message: 'Senha incorreta.' });
-        }
-    } catch (error) {
-        return done(error);
-    }
+            bcrypt.compare(password, user.password)
+                .then(passwordMatch => {
+                    if (passwordMatch) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false, { message: 'Senha incorreta.' });
+                    }
+                })
+                .catch(error => done(error));
+        })
+        .catch(error => done(error));
 });
 
-module.exports.login = async (req, res, next) => {
-    passport.authenticate('local', async (err, user, info) => {
+module.exports.login = ('/login', async (req, res, next) => {
+    passport.authenticate('login', async (err, user, info) => {
         try {
-            if (err) {
-                return next(err);
+            if (err || !user) {
+                const error = new Error('An error occurred.');
+
+                return next(error);
             }
 
-            if (!user) {
-                return res.status(401).json({ "mensagem": 'Usuário não encontrado ou senha incorreta.' });
-            }
+            req.login(
+                user,
+                { session: false },
+                async (error) => {
+                    if (error) return next(error);
+                    console.log(user)
 
-            const expiredBooks = await foundDueDate();
+                    const body = { id: user.id, username: user.username };
+                    const token = jwt.sign({ user: body }, scretKey, { expiresIn: 3600 });
 
-            const expiredBooksUser = expiredBooks.find(book => book.user_id === user);
-
-
-            req.logIn(user, async (err) => {
-                if (err) {
-                    return next(err);
+                    return res.json({ token });
                 }
-
-                if (expiredBooksUser) {
-                    return res.status(400).json({ "mensagem": 'Bem-vindo! Você tem livros para devolver hoje.' });
-                }
-
-                const profile = await Users.oneUser(user.userId);
-                const token = await user.token
-                return res.status(200).json({ profile, token });
-            });
-
+            );
         } catch (error) {
             return next(error);
         }
-    })(req, res, next);
-};
-
-module.exports.logout = (req, res) => {
-    req.logout(function (err) {
-        if (err) {
-            console.error(err);
-        }
-        return res.status(400).json({ "mensagem": 'até logo' });
-    });
+    }
+    )(req, res, next);
 }
+);
 
+module.exports.tokenValid = new JWTstrategy(
+    {
+        secretOrKey: scretKey,
+        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
+    },
+    async (token, done) => {
+        console.log('Estratégia tokenValid chamada. Token:', token);
+        try {
+            return done(null, token);
+        } catch (error) {
+            console.error('Erro na validação do token:', error);
+            return done(error);
+        }
+    }
+);

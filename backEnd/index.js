@@ -18,24 +18,18 @@ const rents = require('./router/rents')
 const admin = require('./seeds/admin')
 const category = require('./seeds/categories')
 
-const sessionConfig = {
-    secret: 'secredo',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        expire: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7
-    }
-}
+
 
 app.use(cors({
     origin: 'http://localhost:8000',
 }));
 
-app.use(session(sessionConfig))
-app.use(passport.initialize())
-app.use(passport.session())
+
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.json({ error: err });
+});
+
 
 app.use('/Categories', categories)
 app.use('/Authors', authors)

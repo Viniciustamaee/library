@@ -1,26 +1,26 @@
-const userControllers = require('../controllers/user')
-const passport = require('passport')
+const userControllers = require('../controllers/user');
+const passport = require('passport');
 const express = require('express');
 const router = express();
 
-// Para quando eu for fazer o cloud
-// const multer = require('multer');
-// const { storage } = require('../cloud/config')
-// const upload = multer({ storage })
 
-
-
-
-// router.get('/register', userControll.scrennRegister)
-router.post('/register', userControllers.new);
-// router.get('/login', userControll.screenLogin);
-
-passport.serializeUser(userControllers.valid);
+passport.use('login', userControllers.passwordValid);
 passport.deserializeUser(userControllers.valid);
+passport.serializeUser(userControllers.valid);
+passport.use('teste', userControllers.tokenValid);
 
-passport.use(userControllers.passwordValid);
+router.post('/register', userControllers.new);
+
 router.post('/login', userControllers.login);
-router.get('/logout', userControllers.logout);
+
+router.get('/rota-protegida', passport.authenticate('teste', { session: false }), (req, res, next) => {
+    res.json({ message: 'Autenticação bem-sucedida:' });
+});
 
 
-module.exports = router
+
+router.get('/rota-publica', (req, res) => {
+    res.json({ message: 'Esta é uma rota pública.' });
+});
+
+module.exports = router;
