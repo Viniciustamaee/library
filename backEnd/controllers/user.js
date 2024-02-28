@@ -1,12 +1,11 @@
 const LocalStrategy = require('passport-local').Strategy;
-const Users = require('../models/Users');
-const passport = require('passport');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
-
-const scretKey = 'teste'
+const Users = require('../models/Users');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const scretKey = 'teste' //Aqui vai ficar .env
 
 module.exports.valid = function (user, done) {
     done(null, user);
