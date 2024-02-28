@@ -21,19 +21,20 @@ export default function Rents() {
 
         fetchRents();
     }, []);
+
+
     return (
         <div className="pt-20 flex justify-center content-center " >
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <RentsHead />
                     {rents.map((rents) => (
-                        // Devovler os nomes ao invés do id
                         <RentsList
                             key={rents.id}
                             rented_date={rents.rented_date.slice(0, 10)}
                             due_date={rents.due_date.slice(0, 10)}
                             user_id={rents.user_id}
-                            id_book={rents.id_book}
+                            books_id={rents.book_id}
                             id={rents.id} />
                     ))}
 

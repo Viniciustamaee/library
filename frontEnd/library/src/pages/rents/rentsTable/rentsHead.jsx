@@ -7,19 +7,13 @@ export default function rentsHead() {
                         User
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Rented_date
+                        Rented date
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Due_date
+                        Due date
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        User_id
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Book_id
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Id
+                        Book
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Edit

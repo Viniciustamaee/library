@@ -4,10 +4,10 @@ const express = require('express')
 const router = express();
 
 
-router.get('/', valid, rentsControllers.allRents);
-router.post('/', valid, rentsControllers.newRents)
-router.delete('/:id', valid, rentsControllers.delete);
-router.put('/:id', valid, rentsControllers.update);
+router.get('/', rentsControllers.allRents);
+router.post('/', rentsControllers.newRents)
+router.delete('/:id', rentsControllers.delete);
+router.put('/:id', rentsControllers.update);
 
 
 module.exports = router

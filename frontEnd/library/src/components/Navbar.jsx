@@ -16,33 +16,14 @@ import { Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
 export default function Component() {
-    const loggin = false;
+    const hasToken = localStorage.getItem('token')
 
-    const renderDropdown = () => {
-        if (loggin) {
-            return (
-                <Dropdown
-                    arrowIcon={false}
-                    inline
-                    label={
-                        <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded size='lg' />
-                    }
-                >
-                    <DropdownHeader>
-                        <span className="block text-sm text-lg">Nome user</span>
-                        <span className="block truncate text-sm font-medium">Emailuser </span>
-                    </DropdownHeader>
-                    <DropdownItem>Perfil</DropdownItem>
-                    <DropdownItem>Rents</DropdownItem>
-                    <DropdownDivider />
-                    <DropdownItem>Sign out</DropdownItem>
-                </Dropdown>
-            );
-        } else {
-            return null;
-        }
-    };
 
+    function logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/User/Login';
+    }
     return (
         <div className="fixed w-full z-50">
             <Navbar fluid rounded className="bg-transparent">
@@ -52,17 +33,33 @@ export default function Component() {
                         <path fillRule="evenodd" d="M11 4.7C8.7 4.1 6.8 4 4 4a2 2 0 0 0-2 2v11c0 1.1 1 2 2 2 2.8 0 4.5.2 7 .8v-15Zm2 15.1c2.5-.6 4.2-.8 7-.8a2 2 0 0 0 2-2V6c0-1-.9-2-2-2-2.8 0-4.7.1-7 .7v15.1Z" clipRule="evenodd" />
                     </svg>
 
-
-
                     <span class="self-center text-2xl font-semibold whitespace-nowrap text-white ">Library</span>
                 </a>
 
                 <div className="flex md:order-2 text-lg">
                     <div className="flex flex-wrap gap-2">
-                        <Button color="blue" href='/User/Register'>Register</Button>
-                        <Button color="success" className='mr-2' href='/User/Login'>Login</Button>
+                        {!hasToken && <Button color="blue" href='/User/Register'>Register</Button>}
+                        {!hasToken && <Button color="success" className='mr-2' href='/User/Login'>Login</Button>}
                     </div>
-                    {renderDropdown()}
+
+                    {hasToken && (<Dropdown
+                        arrowIcon={false}
+                        inline
+                        label={
+                            <Avatar alt="User settings" img="" rounded size='sm' />
+                        }
+                    >
+                        <DropdownHeader>
+                            <span className="block text-sm text-lg">Nome user</span>
+                            <span className="block truncate text-sm font-medium">Emailuser </span>
+                        </DropdownHeader>
+                        <DropdownItem>Perfil</DropdownItem>
+                        <DropdownItem>Rents</DropdownItem>
+                        <DropdownDivider />
+                        <DropdownItem onClick={logout}>Sign out</DropdownItem>
+                    </Dropdown>
+                    )}
+
                     <NavbarToggle />
                 </div>
                 <NavbarCollapse>
