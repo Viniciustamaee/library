@@ -1,10 +1,6 @@
-// Não da para fazer eu preciso jwt
-
 const Rents = require('../models/Rents');
-const idEmpty = require('../validation/id');
 
 module.exports.allRents = async (req, res) => {
-
     try {
         const allrentsResult = await Rents.allrents();
         return res.status(200).json(allrentsResult);
@@ -15,8 +11,7 @@ module.exports.allRents = async (req, res) => {
 };
 
 module.exports.newRents = async (req, res) => {
-    const { rented_date, due_date, book_id } = req.body
-    const user_id = res.locals.user;
+    const { rented_date, due_date, book_id, user_id } = req.body
 
     if (!rented_date || !due_date || !book_id || !user_id) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
@@ -48,10 +43,13 @@ module.exports.newRents = async (req, res) => {
 };
 
 module.exports.update = async (req, res) => {
-    const { rented_date, due_date, book_id } = req.body
-    const user_id = res.locals.user;
+    const { rented_date, due_date, book_id, user_id } = req.body
     const { id } = req.params
-    idEmpty(req, id)
+
+    if (!/^[1-9]\d*$/.test(id)) {
+        res.status(400).json({ "mensagem": "O 'id' deve ser um número inteiro positivo e não pode ter letras!!" });
+        return;
+    }
 
     if (!rented_date || !due_date || !book_id || !user_id) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
@@ -81,10 +79,13 @@ module.exports.update = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     const { id } = req.params
-    idEmpty(req, id)
+
+    if (!/^[1-9]\d*$/.test(id)) {
+        res.status(400).json({ "mensagem": "O 'id' deve ser um número inteiro positivo e não pode ter letras!!" });
+        return;
+    }
 
     try {
-
         const existingId = await Rents.oneRents(id);
         if (existingId.length > 0) {
             await Rents.Delete(id)

@@ -1,6 +1,4 @@
 const Categories = require('../models/Categories')
-const idEmpty = require('../validation/id')
-
 
 module.exports.allCategories = async (req, res) => {
     try {
