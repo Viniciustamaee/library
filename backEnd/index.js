@@ -11,12 +11,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const categories = require('./router/categories')
+const category = require('./seeds/categories')
 const authors = require('./router/authors');
+const review = require('./router/reviews')
 const books = require('./router/books')
-const user = require('./router/user')
 const rents = require('./router/rents')
 const admin = require('./seeds/admin')
-const category = require('./seeds/categories')
+const user = require('./router/user')
+
 
 
 
@@ -36,6 +38,7 @@ app.use('/Authors', authors)
 app.use('/Books', books)
 app.use('/User', user)
 app.use('/Rents', rents)
+app.use('/Review', review)
 
 app.listen(port, () => {
     console.log('A porta está conectada')

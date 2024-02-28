@@ -1,4 +1,4 @@
-const idEmpty = (res, id) => {
+const idEmpty = (res, req, id) => {
     if (!id) {
         res.status(404).json({ "mensagem": "Id vazio" });
         return;
