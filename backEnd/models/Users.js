@@ -3,9 +3,8 @@ const bcrypt = require('bcrypt');
 const salts = 10;
 
 
-// descrição
 con.connect(function () {
-    let sql = "CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT,email VARCHAR(255) UNIQUE, username VARCHAR(255) UNIQUE, password VARCHAR(255), img VARCHAR(255), description VARCHAR(255) ,admin ENUM('0','1') DEFAULT '0')";
+    let sql = "CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT,email VARCHAR(255) UNIQUE, username VARCHAR(255) UNIQUE, password VARCHAR(255), img LONGTEXT, description VARCHAR(255) ,admin ENUM('0','1') DEFAULT '0')";
     con.query(sql, function (err, result) {
         if (err) {
             console.error('Error creating table:', err);

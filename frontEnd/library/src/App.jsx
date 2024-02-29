@@ -7,6 +7,7 @@ import Home from "./pages/home/home"
 import Perfil from "./pages/user/perfil"
 import Footer from './components/Footer'
 import Rents from './pages/rents/rents'
+import Teste from './pages/user/teste'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/User/Login' element={<Login />} />
         <Route path='/User/Register' element={<Register />} />
         <Route path='/User/Perfil' element={<Perfil />} />
+        <Route path='/User/teste' element={<Teste />} />
       </Routes>
 
       <Routes>

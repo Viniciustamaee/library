@@ -46,7 +46,7 @@ export default function Component() {
                         arrowIcon={false}
                         inline
                         label={
-                            <Avatar alt="User settings" img="" rounded size='sm' />
+                            <Avatar alt="User settings" img="https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg" rounded size='sm' />
                         }
                     >
                         <DropdownHeader>
