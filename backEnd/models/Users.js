@@ -23,11 +23,11 @@ function newUser(email, username, password, img, description) {
                 try {
                     const passwordHash = bcrypt.hashSync(password, salts);
 
-
-                    var sql = `INSERT INTO users (email, username, password, img, description ) VALUES ('${email}', '${username}', '${passwordHash}', '${img}', ${description})`;
+                    var sql = `INSERT INTO users (email, username, password, img, description ) VALUES ('${email}', '${username}', '${passwordHash}', '${img}', '${description}')`;
 
                     con.query(sql, (err, result) => {
                         if (err) {
+                            console.log(err)
                             reject(err);
                         } else {
                             resolve(result);

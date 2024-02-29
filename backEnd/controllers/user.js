@@ -12,16 +12,16 @@ module.exports.valid = function (user, done) {
 }
 
 module.exports.new = async (req, res) => {
-    const { email, username, password, img } = req.body
+    const { email, username, password, img, description } = req.body
 
-    if (!email || !username || !password || !img) {
+    if (!email || !username || !password || !img || !description) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
     }
 
     try {
         const existUser = await Users.existUser(username, email)
         if (existUser.length == 0) {
-            await Users.newUser(email, username, password, img);
+            await Users.newUser(email, username, password, img, description);
             return res.status(200).json({ "mensagem": "User inserido com sucesso!" });
 
         } else {

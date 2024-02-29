@@ -1,7 +1,6 @@
 const con = require('../database/db')
 
 con.connect(function (err) {
-    // Criar descrição
     const sql = "CREATE TABLE IF NOT EXISTS books (title VARCHAR(45) UNIQUE, quantity_available INT(45), img LONGTEXT, description VARCHAR(255),author_id INT, category_id INT, id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, FOREIGN KEY(author_id) REFERENCES authors(id), FOREIGN KEY(category_id) REFERENCES categories(id))";
     con.query(sql, function (err, result) {
         if (err) throw err;
