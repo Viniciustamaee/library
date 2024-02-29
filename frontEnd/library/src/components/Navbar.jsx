@@ -14,16 +14,30 @@ import {
 
 import { Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export default function Component() {
     const hasToken = localStorage.getItem('token')
-
 
     function logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         window.location.href = '/User/Login';
     }
+
+
+    const [userData, setUserData] = useState('');
+
+
+    useEffect(() => {
+        const userDataFromStorage = localStorage.getItem('user');
+
+        if (userDataFromStorage) {
+            const parsedUserData = JSON.parse(userDataFromStorage);
+            setUserData(parsedUserData);
+        }
+    }, []);
+
     return (
         <div className="fixed w-full z-50">
             <Navbar fluid rounded className="bg-transparent">
@@ -38,22 +52,21 @@ export default function Component() {
 
                 <div className="flex md:order-2 text-lg">
                     <div className="flex flex-wrap gap-2">
-                        {!hasToken && <Button color="blue" href='/User/Register'>Register</Button>}
-                        {!hasToken && <Button color="success" className='mr-2' href='/User/Login'>Login</Button>}
+                        {!hasToken && <Button className='mr-2 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2' href='/User/Login'>Login</Button>}
                     </div>
 
                     {hasToken && (<Dropdown
                         arrowIcon={false}
                         inline
                         label={
-                            <Avatar alt="User settings" img="https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg" rounded size='sm' />
+                            <Avatar alt="User settings" img={userData.img} rounded size='sm' />
                         }
                     >
                         <DropdownHeader>
-                            <span className="block text-sm text-lg">Nome user</span>
-                            <span className="block truncate text-sm font-medium">Emailuser </span>
+                            <span className="block text-sm text-lg">{userData.username}</span>
+                            <span className="block truncate text-sm font-medium">{userData.email}</span>
                         </DropdownHeader>
-                        <DropdownItem>Perfil</DropdownItem>
+                        <Link to={`User/perfil/${userData.id}`}> <DropdownItem>Perfil</DropdownItem></Link>
                         <DropdownItem>Rents</DropdownItem>
                         <DropdownDivider />
                         <DropdownItem onClick={logout}>Sign out</DropdownItem>

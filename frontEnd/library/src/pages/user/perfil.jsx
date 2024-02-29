@@ -1,18 +1,32 @@
-export default function Perfil() {
+import { useState, useEffect } from "react";
 
+export default function Perfil() {
+    const [userData, setUserData] = useState('');
+
+
+    useEffect(() => {
+        const userDataFromStorage = localStorage.getItem('user');
+
+        if (userDataFromStorage) {
+            const parsedUserData = JSON.parse(userDataFromStorage);
+            setUserData(parsedUserData);
+        }
+    }, []);
     return (
         <>
             <div className="pt-20 flex justify-center	">
                 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
-                    <img class="rounded-lg" src="https://static.vecteezy.com/ti/vetor-gratis/p3/3715527-imagem-perfil-icone-masculino-icone-humano-ou-pessoa-sinal-e-simbolo-vetor.jpg" alt="" />
+                    <img class="rounded-lg" src={userData.img} alt="" />
 
                     <div class="p-5">
                         <div className="emailAndUsername">
-                            <h5 class=" text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Username</h5>
-                            <h5 class='text-center mb-5 text-gray-400 dark:text-gray-300'>Email</h5>
+                            <h5 class=" text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">{userData.username}</h5>
+                            <h5 class='text-center mb-5 text-gray-400 dark:text-gray-300'>
+                                {userData.email}
+                            </h5>
                         </div>
 
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. At repellendus odit numquam, praesentium incidunt distinctio est ullam sed quaerat facere maxime soluta quae nesciunt tenetur excepturi aspernatur ea sequi vero.</p>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center mb-5">{userData.description}</p>
 
                         <div className="flex justify-center">
                             <div class="inline-flex rounded-md shadow-lg" role="group">
