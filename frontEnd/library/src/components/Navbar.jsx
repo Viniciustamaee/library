@@ -18,6 +18,17 @@ import { useState, useEffect } from 'react';
 
 export default function Component() {
     const hasToken = localStorage.getItem('token')
+    const adminData = localStorage.getItem('user');
+
+    if (adminData) {
+        const adminObject = JSON.parse(adminData);
+
+        const adminId = adminObject.id;
+
+        console.log(adminId);
+    } else {
+        console.log('Não há dados de usuário no localStorage');
+    }
 
     function logout() {
         localStorage.removeItem('token');
@@ -77,13 +88,26 @@ export default function Component() {
                 </div>
                 <NavbarCollapse>
                     <NavbarLink className='text-lg text-white'><Link to="/">Home</Link></NavbarLink>
-                    <Dropdown label="Books" inline>
-                        <Link to='/Books'><Dropdown.Item>All books</Dropdown.Item></Link>
-                        <Link to='/Books/new'><Dropdown.Item>New Books</Dropdown.Item></Link>
+                    <Dropdown
+                        arrowIcon={false}
+                        inline
+                        label={
+                            <a className='flex items-center text-lg text-white' >
+                                Books
+                                <svg className="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 9-7 7-7-7" />
+                                </svg>
+                            </a>
+
+                        }
+                    >
+                        <Link to='Books'><Dropdown.Item>All books</Dropdown.Item></Link>
+                        {hasToken && <Dropdown.Divider />}
+                        {hasToken && <Link to='Books/new'><Dropdown.Item>New book</Dropdown.Item></Link>}
                     </Dropdown>
-                    <NavbarLink href="#" className='text-lg text-white'><Link to="/Rents">Rents</Link></NavbarLink>
+                    { }<NavbarLink href="#" className='text-lg text-white'><Link to="/Rents">Rents</Link></NavbarLink>
                 </NavbarCollapse>
             </Navbar>
-        </div>
+        </div >
     );
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import BooksCover from "./components/bookCover";
 import CardBooks from "./cardBooks";
 import "../books/books.css";
+import axios from "axios";
 
 export default function Allbooks() {
     const [books, setBooks] = useState([]);
@@ -22,23 +23,50 @@ export default function Allbooks() {
 
     return (
         <>
-            <div className="flex pt-20 ">
-                <h1 className="ml-5 mr-5">Ação</h1>
-                <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Read more</a>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
-                {books.map((book) => (
-                    <CardBooks
-                        key={book.id}
-                        className='h-auto max-w-full rounded-lg'
-                        title={book.title}
-                        img={book.img}
-                        id={book.id}
-                        quantity={book.quantity_available}
-                    />
-                ))}
-            </div>
+            <div className="container mx-auto px-1">
+                <div className="flex pt-20 text-center	justify-center ">
+                    <h1 className="ml-5 mr-5 text-3xl">Famous Books</h1>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+                    {books.slice(0, 3).map((book) => (
+                        <CardBooks
+                            key={book.id}
+                            className='h-auto max-w-full rounded-lg'
+                            title={book.title}
+                            img={book.img}
+                            id={book.id}
+                            quantity={book.quantity_available}
+                        />
+                    ))}
+                </div>
 
+                <div className="flex pt-10 text-center	justify-center ">
+                    <h1 className="ml-5 mr-5 text-3xl mb-2">Books</h1>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-1 flex justify-center ">
+                    <BooksCover />
+                    <BooksCover />
+                    <BooksCover />
+                    <BooksCover />
+                </div>
+
+
+                <div id="background" className="mt-10 mb-20 flex justify-around items-center">
+                    <div id="text">
+                        <h1 className="text-center mb-2 mr-5 text-3xl ">Data of Library</h1>
+                        <p className="text-start">Alguns dados sobre a LIBRARY, aqui podemos ver quantidades de usuários, e a quantidade e livros que o nosso site apresenta.</p>
+                    </div>
+                    <div id="dadeUser">
+                        <h1 className="mr-5 text-3xl mb-2">Quantidades de User</h1>
+                        <h2 className="text-center">0</h2>
+                    </div>
+
+                    <div id="dadeBooks">
+                        <h1 className="mr-5 text-3xl mb-2">Quantidade de books</h1>
+                        <h2 className="text-center">{books.length}</h2>
+                    </div>
+                </div>
+            </div>
 
         </>
     )

@@ -2,6 +2,26 @@ body {
     background-color: #14213D;
 }
 
-h1 {
+h1,
+h2,
+p {
     color: white;
+}
+
+#background {
+    height: 50VH;
+    width: 50;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+        url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGlicmFyeXxlbnwwfHwwfHx8MA%3D%3D");
+    background-size: cover;
+    background-position: center;
+    text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+    border-radius: 40px;
+
+}
+
+#text {
+    width: 400px;
 }
