@@ -18,18 +18,28 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
         try {
-            const response = await axios.post('http://localhost:3000/User/login', formData);
+            const response = await axios.post('http://localhost:3000/User/login', formData, config);
             const data = response.data;
+
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.dateUser[0]));
 
+            config.headers['Authorization'] = `Bearer ${data.token}`;
 
             window.location.href = '/Books';
+
         } catch (error) {
             console.error('Erro ao chamar a API:', error.message);
         }
     };
+
 
     return (
         <>
