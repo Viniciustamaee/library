@@ -8,6 +8,7 @@ import Perfil from "./pages/user/perfil"
 import Footer from './components/Footer'
 import Rents from './pages/rents/rents'
 import Teste from './pages/user/teste'
+import NewBooks from './pages/books/newBooks/newBooks'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/Books' element={<Books />} />
+        <Route path='/Books/new' element={<NewBooks />} />
       </Routes>
 
       {/* User */}

@@ -77,7 +77,10 @@ export default function Component() {
                 </div>
                 <NavbarCollapse>
                     <NavbarLink className='text-lg text-white'><Link to="/">Home</Link></NavbarLink>
-                    <NavbarLink className='text-lg text-white'><Link to="/Books">Books</Link></NavbarLink>
+                    <Dropdown label="Books" inline>
+                        <Link to='/Books'><Dropdown.Item>All books</Dropdown.Item></Link>
+                        <Link to='/Books/new'><Dropdown.Item>New Books</Dropdown.Item></Link>
+                    </Dropdown>
                     <NavbarLink href="#" className='text-lg text-white'><Link to="/Rents">Rents</Link></NavbarLink>
                 </NavbarCollapse>
             </Navbar>
