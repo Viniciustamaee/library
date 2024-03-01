@@ -24,7 +24,7 @@ export default function Allbooks() {
     return (
         <>
             <div className="container mx-auto px-1">
-                <div className="flex pt-20 text-center	justify-center ">
+                <div className="flex text-center	justify-center ">
                     <h1 className="ml-5 mr-5 text-3xl">Famous Books</h1>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
@@ -51,7 +51,7 @@ export default function Allbooks() {
                 </div>
 
 
-                <div id="background" className="mt-10 mb-20 flex justify-around items-center">
+                <div id="background" className="mt-10  flex justify-around items-center">
                     <div id="text">
                         <h1 className="text-center mb-2 mr-5 text-3xl ">Data of Library</h1>
                         <p className="text-start">Alguns dados sobre a LIBRARY, aqui podemos ver quantidades de usuários, e a quantidade e livros que o nosso site apresenta.</p>

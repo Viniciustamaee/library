@@ -8,6 +8,7 @@ const router = express();
 router.post('/', valid, (authorsControllers.new));
 router.delete('/:id', valid, (authorsControllers.delete));
 router.put('/:id', valid, authorsControllers.updateName);
+router.get('/', authorsControllers.allAuthors);
 
 
 module.exports = router

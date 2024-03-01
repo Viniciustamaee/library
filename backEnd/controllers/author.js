@@ -1,5 +1,16 @@
 const Authors = require('../models/Authors')
 
+module.exports.allAuthors = async (req, res) => {
+    try {
+        const allAuthors = await Authors.allAuthors();
+        return res.status(200).json(allAuthors);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
+    }
+}
+
+
 module.exports.new = async (req, res) => {
     const { name } = req.body;
 

@@ -50,7 +50,7 @@ export default function Component() {
     }, []);
 
     return (
-        <div className="fixed w-full z-50">
+        <div className="w-full z-50">
             <Navbar fluid rounded className="bg-transparent">
 
                 <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">

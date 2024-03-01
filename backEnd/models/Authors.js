@@ -102,12 +102,33 @@ function update(name, id) {
             }
         });
     });
-}
+};
+
+
+function allAuthors() {
+    return new Promise((resolve, reject) => {
+        con.connect((err) => {
+            if (err) {
+                reject(err);
+            } else {
+                let sql = `SELECT * FROM authors`;
+                con.query(sql, (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            }
+        });
+    });
+};
 
 module.exports = {
     foundOneName,
     foundOneId,
     newAuthors,
     Delete,
-    update
+    update,
+    allAuthors
 }
