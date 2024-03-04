@@ -7,7 +7,6 @@ export default function newBooks() {
     const [formData, setFormData] = useState({
         title: '',
         quantity_available: '',
-        img: '',
         description: '',
         author_id: '',
         category_id: ''
@@ -20,11 +19,12 @@ export default function newBooks() {
         });
     };
 
-    const [imageUrl, setImageUrl] = useState(null);
+
+
+    const [imageUrl, setImageUrl] = useState('');
 
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
-
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -34,8 +34,6 @@ export default function newBooks() {
         }
     };
 
-
-
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -43,7 +41,6 @@ export default function newBooks() {
             try {
                 const response = await axios.get('http://localhost:3000/Categories');
                 setCategories(response.data);
-                console.log(response.data)
             } catch (error) {
                 console.error("Erro ao buscar os caregorias:", error);
             }
@@ -52,32 +49,6 @@ export default function newBooks() {
         fetchCategories();
     }, []);
 
-
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-            const data = response.data;
-            const response = await axios.post('http://localhost:3000/Books', {
-                ...formData,
-                img: imageUrl
-            }, {
-                headers: {
-                    'Authorization': `token ${data.token}`
-                }
-            });
-
-            // Agora, a variável 'data' é inicializada com a resposta da API
-            console.log(data);
-        } catch (error) {
-            console.error('Error calling API:', error.message);
-        }
-    };
-
-
-
     const [author, setAuthor] = useState([]);
 
     useEffect(() => {
@@ -85,7 +56,7 @@ export default function newBooks() {
             try {
                 const response = await axios.get('http://localhost:3000/Authors');
                 setAuthor(response.data);
-                console.log(response.data)
+
             } catch (error) {
                 console.error("Erro ao buscar os caregorias:", error);
             }
@@ -93,6 +64,29 @@ export default function newBooks() {
 
         fetchAuthor();
     }, []);
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const hasToken = localStorage.getItem('token');
+
+        try {
+            const response = await axios.post('http://localhost:3000/Books', {
+                ...formData,
+                img: imageUrl,
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${hasToken}`,
+                },
+            });
+
+            console.log(response);
+            window.location.href = '/Books';
+
+        } catch (error) {
+            console.error('Error calling API:', error.message);
+        }
+    };
 
     return (
         <div className="flex items-center justify-center h-screen">
@@ -107,8 +101,8 @@ export default function newBooks() {
                     </div>
 
                     <div className="mb-6">
-                        <label htmlFor="quantity" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity of stock</label>
-                        <input type="number" id="quantity" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="20" required onChange={handleChange} />
+                        <label htmlFor="quantity_available" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity of stock</label>
+                        <input type="number" id="quantity_available" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="20" required onChange={handleChange} />
                     </div>
 
                     <div className="">
@@ -122,9 +116,10 @@ export default function newBooks() {
 
                     <div className="max-w-md">
                         <div className="mb-2 block">
-                            <Label htmlFor="countries" value="Select the category" />
+                            <Label htmlFor="category_id" value="Select the category" />
                         </div>
-                        <Select id="countries" required onChange={handleChange}>
+                        <Select id="category_id" required onChange={handleChange} value={formData.category_id}>
+                            <option value="" disabled>Choose the category</option>
                             {categories.map((category) => (
                                 <option key={category.id} value={category.id}>{category.category_name}</option>
                             ))}
@@ -134,15 +129,16 @@ export default function newBooks() {
 
                     <div className="max-w-md">
                         <div className="mb-2 block">
-                            <Label htmlFor="countries" value="Select the author" />
+                            <Label htmlFor="author_id" value="Select the author" />
                         </div>
-                        <Select id="countries" required onChange={handleChange}>
+                        <Select id="author_id" required onChange={handleChange} value={formData.author_id}>
+                            <option value="" disabled>Choose the author</option>
                             {author.map((authors) => (
-                                <option key={authors.id} value={authors.id}>{authors.name}</option>
+                                <option key={authors.id} value={authors.id} >{authors.name}</option>
                             ))}
                         </Select>
-
                     </div>
+
 
 
 

@@ -15,14 +15,6 @@ router.post('/register', userControllers.new);
 
 router.post('/login', userControllers.login);
 
-router.get('/rota-protegida', valid, (req, res, next) => {
-    res.json({ message: 'Autenticação bem-sucedida:' });
-});
-
-
-
-router.get('/rota-publica', (req, res) => {
-    res.json({ message: 'Esta é uma rota pública.' });
-});
+router.get('/', userControllers.allUsers)
 
 module.exports = router;

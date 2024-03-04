@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BooksCover from "./components/bookCover";
-import CardBooks from "./cardBooks";
+import CardBooks from "./components/cardBooks";
 import "../books/books.css";
 import axios from "axios";
 
@@ -21,10 +21,27 @@ export default function Allbooks() {
         fetchBooks();
     }, []);
 
+
+    const [user, setUser] = useState([]);
+
+    useEffect(() => {
+        const fetchBooks = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/User');
+                setUser(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.error("Erro ao buscar os livros:", error);
+            }
+        };
+
+        fetchBooks();
+    }, []);
+
     return (
         <>
             <div className="container mx-auto px-1">
-                <div className="flex text-center	justify-center ">
+                <div className="flex text-center justify-center ">
                     <h1 className="ml-5 mr-5 text-3xl">Famous Books</h1>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
@@ -36,6 +53,7 @@ export default function Allbooks() {
                             img={book.img}
                             id={book.id}
                             quantity={book.quantity_available}
+                            description={book.description}
                         />
                     ))}
                 </div>
@@ -44,10 +62,17 @@ export default function Allbooks() {
                     <h1 className="ml-5 mr-5 text-3xl mb-2">Books</h1>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-1 flex justify-center ">
-                    <BooksCover />
-                    <BooksCover />
-                    <BooksCover />
-                    <BooksCover />
+                    {books.slice(3, 7).map((book) => (
+                        <BooksCover
+                            key={book.id}
+                            className='h-auto max-w-full rounded-lg'
+                            title={book.title}
+                            img={book.img}
+                            id={book.id}
+                            quantity={book.quantity_available}
+                        />
+
+                    ))}
                 </div>
 
 
@@ -58,7 +83,7 @@ export default function Allbooks() {
                     </div>
                     <div id="dadeUser">
                         <h1 className="mr-5 text-3xl mb-2">Quantidades de User</h1>
-                        <h2 className="text-center">0</h2>
+                        <h2 className="text-center">{user.length}</h2>
                     </div>
 
                     <div id="dadeBooks">

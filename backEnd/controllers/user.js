@@ -11,6 +11,20 @@ module.exports.valid = function (user, done) {
     done(null, user);
 }
 
+
+module.exports.allUsers = async (req, res) => {
+    try {
+        const allUsers = await Users.allUsers();
+        return res.status(200).json(allUsers);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
+    }
+}
+
+
+
+
 module.exports.new = async (req, res) => {
     const { email, username, password, img, description } = req.body
 

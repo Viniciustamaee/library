@@ -50,7 +50,7 @@ export default function Component() {
     }, []);
 
     return (
-        <div className="fixed w-full z-50">
+        <div className=" w-full z-50">
             <Navbar fluid rounded className="bg-transparent">
 
                 <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -101,7 +101,8 @@ export default function Component() {
 
                         }
                     >
-                        <Link to='Books'><Dropdown.Item>All books</Dropdown.Item></Link>
+                        <Link to='Books'><Dropdown.Item>Books</Dropdown.Item></Link>
+                        <Link to='Books/allBooks'><Dropdown.Item>All books</Dropdown.Item></Link>
                         {hasToken && <Dropdown.Divider />}
                         {hasToken && <Link to='Books/new'><Dropdown.Item>New book</Dropdown.Item></Link>}
                     </Dropdown>

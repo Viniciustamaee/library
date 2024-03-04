@@ -14,6 +14,28 @@ con.connect(function () {
     })
 });
 
+
+function allUsers() {
+    return new Promise((resolve, reject) => {
+        con.connect((err) => {
+            if (err) {
+                reject(err);
+            } else {
+                let sql = `SELECT * FROM users`;
+                con.query(sql, (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            }
+        });
+    });
+};
+
+
+
 function newUser(email, username, password, img, description) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -103,7 +125,8 @@ module.exports = {
     existUser,
     newUser,
     login,
-    oneUser
+    oneUser,
+    allUsers
 }
 
 

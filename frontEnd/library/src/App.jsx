@@ -9,6 +9,8 @@ import Footer from './components/Footer'
 import Rents from './pages/rents/rents'
 import Teste from './pages/user/teste'
 import NewBooks from './pages/books/newBooks/newBooks'
+import Allbooks from './pages/books/allBooks/allBooks'
+import BooksId from './pages/books/bookId/booksId'
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/Books' element={<Books />} />
         <Route path='/Books/new' element={<NewBooks />} />
+        <Route path='/Books/allBooks' element={<Allbooks />} />
+        <Route path="/Books/:id" element={<BooksId />}></Route>
       </Routes>
 
       {/* User */}
