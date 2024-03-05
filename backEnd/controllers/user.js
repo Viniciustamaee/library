@@ -49,6 +49,41 @@ module.exports.new = async (req, res) => {
     }
 };
 
+module.exports.update = async (req, res) => {
+    const { email, username, password, img, description } = req.body
+    const { id } = req.params
+
+    if (!email || !username || !password || !img || !description) {
+        return res.status(406).json({ "erros": "Dados insuficientes" })
+    }
+
+    try {
+        const existUser = await Users.existUser(username, email)
+        if (existUser.length == 0) {
+            await Users.update(email, username, password, img, description, id);
+            return res.status(200).json({ "mensagem": "User editado com sucesso!" });
+
+        } else {
+            return res.status(422).json({ "mensagem": "Já existe usuário com esse email ou usernmae" });
+
+        }
+
+    } catch (error) {
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
+
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
 module.exports.passwordValid = new LocalStrategy(function (username, password, done) {
     Users.login(username)
         .then(rows => {

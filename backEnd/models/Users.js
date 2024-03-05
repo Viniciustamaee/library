@@ -121,12 +121,34 @@ function oneUser(user_id) {
 };
 
 
+function update(email, username, password, img, description, id) {
+    return new Promise((resolve, reject) => {
+        con.connect((err) => {
+            if (err) {
+                reject(err);
+            } else {
+                const passwordHash = bcrypt.hashSync(password, salts);
+                let sql = `UPDATE users SET email = '${email}', username  = '${username}', password = '${passwordHash}', img='${img}', description='${description}' WHERE id = '${id}'`;
+
+                con.query(sql, (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            }
+        });
+    });
+}
+
 module.exports = {
     existUser,
     newUser,
     login,
     oneUser,
-    allUsers
+    allUsers,
+    update
 }
 
 

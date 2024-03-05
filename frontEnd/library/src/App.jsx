@@ -11,6 +11,7 @@ import Teste from './pages/user/teste'
 import NewBooks from './pages/books/newBooks/newBooks'
 import Allbooks from './pages/books/allBooks/allBooks'
 import BooksId from './pages/books/bookId/booksId'
+import EditPerfil from './pages/user/editPerfil'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path='/User/Login' element={<Login />} />
         <Route path='/User/Register' element={<Register />} />
         <Route path='/User/Perfil/:id' element={<Perfil />} />
+        <Route path='/User/Perfil/:id/edit' element={<EditPerfil />} />
         <Route path='/User/teste' element={<Teste />} />
       </Routes>
 

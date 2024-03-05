@@ -1,7 +1,6 @@
 const userControllers = require('../controllers/user');
 const passport = require('passport');
 const express = require('express');
-const valid = require('../middleware')
 const router = express();
 
 
@@ -11,10 +10,10 @@ passport.deserializeUser(userControllers.valid);
 passport.serializeUser(userControllers.valid);
 passport.use('teste', userControllers.tokenValid);
 
+router.get('/', userControllers.allUsers)
+router.put('/Perfil/:id/edit', userControllers.update)
 router.post('/register', userControllers.new);
-
 router.post('/login', userControllers.login);
-
 router.get('/', userControllers.allUsers)
 
 module.exports = router;
