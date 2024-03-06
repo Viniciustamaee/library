@@ -3,6 +3,8 @@ import RentsList from './rentsTable/rentsList'
 import RentsHead from './rentsTable/rentsHead'
 import '../rents/rents.css'
 import axios from "axios";
+import { format } from 'date-fns';
+
 
 export default function Rents() {
     const [books, setBooks] = useState([]);
@@ -53,9 +55,9 @@ export default function Rents() {
         fetchRents();
     }, []);
 
-
-
-
+    function getStandardFormattedDateTime(date = new Date()) {
+        return format(date, 'dd-MM-yyyy');
+    }
 
     return (
         <div className="pt-20 flex justify-center content-center " >
@@ -65,8 +67,8 @@ export default function Rents() {
                     {rents.map((rents) => (
                         <RentsList
                             key={rents.id}
-                            rented_date={rents.rented_date.slice(0, 10)}
-                            due_date={rents.due_date.slice(0, 10)}
+                            rented_date={getStandardFormattedDateTime(rents.rented_date.slice(0, 10))}
+                            due_date={getStandardFormattedDateTime(rents.due_date.slice(0, 10))}
                             user_id={user[rents.user_id - 1].username}
                             books_id={books[rents.book_id - 1].title}
                             id={rents.id} />
