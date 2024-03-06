@@ -12,6 +12,7 @@ import NewBooks from './pages/books/newBooks/newBooks'
 import Allbooks from './pages/books/allBooks/allBooks'
 import BooksId from './pages/books/bookId/booksId'
 import EditPerfil from './pages/user/editPerfil'
+import RentsEdit from './pages/rents/rentsEdit/new'
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
 
       <Routes>
         <Route path='/Rents' element={<Rents />} />
+        <Route path='/Rents/:id/edit' element={<RentsEdit />} />
       </Routes>
 
       <Footer />

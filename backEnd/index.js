@@ -22,6 +22,7 @@ const admin = require('./seeds/admin')
 
 app.use(cors({
     origin: 'http://localhost:8000',
+    credentials: true
 }));
 
 
