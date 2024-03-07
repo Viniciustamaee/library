@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function booksCover({ title, img, id, quantity, rentDate, deleteS }) {
     return (
         <>
-            <Link to={``}>
+            <Link to={`/Books/${id}`}>
                 <div className="flex justify-center ">
                     <div class="h-94 w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
 
