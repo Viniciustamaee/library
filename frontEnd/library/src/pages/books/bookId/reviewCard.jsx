@@ -1,22 +1,31 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 
+
 export default function Review({ comment, rating, username, id }) {
-    const [userT, setUser] = useState([]);
+
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const fetchUsers = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/User');
-                setUser(response.data[id - 1]);
+                const filteredUsers = response.data.filter(user => user.id === id);
+                setUsers(filteredUsers);
+                console.log('sla');
+                console.log(filteredUsers);
             } catch (error) {
-                console.error("Erro ao buscar os livros:", error);
+                console.error("Erro ao buscar os usuários:", error);
             }
         };
 
-        fetchUser();
-    }, []);
+        fetchUsers();
+    }, [id]);
+
+
+
+
 
     const Stars = ({ rating }) => {
         const stars = [];
@@ -38,9 +47,8 @@ export default function Review({ comment, rating, username, id }) {
             );
         }
 
-
-
         return <div className="flex">{stars}</div>;
+
 
 
 
@@ -51,14 +59,18 @@ export default function Review({ comment, rating, username, id }) {
 
                 <div class="flex justify-between m-3">
                     <div className="flex items-center mb-4 ">
-                        {userT.map((users) => (
+
+                        {users.map((user) => (
                             <>
-                                <img class="w-10 h-10 me-4 rounded-full" src={users.img} alt="" />
+                                <img class="w-10 h-10 me-4 rounded-full" src={user.img} alt="" />
                                 <div class="font-medium dark:text-white">
-                                    <p className="text-black">{users.username} <time datetime="2014-08-16 19:00" class="block text-sm text-gray-500 dark:text-gray-400">{users.email}</time></p>
+                                    <p className="text-black">{user.username}<time datetime="2014-08-16 19:00" class="block text-sm text-gray-500 dark:text-gray-400">{user.email}</time></p>
                                 </div>
                             </>
                         ))}
+
+
+
                     </div>
 
                     <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse ">

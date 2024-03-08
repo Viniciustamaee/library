@@ -80,7 +80,7 @@ export default function haha() {
             try {
                 const response = await axios.get(`http://localhost:3000/Review/${id}`);
                 setReview(response.data);
-                console.log(response.data)
+                console.log(response.data);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
             }
@@ -112,7 +112,7 @@ export default function haha() {
                             />
 
                         </div>
-                    </div>
+                    </div>  
                 </div >
 
                 <div>
@@ -170,15 +170,11 @@ export default function haha() {
                     {review.map((reviews) => (
                         <Review
                             key={reviews.id}
-                            id={review.user_id}
+                            id={reviews.user_id}
                             comment={reviews.comment}
                             rating={reviews.rating}
-                        />
-
-
-                    ))}
-
-
+                            />
+                            ))}
                 </div>
             </div >
         </div>

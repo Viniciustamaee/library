@@ -111,8 +111,7 @@ export default function Perfil() {
                                     title={book.title}
                                     img={book.img}
                                     id={book.id}
-                                    rentDate={getStandardFormattedDateTime(rents[book.id - 1].due_date.slice(0, 10))}
-                                    deleteS={() => handDelete(book.id)}
+                                    rentDate={''}
                                 />
                             </div>
                         ))}

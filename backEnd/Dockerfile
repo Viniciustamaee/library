@@ -2,7 +2,7 @@ FROM node:18.17.1
 
 COPY . .
 
-COPY package*.json ./ 
+COPY ./ package*.json  
 
 RUN npm i -g nodemon
 
