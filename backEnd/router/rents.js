@@ -5,7 +5,8 @@ const router = express();
 
 
 router.get('/', rentsControllers.allRents);
-router.post('/', rentsControllers.newRents)
+router.post('/', rentsControllers.newRents);
+router.get('/:id', rentsControllers.allRentsUser)
 router.delete('/:id', rentsControllers.delete);
 router.put('/:id', rentsControllers.update);
 

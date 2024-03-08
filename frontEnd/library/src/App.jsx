@@ -39,7 +39,7 @@ function App() {
 
       <Routes>
         <Route path='/Rents' element={<Rents />} />
-        <Route path='/Rents/:id/edit' element={<RentsEdit />} />
+        <Route path='/Rents/:id' element={<RentsEdit />} />
       </Routes>
 
       <Footer />

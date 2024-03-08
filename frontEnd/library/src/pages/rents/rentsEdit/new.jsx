@@ -1,73 +1,81 @@
-import { Datepicker, Card, Label, Select, Button } from 'flowbite-react';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-
+import React, { useEffect, useState } from "react";
+import RentsList from '../rentsTable/rentsList'
+import RentsHead from '../rentsTable/rentsHead'
+import { format } from 'date-fns';
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
-export default function Edit() {
-
+export default function Rents() {
     const { id } = useParams()
 
-    const [userData, setUserData] = useState('');
-
+    const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        const userDataFromStorage = localStorage.getItem('user');
+        const fetchBooks = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/Books');
+                setBooks(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.error("Erro ao buscar os livros:", error);
+            }
+        };
 
-        if (userDataFromStorage) {
-            const parsedUserData = JSON.parse(userDataFromStorage);
-            setUserData(parsedUserData);
-        }
+        fetchBooks();
     }, []);
 
+    const [user, setUser] = useState([]);
 
-    const [dataAtual, setDataAtual] = useState(new Date());
+    useEffect(() => {
+        const fetchRents = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/User');
+                setUser(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.error("Erro ao buscar os rents:", error);
+            }
+        };
 
-    const obterData10DiasDepois = () => {
-        const dataFutura = new Date(dataAtual);
-        dataFutura.setDate(dataFutura.getDate() + 10);
-        return dataFutura;
-    };
+        fetchRents();
+    }, []);
 
-    const hoje = dataAtual.toLocaleDateString('pt-BR');
-    const data10DiasDepois = obterData10DiasDepois().toLocaleDateString('pt-BR');
+    const [rents, setRents] = useState([]);
 
+    useEffect(() => {
+        const fetchRents = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/Rents/${id}`);
+                setRents(response.data);
+                console.log(response.data)
+            } catch (error) {
+                console.error("Erro ao buscar os rents:", error);
+            }
+        };
 
-    const dadosParaInserir = {
-        rented_date: hoje,
-        due_date: data10DiasDepois,
-        user_id: userData.id,
-        book_id: id
-    };
+        fetchRents();
+    }, []);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const hasToken = localStorage.getItem('token');
-
-        try {
-            const response = await axios.post('http://localhost:3000/Rents', dadosParaInserir, {
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${hasToken}`,
-                },
-            });
-            console.log(response);
-        } catch (error) {
-            console.error('Error calling API:', error.message);
-        }
-    };
-
-
-
+    function getStandardFormattedDateTime(date = new Date()) {
+        return format(date, 'dd-MM-yyyy');
+    }
 
     return (
-        <>
-
-            <Button color="gray" onClick={handDelete}>Profile</Button>
-            <h1>DataAlugado: {hoje}</h1>
-            <h1>DataEntrga:{data10DiasDepois}</h1>
-            <h1>Book:{id}</h1>
-            <h1>User:{userData.id}</h1>
-        </>
+        <div className="pt-20 flex justify-center content-center " >
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <RentsHead />
+                    {rents.map((rents) => (
+                        <RentsList
+                            key={rents.id}
+                            rented_date={getStandardFormattedDateTime(rents.rented_date.slice(0, 10))}
+                            due_date={getStandardFormattedDateTime(rents.due_date.slice(0, 10))}
+                            user_id={user[rents.user_id - 1].username}
+                            books_id={books[rents.book_id - 1].title}
+                            id={rents.id} />
+                    ))}
+                </table>
+            </div>
+        </div>
     )
 }

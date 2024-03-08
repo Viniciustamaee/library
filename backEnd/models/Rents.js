@@ -182,8 +182,31 @@ function oneRents(id) {
     });
 };
 
+
+function allRentsUser(id) {
+    return new Promise((resolve, reject) => {
+        con.connect((err) => {
+            if (err) {
+                reject(err);
+            } else {
+                let sql = `SELECT * FROM rents WHERE user_id = '${id}'`;
+                console.log(sql)
+                con.query(sql, (err, result) => {
+                    if (err) {
+                        console.log(err)
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            }
+        });
+    });
+};
+
 module.exports = {
     quantityAvailable,
+    allRentsUser,
     allrents,
     newRents,
     oneRents,
