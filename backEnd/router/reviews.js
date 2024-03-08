@@ -5,6 +5,6 @@ const router = express();
 
 router.get('/:id', reviewsControll.allReviews);
 router.post('/:id', valid, reviewsControll.new)
-router.delete('/:id/:idReview', valid, reviewsControll.delete);
+router.delete('/:id/:idReview', reviewsControll.delete);
 
 module.exports = router

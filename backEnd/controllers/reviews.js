@@ -47,7 +47,7 @@ module.exports.new = async (req, res) => {
 module.exports.delete = async (req, res) => {
     const { idReview } = req.params
 
-    if (!/^[1-9]\d*$/.test(id)) {
+    if (!/^[1-9]\d*$/.test(idReview)) {
         res.status(400).json({ "mensagem": "O 'id' deve ser um número inteiro positivo e não pode ter letras!!" });
         return;
     }

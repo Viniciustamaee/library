@@ -3,9 +3,13 @@ import axios from "axios";
 
 
 
-export default function Review({ comment, rating, username, id }) {
+export default function Review({ comment, rating, username, id, idUrl, idReview }) {
+
+    const adminData = localStorage.getItem('user');
+    const adminObject = JSON.parse(adminData);
 
     const [users, setUsers] = useState([]);
+
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -24,7 +28,27 @@ export default function Review({ comment, rating, username, id }) {
     }, [id]);
 
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const hasToken = localStorage.getItem('token');
 
+        try {
+            const response = await axios.delete(`http://localhost:3000/Review/${idUrl}/${idReview}`, {
+                headers: {
+                    'Authorization': `Bearer ${hasToken}`,
+                },
+            });
+
+
+            console.log(response);
+            window.location.href = `/Books/${idUrl}`;
+
+        } catch (error) {
+            console.error('Error calling API:', error.message);
+        }
+    };
+
+    const isCurrentUserAuthor = users.some(user => user.id === adminObject.id);
 
 
     const Stars = ({ rating }) => {
@@ -49,9 +73,6 @@ export default function Review({ comment, rating, username, id }) {
 
         return <div className="flex">{stars}</div>;
 
-
-
-
     }
     return (
         <>
@@ -68,9 +89,6 @@ export default function Review({ comment, rating, username, id }) {
                                 </div>
                             </>
                         ))}
-
-
-
                     </div>
 
                     <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse ">
@@ -79,6 +97,9 @@ export default function Review({ comment, rating, username, id }) {
                 </div>
 
                 <p class="mb-2 text-gray-500 dark:text-gray-400 text-sm m-3 text-black">{comment}</p>
+                <div className="flex justify-end">
+                    {isCurrentUserAuthor && <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={handleSubmit}>Delete</button>}
+                </div>
             </article>
 
         </>

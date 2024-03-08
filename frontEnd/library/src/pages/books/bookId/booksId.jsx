@@ -4,9 +4,9 @@ import Typography from '@mui/material/Typography';
 import { useState, useEffect } from "react";
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
+import Review from "./reviewCard"
 import * as React from 'react';
 import axios from "axios";
-import Review from "./reviewCard"
 
 
 export default function haha() {
@@ -112,12 +112,11 @@ export default function haha() {
                             />
 
                         </div>
-                    </div>  
+                    </div>
                 </div >
 
                 <div>
                     <form onSubmit={handleSubmit}>
-
                         <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
 
                             <h5 className="flex justify-center ml-1 text-2xl text-gray-500 dark:text-gray-400 text-black mt-2 mb-2">Comment</h5>
@@ -173,8 +172,10 @@ export default function haha() {
                             id={reviews.user_id}
                             comment={reviews.comment}
                             rating={reviews.rating}
-                            />
-                            ))}
+                            idUrl={id}
+                            idReview={reviews.id}
+                        />
+                    ))}
                 </div>
             </div >
         </div>
