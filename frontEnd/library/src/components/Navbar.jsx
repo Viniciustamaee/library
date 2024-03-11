@@ -91,16 +91,17 @@ export default function Component() {
                             </div>
                         </Link>
 
-                        <div className="flex flex-row">
-                            <DropdownItem>
-                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                    <path fill-rule="evenodd" d="M7 2a2 2 0 0 0-2 2v1a1 1 0 0 0 0 2v1a1 1 0 0 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H7Zm3 8a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm-1 7a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3c0 .6-.4 1-1 1h-6a1 1 0 0 1-1-1Z" clip-rule="evenodd" />
-                                </svg>
-                                Rents</DropdownItem>
+                        <Link to={`Rents/${userData.id}`}>
+                            <div className="flex flex-row">
+                                <DropdownItem>
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd" d="M7 2a2 2 0 0 0-2 2v1a1 1 0 0 0 0 2v1a1 1 0 0 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H7Zm3 8a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm-1 7a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3c0 .6-.4 1-1 1h-6a1 1 0 0 1-1-1Z" clip-rule="evenodd" />
+                                    </svg>
+                                    Rents</DropdownItem>
+                            </div>
+                            <DropdownDivider />
+                        </Link>
 
-
-                        </div>
-                        <DropdownDivider />
 
                         <div className="flex flex-row">
                             <DropdownItem onClick={logout}>
@@ -145,12 +146,19 @@ export default function Component() {
 
                     {hasToken && adminObject.admin == '1' ? <div className="flex flex-row">
                         <NavbarLink href="#" className='text-lg text-white'>
-                            <Link to="/Rents">Rents</Link>
+                            <Link to="/Rents">All Rents</Link>
                         </NavbarLink>
                         <svg class="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
                         </svg>
-                    </div> : <div className='hidden'> </div>}
+                    </div> : <div className="flex flex-row">
+                        <NavbarLink href="#" className='text-lg text-white'>
+                            <Link to={`/Rents/${userData.id}`}>Rents</Link>
+                        </NavbarLink>
+                        <svg class="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
+                        </svg>
+                    </div>}
                     {hasToken && <div >
                         {<div className="flex flex-row">
                             <NavbarLink className='text-lg text-white'><Link to="/">Authors</Link></NavbarLink>

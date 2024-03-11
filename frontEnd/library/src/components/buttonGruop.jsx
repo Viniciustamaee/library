@@ -1,11 +1,20 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import axios from "axios";
 
 export default function GrupoButton({ urlLink, quantity }) {
     const adminData = localStorage.getItem('user');
     const adminObject = JSON.parse(adminData);
+
+    const [isBotaoDesabilitado, setBotaoDesabilitado] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        const novaDesabilitacao = location.pathname === `/User/perfil/${adminObject.id}`;
+
+        setBotaoDesabilitado(novaDesabilitacao);
+    }, [location]);
 
 
     // Rent
@@ -77,17 +86,25 @@ export default function GrupoButton({ urlLink, quantity }) {
                         </button>
                     </Link>
 
-                    <button
+                    {isBotaoDesabilitado === false ? <button
                         type="button"
                         class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-400 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
                         onClick={quantity === 0 ? null : handleSubmit}
-                        disabled={quantity === 0}
                     >
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
                         </svg>
                         Rents
-                    </button>
+                    </button> :
+                        <button className="hidden"
+                            type="button"
+                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-400 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
+                        >
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
+                            </svg>
+                            Rents
+                        </button>}
 
                     {adminObject.admin == '0' && <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border  border-gray-400 rounded-e-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
