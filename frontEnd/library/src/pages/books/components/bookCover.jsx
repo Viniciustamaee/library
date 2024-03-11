@@ -32,7 +32,7 @@ export default function booksCover({ title, img, id, quantity, bookId, rentId })
                     <div class="h-94 w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
 
                         <a href="#" className="flex justify-center">
-                            <img className="rounded-t-lg p-2 h-48 md:h-80" src={books && books.img ? books.img : (img === 'undefined' ? defaultImage : img)} alt="" />
+                            <img className="rounded-t-lg p-2 h-48 md:h-80" src={img} />
                         </a>
                         <div class="p-4">
                             <h4 className="text-center font-bold">{title}</h4>

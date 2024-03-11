@@ -142,19 +142,23 @@ export default function Component() {
                         {hasToken && <Dropdown.Divider />}
                         {hasToken && <Link to='Books/new'><Dropdown.Item>New book</Dropdown.Item></Link>}
                     </Dropdown>
-                    <div className="flex flex-row">
-                        <NavbarLink href="#" className='text-lg text-white'><Link to="/Rents">Rents</Link></NavbarLink>
+
+                    {hasToken && adminObject.admin == '1' ? <div className="flex flex-row">
+                        <NavbarLink href="#" className='text-lg text-white'>
+                            <Link to="/Rents">Rents</Link>
+                        </NavbarLink>
                         <svg class="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
                         </svg>
-
-                    </div>
-                    <div className="flex flex-row">
-                        <NavbarLink className='text-lg text-white'><Link to="/">Authors</Link></NavbarLink>
-                        <svg class="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-width="2" d="M7 17v1c0 .6.4 1 1 1h8c.6 0 1-.4 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        </svg>
-                    </div>
+                    </div> : <div className='hidden'> </div>}
+                    {hasToken && <div >
+                        {<div className="flex flex-row">
+                            <NavbarLink className='text-lg text-white'><Link to="/">Authors</Link></NavbarLink>
+                            <svg class="w-6 h-6  text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-width="2" d="M7 17v1c0 .6.4 1 1 1h8c.6 0 1-.4 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </div>}
+                    </div>}
                 </NavbarCollapse>
             </Navbar>
         </div >
