@@ -86,18 +86,28 @@ function newBooks(title, quantity_available, img, description, author_id, catego
     });
 }
 
-function Delete(id) {
+
+// testar
+function Delete(id, book_id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
                 reject(err);
             } else {
-                let sql = `DELETE FROM books WHERE id='${id}'`;
+                let sql = `DELETE FROM reviews WHERE book_id='${book_id}'`
                 con.query(sql, (err, result) => {
                     if (err) {
                         reject(err);
                     } else {
                         resolve(result);
+                        let sql2 = `DELETE FROM books WHERE id='${id}'`;
+                        con.query(sql2, (err, result) => {
+                            if (err) {
+                                reject(err)
+                            } else {
+                                resolve(result)
+                            }
+                        })
                     }
                 });
             }

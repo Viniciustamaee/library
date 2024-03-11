@@ -70,8 +70,6 @@ export default function haha() {
         });
     };
 
-
-
     const [review, setReview] = useState([]);
 
 
@@ -88,9 +86,6 @@ export default function haha() {
 
         fectReview();
     }, []);
-
-
-
 
     return (
         <div className="flex justify-center">
@@ -109,7 +104,6 @@ export default function haha() {
                                 urlLink={`/Books/${id}/edit`}
                                 quantity={books.quantity_available}
                             />
-
                         </div>
                     </div>
                 </div >
@@ -119,7 +113,6 @@ export default function haha() {
                         <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
 
                             <h5 className="flex justify-center ml-1 text-2xl text-gray-500 dark:text-gray-400 text-black mt-2 mb-2">Comment</h5>
-
 
                             <Box
                                 sx={{
@@ -162,8 +155,6 @@ export default function haha() {
                             </div>
                         </div>
                     </form>
-
-
 
                     {review.map((reviews) => (
                         <Review

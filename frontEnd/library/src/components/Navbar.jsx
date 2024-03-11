@@ -161,7 +161,7 @@ export default function Component() {
                     </div>}
                     {hasToken && <div >
                         {<div className="flex flex-row">
-                            <NavbarLink className='text-lg text-white'><Link to="/">Authors</Link></NavbarLink>
+                            <NavbarLink className='text-lg text-white'><Link to="/Author/new">Authors</Link></NavbarLink>
                             <svg class="w-6 h-6  text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-width="2" d="M7 17v1c0 .6.4 1 1 1h8c.6 0 1-.4 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                             </svg>
