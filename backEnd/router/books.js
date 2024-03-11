@@ -9,6 +9,7 @@ const router = express();
 
 
 router.get('/', booksControllers.allBooks);
+router.get('/:id', booksControllers.oneBooks)
 router.post('/', valid, upload.single('img'), booksControllers.newBooks)
 router.get('/:id', booksControllers.oneBooks);
 router.delete('/:id', valid, booksControllers.delete);

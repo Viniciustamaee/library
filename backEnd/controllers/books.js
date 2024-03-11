@@ -47,7 +47,7 @@ module.exports.oneBooks = async (req, res) => {
     }
     try {
         const oneBook = await Books.oneBook(id);
-        return res.status(200).json({ "mensagem": "Um book" });
+        return res.status(200).json(oneBook);
 
     } catch (error) {
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });

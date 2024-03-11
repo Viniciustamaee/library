@@ -4,12 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 export default function editPerfil() {
-    const [formData, setFormData] = useState({
-        email: '',
-        username: '',
-        password: '',
-        description: ''
-    });
+    const { id } = useParams()
 
     const [imageUrl, setImageUrl] = useState(null);
 
@@ -17,29 +12,35 @@ export default function editPerfil() {
         const file = e.target.files[0];
 
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImageUrl(reader.result);
-            };
-            reader.readAsDataURL(file);
+            setImageUrl(file);
         }
     };
-    const { id } = useParams()
 
+    function clear() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/User/Login';
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.put(`http://localhost:3000/User/Perfil/${id}/edit`, {
-                ...user,
-                img: imageUrl
-            });
-            const data = response.data;
-            console.log(data);
-            window.location.href = '/User/login';
+            const formDataObject = new FormData();
+            formDataObject.append('email', user.email);
+            formDataObject.append('username', user.username);
+            formDataObject.append('password', user.password);
+            formDataObject.append('img', imageUrl);
+            formDataObject.append('description', user.description);
+
+            const response = await axios.put(`http://localhost:3000/User/Perfil/${id}/edit`, formDataObject, {});
+
+            clear()
         } catch (error) {
             console.error('Error calling API:', error.message);
+            if (error.response) {
+                console.error('Server response:', error.response.data);
+            }
         }
     };
 
@@ -92,8 +93,18 @@ export default function editPerfil() {
                         </div>
 
                         <div className="">
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Choose your profile picture</label>
-                            <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" required onChange={handleFileChange} />
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">
+                                Choose your profile picture
+                            </label>
+                            <input
+                                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                id="file_input"
+                                type="file"
+                                required
+                                onChange={handleFileChange}
+                            />
+
+
                         </div>
 
                         <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
