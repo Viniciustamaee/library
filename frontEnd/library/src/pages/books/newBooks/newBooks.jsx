@@ -3,7 +3,6 @@ import { Label, Select } from 'flowbite-react';
 import axios from "axios";
 
 export default function newBooks() {
-
     const [formData, setFormData] = useState({
         title: '',
         quantity_available: '',
@@ -12,6 +11,8 @@ export default function newBooks() {
         category_id: ''
     });
 
+    const [imageUrl, setImageUrl] = useState('');
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -19,18 +20,11 @@ export default function newBooks() {
         });
     };
 
-
-
-    const [imageUrl, setImageUrl] = useState('');
-
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
+
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImageUrl(reader.result);
-            };
-            reader.readAsDataURL(file);
+            setImageUrl(file); // Optionally, you can use URL.createObjectURL(file) here
         }
     };
 
@@ -42,39 +36,44 @@ export default function newBooks() {
                 const response = await axios.get('http://localhost:3000/Categories');
                 setCategories(response.data);
             } catch (error) {
-                console.error("Erro ao buscar os caregorias:", error);
+                console.error("Error fetching categories:", error);
             }
         };
 
         fetchCategories();
     }, []);
 
-    const [author, setAuthor] = useState([]);
+    const [authors, setAuthors] = useState([]);
 
     useEffect(() => {
-        const fetchAuthor = async () => {
+        const fetchAuthors = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/Authors');
-                setAuthor(response.data);
-
+                setAuthors(response.data);
             } catch (error) {
-                console.error("Erro ao buscar os caregorias:", error);
+                console.error("Error fetching authors:", error);
             }
         };
 
-        fetchAuthor();
+        fetchAuthors();
     }, []);
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const hasToken = localStorage.getItem('token');
 
         try {
-            const response = await axios.post('http://localhost:3000/Books', {
-                ...formData,
-                img: imageUrl,
-            }, {
+            const formDataObject = new FormData();
+            formDataObject.append('title', formData.title);
+            formDataObject.append('quantity_available', formData.quantity_available);
+            formDataObject.append('description', formData.description);
+            formDataObject.append('img', imageUrl);
+
+            formDataObject.append('author_id', formData.author_id);
+            formDataObject.append('category_id', formData.category_id);
+
+
+            const response = await axios.post('http://localhost:3000/Books', formDataObject, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },
@@ -82,23 +81,25 @@ export default function newBooks() {
 
             console.log(response);
             window.location.href = '/Books';
-
         } catch (error) {
             console.error('Error calling API:', error.message);
+            if (error.response) {
+                console.error('Server response:', error.response.data);
+            }
         }
     };
 
     return (
         <div className="flex items-center justify-center h-screen">
             <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-
-                <form className="space-y-6" onSubmit={handleSubmit}>
+                <form className="space-y-6" onSubmit={handleSubmit} encType="multipart/form-data">
                     <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">Sign in Library</h5>
 
                     <div className="mb-6">
                         <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title of book</label>
                         <input type="text" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Harry Potter" required onChange={handleChange} />
                     </div>
+
 
                     <div className="mb-6">
                         <label htmlFor="quantity_available" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity of stock</label>
@@ -112,6 +113,8 @@ export default function newBooks() {
 
                     <label htmlFor="description" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Description</label>
                     <textarea id="description" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..." style={{ marginTop: "0px" }} required onChange={handleChange}></textarea>
+
+
 
 
                     <div className="max-w-md">
@@ -133,16 +136,15 @@ export default function newBooks() {
                         </div>
                         <Select id="author_id" required onChange={handleChange} value={formData.author_id}>
                             <option value="" disabled>Choose the author</option>
-                            {author.map((authors) => (
+                            {authors.map((authors) => (
                                 <option key={authors.id} value={authors.id} >{authors.name}</option>
                             ))}
                         </Select>
                     </div>
 
                     <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Account</button>
-
                 </form>
             </div>
         </div>
-    )
+    );
 }

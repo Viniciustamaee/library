@@ -10,7 +10,11 @@ module.exports.allBooks = async (req, res) => {
 }
 
 module.exports.newBooks = async (req, res) => {
-    const { title, quantity_available, img, author_id, category_id, description } = req.body
+    const { title, quantity_available, author_id, category_id, description } = req.body
+    const img = req.file.path
+
+    console.log(img)
+
 
     if (!title || !quantity_available || !img || !author_id || !category_id || !description) {
         return res.status(422).json({ "mensagem": "Campo é obrigatório!" });

@@ -1,32 +1,52 @@
+import { Image } from 'cloudinary-react';
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function Haha() {
-    const [books, setBooks] = useState([]);
+const CloudinaryUpload = () => {
+    const [image, setImage] = useState(null);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        setImage(file);
+    };
 
+    const handleUpload = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/User/rota-protegida', {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json',
-                },
-            });
+            const formData = new FormData();
+            formData.append('file', image);
+            formData.append('upload_preset', 'bo5x3aet');
+            formData.append('folder', 'library');
+            formData.append('allowedFormats', ['jpg', 'png']);
 
-            const data = response.data;
-            setBooks(data); // Atualize o estado de acordo com a resposta da API, se necessário
+            const response = await axios.post(
+                `https://api.cloudinary.com/v1_1/dtuxy5k7v/image/upload`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': 'Basic ' + btoa('631759363798366:j3AdG6dgyludTedwZB2zQKBws54'),
+                    },
+                }
+            );
 
+            const imageUrl = response.data.secure_url;
+            console.log('URL da imagem:', imageUrl);
         } catch (error) {
-            console.error('Erro ao chamar a API:', error.message);
+            console.error('Erro ao enviar imagem para o Cloudinary:', error);
         }
     };
 
     return (
-        <div className="pt-20">
-            {/* Adicione aqui a renderização dos livros ou qualquer outra lógica de interface do usuário */}
-            <button onClick={handleSubmit}>Fazer Solicitação Protegida</button>
+        <div>
+            <input type="file" onChange={handleImageChange} />
+            {image && (
+                <div>
+                    <Image cloudName="dtuxy5k7v" publicId={image.name} />
+                </div>
+            )}
+            <button onClick={handleUpload}>Enviar para o Cloudinary</button>
         </div>
     );
-}
+};
+
+export default CloudinaryUpload;
