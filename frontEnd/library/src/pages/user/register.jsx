@@ -9,7 +9,7 @@ const Register = () => {
         description: ''
     });
 
-    const [imageUrl, setImageUrl] = useState(null);
+    const [imageUrl, setImageUrl] = useState('');
 
     const handleChange = (e) => {
         setFormData({
@@ -22,27 +22,33 @@ const Register = () => {
         const file = e.target.files[0];
 
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImageUrl(reader.result);
-            };
-            reader.readAsDataURL(file);
+            setImageUrl(file);
         }
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:3000/User/register', {
-                ...formData,
-                img: imageUrl
+            const formDataObject = new FormData();
+            formDataObject.append('email', formData.email);
+            formDataObject.append('username', formData.username);
+            formDataObject.append('password', formData.password);
+            formDataObject.append('img', imageUrl);
+            formDataObject.append('description', formData.description);
+
+            const response = await axios.post('http://localhost:3000/User/register', formDataObject, {
+
             });
             const data = response.data;
             console.log(data);
             window.location.href = '/User/login';
         } catch (error) {
             console.error('Error calling API:', error.message);
+            if (error.response) {
+                console.error('Server response:', error.response.data);
+            }
         }
     };
 

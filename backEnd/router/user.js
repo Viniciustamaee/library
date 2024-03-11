@@ -3,6 +3,11 @@ const passport = require('passport');
 const express = require('express');
 const router = express();
 
+const { storage } = require('../cloudinary/cloud')
+const multer = require('multer')
+const upload = multer({ storage })
+
+
 
 
 passport.use('login', userControllers.passwordValid);
@@ -11,8 +16,8 @@ passport.serializeUser(userControllers.valid);
 passport.use('teste', userControllers.tokenValid);
 
 router.get('/', userControllers.allUsers)
-router.put('/Perfil/:id/edit', userControllers.update)
-router.post('/register', userControllers.new);
+router.put('/Perfil/:id/edit', upload.single('img'), userControllers.update)
+router.post('/register', upload.single('img'), userControllers.new);
 router.post('/login', userControllers.login);
 router.get('/', userControllers.allUsers)
 

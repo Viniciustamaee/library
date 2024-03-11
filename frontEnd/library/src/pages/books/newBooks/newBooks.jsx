@@ -24,7 +24,7 @@ export default function newBooks() {
         const file = e.target.files[0];
 
         if (file) {
-            setImageUrl(file); // Optionally, you can use URL.createObjectURL(file) here
+            setImageUrl(file);
         }
     };
 
