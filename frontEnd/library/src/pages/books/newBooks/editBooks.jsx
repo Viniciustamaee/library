@@ -3,17 +3,35 @@ import { Label, Select } from 'flowbite-react';
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-export default function NewBooks() {
-    const { id } = useParams();
+export default function newBooks() {
+
+    const {id} = useParams()
+
+
+    const [books, setBooks] = useState({});
+
+    useEffect(() => {
+        const fectcBooks = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/Books/${id}`);
+                setBooks(response.data[0]);
+                console.log(response.data)
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            }
+        };
+
+        fectcBooks();
+    }, []);
 
     const [imageUrl, setImageUrl] = useState('');
-    const [user, setUser] = useState({
-        title: '',
-        quantity_available: '',
-        description: '',
-        author_id: '',
-        category_id: '',
-    });
+
+    const handleChange = (e) => {
+        setBooks({
+            ...books,
+            [e.target.id]: e.target.value,
+        });
+    };
 
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
@@ -23,18 +41,35 @@ export default function NewBooks() {
         }
     };
 
+    const [categories, setCategories] = useState([]);
+
     useEffect(() => {
-        const fetchBooks = async () => {
+        const fetchCategories = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/Books/${id}`);
-                setUser(response.data[0]);
+                const response = await axios.get('http://localhost:3000/Categories');
+                setCategories(response.data);
             } catch (error) {
-                console.error("Erro ao buscar os livros:", error);
+                console.error("Error fetching categories:", error);
             }
         };
 
-        fetchBooks();
-    }, [id]);
+        fetchCategories();
+    }, []);
+
+    const [authors, setAuthors] = useState([]);
+
+    useEffect(() => {
+        const fetchAuthors = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/Authors');
+                setAuthors(response.data);
+            } catch (error) {
+                console.error("Error fetching authors:", error);
+            }
+        };
+
+        fetchAuthors();
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,34 +77,29 @@ export default function NewBooks() {
 
         try {
             const formDataObject = new FormData();
-            formDataObject.append('title', user.title);
-            formDataObject.append('quantity_available', user.quantity_available);
-            formDataObject.append('description', user.description);
+            formDataObject.append('title', books.title);
+            formDataObject.append('quantity_available', books.quantity_available);
+            formDataObject.append('description', books.description);
             formDataObject.append('img', imageUrl);
-            formDataObject.append('author_id', user.author_id);
-            formDataObject.append('category_id', user.category_id);
 
-            const response = await axios.post('http://localhost:3000/Books', formDataObject, {
+            formDataObject.append('author_id', books.author_id);
+            formDataObject.append('category_id', books.category_id);
+
+
+            const response = await axios.put(`http://localhost:3000/Books/${id}`, formDataObject, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },
             });
 
             console.log(response);
-            window.location.href = '/Books';
+            window.location.href = `/Books/${id}`;
         } catch (error) {
             console.error('Error calling API:', error.message);
             if (error.response) {
                 console.error('Server response:', error.response.data);
             }
         }
-    };
-
-    const userChange = (e) => {
-        setUser({
-            ...user,
-            [e.target.id]: e.target.value,
-        });
     };
 
     return (
@@ -80,13 +110,13 @@ export default function NewBooks() {
 
                     <div className="mb-6">
                         <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title of book</label>
-                        <input type="text" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Harry Potter" required onChange={userChange} value={books.title} />
+                        <input type="text" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Harry Potter" required onChange={handleChange} value={books.title}/>
                     </div>
 
 
                     <div className="mb-6">
                         <label htmlFor="quantity_available" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity of stock</label>
-                        <input type="number" id="quantity_available" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="20" required onChange={userChange} value={books.quantity_available} />
+                        <input type="number" id="quantity_available" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="20" required onChange={handleChange} value={books.quantity_available}/>
                     </div>
 
                     <div className="">
@@ -95,13 +125,13 @@ export default function NewBooks() {
                     </div>
 
                     <label htmlFor="description" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Description</label>
-                    <textarea id="description" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..." style={{ marginTop: "0px" }} required onChange={userChange} value={books.description}></textarea>
+                    <textarea id="description" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..." style={{ marginTop: "0px" }} required onChange={handleChange} value={books.description}></textarea>
 
                     <div className="max-w-md">
                         <div className="mb-2 block">
                             <Label htmlFor="category_id" value="Select the category" />
                         </div>
-                        <Select id="category_id" required onChange={userChange} value={books.category_id}>
+                        <Select id="category_id" required onChange={handleChange} value={books.category_id}>
                             <option value="" disabled>Choose the category</option>
                             {categories.map((category) => (
                                 <option key={category.id} value={category.id}>{category.category_name}</option>
@@ -114,7 +144,7 @@ export default function NewBooks() {
                         <div className="mb-2 block">
                             <Label htmlFor="author_id" value="Select the author" />
                         </div>
-                        <Select id="author_id" required onChange={userChange} value={books.author_id}>
+                        <Select id="author_id" required onChange={handleChange} value={books.author_id}>
                             <option value="" disabled>Choose the author</option>
                             {authors.map((authors) => (
                                 <option key={authors.id} value={authors.id} >{authors.name}</option>
