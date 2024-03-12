@@ -55,8 +55,8 @@ module.exports.delete = async (req, res) => {
     try {
         const existingId = await Authors.foundOneId(id);
         if (existingId.length >= 1) {
-            await Authors.Delete(id)
-            return res.status(200).json({ "mensagem": "Autor apagado com sucesso" });
+            const teste = await Authors.Delete(id)
+            return res.status(200).json(teste);
         }
 
         return res.status(422).json({ "mensagem": "Não existe esse id de author" });
