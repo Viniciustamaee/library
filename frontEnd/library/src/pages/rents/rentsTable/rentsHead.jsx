@@ -20,7 +20,6 @@ export default function rentsHead() {
                     </th>
                 </tr>
             </thead>
-
         </>
     )
 }

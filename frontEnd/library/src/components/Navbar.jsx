@@ -146,7 +146,7 @@ export default function Component() {
 
                     {hasToken && adminObject.admin == '1' ? <div className="flex flex-row">
                         <NavbarLink href="#" className='text-lg text-white'>
-                            <Link to="/Rents">All Rents</Link>
+                            <Link to={`Rents/${userData.id}`}>All Rents</Link>
                         </NavbarLink>
                         <svg class="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
@@ -161,10 +161,22 @@ export default function Component() {
                     </div>}
                     {hasToken && <div >
                         {<div className="flex flex-row">
-                            <NavbarLink className='text-lg text-white'><Link to="/Author/new">Authors</Link></NavbarLink>
-                            <svg class="w-6 h-6  text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-width="2" d="M7 17v1c0 .6.4 1 1 1h8c.6 0 1-.4 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            </svg>
+                            <Dropdown
+                                arrowIcon={false}
+                                inline
+                                label={
+                                    <a className='flex items-center text-lg text-white' >
+                                        Authors
+                                        <svg className="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 9-7 7-7-7" />
+                                        </svg>
+                                    </a>
+
+                                }
+                            >
+                                <Link to='Author'><Dropdown.Item>All Authors</Dropdown.Item></Link>
+                                <Link to='Author/new'><Dropdown.Item>New Auuthor</Dropdown.Item></Link>
+                            </Dropdown>
                         </div>}
                     </div>}
                 </NavbarCollapse>

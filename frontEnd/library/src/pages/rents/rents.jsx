@@ -5,7 +5,6 @@ import '../rents/rents.css'
 import axios from "axios";
 import { format } from 'date-fns';
 
-
 export default function Rents() {
     const [books, setBooks] = useState([]);
 

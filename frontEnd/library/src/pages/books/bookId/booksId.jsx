@@ -25,8 +25,8 @@ export default function haha() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/Books');
-                setBooks(response.data[id - 1]);
+                const response = await axios.get(`http://localhost:3000/Books/${id}`);
+                setBooks(response.data[0]);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
             }
@@ -86,6 +86,7 @@ export default function haha() {
 
         fectReview();
     }, []);
+
 
     return (
         <div className="flex justify-center">

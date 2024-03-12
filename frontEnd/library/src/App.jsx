@@ -15,6 +15,8 @@ import Rents from './pages/rents/rents'
 import Login from "./pages/user/login"
 import Teste from './pages/user/teste'
 import Home from "./pages/home/home"
+import AllAuthors from './pages/author/allAuthor'
+import EditAuthor from './pages/author/authorEdit'
 
 function App() {
   return (
@@ -53,7 +55,9 @@ function App() {
 
       {/* Author */}
       <Routes>
+        <Route path='/Author' element={<AllAuthors />} />
         <Route path='/Author/new' element={<NewAuthor />} />
+        <Route path='/Author/:id/edit' element={<EditAuthor />} />
       </Routes>
 
       <Footer />
