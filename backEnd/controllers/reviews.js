@@ -10,11 +10,6 @@ module.exports.allReviews = async (req, res) => {
 
     try {
         const allReviewBook = await Reviews.allReviewBook(id);
-
-        if (allReviewBook == '') {
-            return res.status(401).json({ "mensagem": "Não existe comentarios" })
-        }
-
         return res.status(200).json(allReviewBook);
     } catch (error) {
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });

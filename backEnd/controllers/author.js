@@ -11,10 +11,22 @@ module.exports.allAuthors = async (req, res) => {
 }
 
 
+module.exports.oneAuthor = async (req, res) => {
+    const { id } = req.params
+    try {
+        const oneAuthor = await Authors.oneAuthor(id);
+        return res.status(200).json(oneAuthor);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
+    }
+}
+
+
 module.exports.new = async (req, res) => {
     const { name } = req.body;
 
-    if (name === "") {
+    if (name == "") {
         return res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });
     }
 
@@ -55,8 +67,11 @@ module.exports.delete = async (req, res) => {
 }
 
 module.exports.updateName = async (req, res) => {
-    let { name } = req.body;
-    let { id } = req.params
+    const { name } = req.body;
+    const { id } = req.params
+
+
+    console.log(name)
 
     if (!/^[1-9]\d*$/.test(id)) {
         res.status(400).json({ "mensagem": "O 'id' deve ser um número inteiro positivo e não pode ter letras!!" });

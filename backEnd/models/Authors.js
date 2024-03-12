@@ -53,12 +53,25 @@ function Delete(id) {
             if (err) {
                 reject(err);
             } else {
-                let sql = `DELETE FROM authors WHERE id='${id}'`;
+                let sql = `DELETE FROM books WHERE author_id='${id}'`;
                 con.query(sql, (err, result) => {
                     if (err) {
                         reject(err);
+                        console.log(err)
                     } else {
                         resolve(result);
+                        let sql2 = `DELETE FROM authors WHERE id='${id}'`;
+                        con.query(sql2, (err, result) => {
+                            if (err) {
+                                reject(err)
+                                console.log(err)
+                            } else {
+                                resolve(result)
+                            }
+
+
+                        })
+
                     }
                 });
             }
@@ -95,6 +108,7 @@ function update(name, id) {
                 con.query(sql, (err, result) => {
                     if (err) {
                         reject(err);
+                        console.log(err)
                     } else {
                         resolve(result);
                     }
@@ -124,11 +138,32 @@ function allAuthors() {
     });
 };
 
+
+function oneAuthor(id) {
+    return new Promise((resolve, reject) => {
+        con.connect((err) => {
+            if (err) {
+                reject(err);
+            } else {
+                let sql = `SELECT * FROM authors WHERE id=${id}`;
+                con.query(sql, (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            }
+        });
+    });
+};
+
 module.exports = {
     foundOneName,
     foundOneId,
     newAuthors,
     Delete,
     update,
-    allAuthors
+    allAuthors,
+    oneAuthor
 }

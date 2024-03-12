@@ -9,6 +9,7 @@ router.post('/', valid, (authorsControllers.new));
 router.delete('/:id', valid, (authorsControllers.delete));
 router.put('/:id', valid, authorsControllers.updateName);
 router.get('/', authorsControllers.allAuthors);
+router.get('/:id', authorsControllers.oneAuthor)
 
 
 module.exports = router
