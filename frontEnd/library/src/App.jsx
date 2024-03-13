@@ -17,11 +17,15 @@ import Teste from './pages/user/teste'
 import Home from "./pages/home/home"
 import AllAuthors from './pages/author/allAuthor'
 import EditAuthor from './pages/author/authorEdit'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <>
       <Navbar className='mr-10 ' />
+      <ToastContainer />
+
 
       {/* Home */}
       <Routes>
