@@ -2,7 +2,6 @@ import axios from "axios";
 
 export default function rentsList({ rented_date, due_date, user_id, books_id, id }) {
 
-
     const deleteRents = async (e) => {
         e.preventDefault();
         const hasToken = localStorage.getItem('token');
@@ -22,7 +21,6 @@ export default function rentsList({ rented_date, due_date, user_id, books_id, id
             console.error('Error calling API:', error.message);
         }
     };
-
 
 
     return (

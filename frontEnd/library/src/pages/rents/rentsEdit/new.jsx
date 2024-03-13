@@ -13,7 +13,7 @@ export default function Rents() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/Books');
+                const response = await axios.get(`http://localhost:3000/Books`);
                 setBooks(response.data);
                 console.log(response.data)
             } catch (error) {
@@ -60,6 +60,7 @@ export default function Rents() {
         return format(date, 'dd-MM-yyyy');
     }
 
+
     return (
         <div className="pt-20 flex justify-center content-center " >
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -71,7 +72,7 @@ export default function Rents() {
                             rented_date={getStandardFormattedDateTime(rents.rented_date.slice(0, 10))}
                             due_date={getStandardFormattedDateTime(rents.due_date.slice(0, 10))}
                             user_id={user[rents.user_id - 1].username}
-                            books_id={books[rents.book_id - 1].title}
+                            books_id={books.find(book => book.id === rents.book_id)?.title || "N/A"}
                             id={rents.id} />
                     ))}
                 </table>
