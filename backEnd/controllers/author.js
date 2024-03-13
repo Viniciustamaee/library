@@ -53,12 +53,13 @@ module.exports.delete = async (req, res) => {
 
 
     try {
+
         const existingId = await Authors.foundOneId(id);
+
         if (existingId.length >= 1) {
             const teste = await Authors.Delete(id)
             return res.status(200).json(teste);
         }
-
         return res.status(422).json({ "mensagem": "Não existe esse id de author" });
 
     } catch (error) {
@@ -69,9 +70,6 @@ module.exports.delete = async (req, res) => {
 module.exports.updateName = async (req, res) => {
     const { name } = req.body;
     const { id } = req.params
-
-
-    console.log(name)
 
     if (!/^[1-9]\d*$/.test(id)) {
         res.status(400).json({ "mensagem": "O 'id' deve ser um número inteiro positivo e não pode ter letras!!" });

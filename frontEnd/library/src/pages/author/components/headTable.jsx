@@ -9,10 +9,10 @@ export default function authorHeads() {
                         Name
                     </th>
                     <th scope="col" class="px-6 py-3" >
-                        Edit
+                        Action
                     </th>
                     <th scope="col" class="px-6 py-3" >
-                        Delete
+                        Action
                     </th>
                 </tr>
             </thead>

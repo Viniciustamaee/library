@@ -49,57 +49,76 @@ function foundOneName(name) {
 
 function Delete(id) {
     return new Promise((resolve, reject) => {
+        console.log('caralho')
         con.connect((err) => {
             if (err) {
                 reject(err);
+                console.log(err)
             } else {
+                console.log('cu')
                 const sql1 = `SELECT id FROM books WHERE author_id = '${id}'`;
                 con.query(sql1, (err, result) => {
                     if (err) {
                         reject(err);
+                        console.log(err)
                     } else {
+                        console.log('pfv')
                         const ids = result.map(sla => sla.id);
                         let completedOperations = 0;
 
-                        for (let i = 0; i < ids.length; i++) {
-                            const apagaReview = `DELETE FROM reviews WHERE book_id = '${ids[i]}'`;
-                            con.query(apagaReview, (err) => {
+                        console.log(ids.length)
+
+                        if (ids.length == 0) {
+                            const apagaAuthor = `DELETE FROM authors WHERE id = '${id}'`;
+                            con.query(apagaAuthor, (err) => {
                                 if (err) {
                                     reject(err);
                                     console.log(err);
                                 } else {
-                                    console.log(`Reviews apagadas para book_id ${ids[i]}`);
-                                    const apagaRents = `DELETE FROM rents WHERE book_id = ${ids[i]}`;
-                                    con.query(apagaRents, (err) => {
-                                        if (err) {
-                                            reject(err);
-                                            console.log(err);
-                                        } else {
-                                            const apagaBooks = `DELETE FROM books WHERE id = ${ids[i]}`;
-                                            con.query(apagaBooks, (err) => {
-                                                if (err) {
-                                                    reject(err);
-                                                    console.log(err);
-                                                } else {
-                                                    completedOperations++;
-                                                    if (completedOperations === ids.length) {
-                                                        // Todas as operações concluídas, agora exclua o autor
-                                                        const apagaAuthor = `DELETE FROM authors WHERE id = '${id}'`;
-                                                        con.query(apagaAuthor, (err) => {
-                                                            if (err) {
-                                                                reject(err);
-                                                                console.log(err);
-                                                            } else {
-                                                                resolve("Operação concluída com sucesso");
-                                                            }
-                                                        });
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    });
+                                    resolve("Operação concluída com sucesso");
                                 }
-                            });
+                            })
+                        } else {
+                            for (let i = 0; i < ids.length; i++) {
+
+                                const apagaReview = `DELETE FROM reviews WHERE book_id = '${ids[i]}'`;
+                                con.query(apagaReview, (err) => {
+                                    if (err) {
+                                        reject(err);
+                                        console.log(err);
+                                    } else {
+                                        console.log(`Reviews apagadas para book_id ${ids[i]}`);
+                                        const apagaRents = `DELETE FROM rents WHERE book_id = ${ids[i]}`;
+                                        con.query(apagaRents, (err) => {
+                                            if (err) {
+                                                reject(err);
+                                                console.log(err);
+                                            } else {
+                                                const apagaBooks = `DELETE FROM books WHERE id = ${ids[i]}`;
+                                                con.query(apagaBooks, (err) => {
+                                                    if (err) {
+                                                        reject(err);
+                                                        console.log(err);
+                                                    } else {
+                                                        completedOperations++;
+                                                        if (completedOperations === ids.length) {
+                                                            const apagaAuthor = `DELETE FROM authors WHERE id = '${id}'`;
+                                                            con.query(apagaAuthor, (err) => {
+                                                                if (err) {
+                                                                    reject(err);
+                                                                    console.log(err);
+                                                                } else {
+                                                                    resolve("Operação concluída com sucesso");
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                         }
                     }
                 });

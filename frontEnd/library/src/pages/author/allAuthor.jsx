@@ -33,7 +33,6 @@ export default function AllAuthors() {
                             nameAuthor={author.name}
                             id={author.id}
                         />
-
                     ))}
                     <table />
                 </div>

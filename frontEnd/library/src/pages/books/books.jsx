@@ -5,7 +5,9 @@ import "../books/books.css";
 import axios from "axios";
 
 export default function Allbooks() {
+    const adminData = localStorage.getItem('user');
     const [books, setBooks] = useState([]);
+
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -70,10 +72,12 @@ export default function Allbooks() {
                             img={book.img}
                             id={book.id}
                             quantity={book.quantity_available}
+
                         />
 
                     ))}
                 </div>
+
 
 
                 <div id="background" className="mt-10  flex justify-around items-center">
@@ -92,7 +96,6 @@ export default function Allbooks() {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }

@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
-import GrupoButton from "../../components/buttonGruop";
-import BooksCover from "../books/components/bookCover"
-import { format } from 'date-fns';
-import axios from "axios";
-
+import { Link, useParams } from "react-router-dom";
 
 
 export default function Perfil() {
-
-    const adminData = localStorage.getItem('user');
-    const adminObject = JSON.parse(adminData);
+    const { id } = useParams();
 
 
     const [userData, setUserData] = useState('');
@@ -22,60 +16,6 @@ export default function Perfil() {
             setUserData(parsedUserData);
         }
     }, []);
-
-    const [books, setBooks] = useState([]);
-
-    useEffect(() => {
-        const fetchBooks = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/Books');
-                setBooks(response.data);
-            } catch (error) {
-                console.error("Erro ao buscar os livros:", error);
-            }
-        };
-
-        fetchBooks();
-    }, []);
-
-
-    const [rents, setRents] = useState([]);
-
-    useEffect(() => {
-        const fetchRents = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/Rents');
-                setRents(response.data);
-            } catch (error) {
-                console.error("Erro ao buscar os rents:", error);
-            }
-        };
-
-        fetchRents();
-    }, []);
-
-
-    const handDelete = async (id) => {
-        const hasToken = localStorage.getItem('token');
-
-        try {
-            const response = await axios.delete(`http://localhost:3000/Rents/${id}`, {
-                headers: {
-                    'Authorization': `Bearer ${hasToken}`,
-                },
-            });
-            console.log(response);
-        } catch (error) {
-            console.error('Error calling API:', error.message);
-        }
-    };
-
-
-
-    function getStandardFormattedDateTime(date = new Date()) {
-        return format(date, 'dd-MM-yyyy');
-    }
-
 
     return (
         <>
@@ -93,13 +33,23 @@ export default function Perfil() {
 
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center mb-5">{userData.description}</p>
 
-                        <GrupoButton
-                            urlLink={`/User/Perfil/${adminObject.id}/edit`}
-                        />
+
+                        <div className="flex justify-center">
+                            <div class="inline-flex rounded-md shadow-lg flex" role="group">
+                                <Link to={`/User/perfil/${id}/edit`}>
+                                    <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-400 rounded-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M7 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h1m4-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm7.4 1.6a2 2 0 0 1 0 2.7l-6 6-3.4.7.7-3.4 6-6a2 2 0 0 1 2.7 0Z" />
+                                        </svg>
+                                        Edit
+                                    </button>
+                                </Link>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     );
 }

@@ -16,7 +16,7 @@ export default function rentsHead() {
                         Book
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Edit
+                        Action
                     </th>
                 </tr>
             </thead>

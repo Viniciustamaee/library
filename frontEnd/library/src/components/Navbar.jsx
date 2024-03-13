@@ -141,7 +141,7 @@ export default function Component() {
                         <Link to='Books'><Dropdown.Item>Books</Dropdown.Item></Link>
                         <Link to='Books/allBooks'><Dropdown.Item>All books</Dropdown.Item></Link>
                         {hasToken && <Dropdown.Divider />}
-                        {hasToken && <Link to='Books/new'><Dropdown.Item>New book</Dropdown.Item></Link>}
+                        {hasToken && <Link to='Books/new'>{adminObject.admin == '1' && <Dropdown.Item>New book</Dropdown.Item>}</Link>}
                     </Dropdown>
 
                     {hasToken && adminObject.admin == '1' ? <div className="flex flex-row">
@@ -175,7 +175,7 @@ export default function Component() {
                                 }
                             >
                                 <Link to='Author'><Dropdown.Item>All Authors</Dropdown.Item></Link>
-                                <Link to='Author/new'><Dropdown.Item>New Auuthor</Dropdown.Item></Link>
+                                {adminObject == '0' && <Link to='Author/new'><Dropdown.Item>New Author</Dropdown.Item></Link>}
                             </Dropdown>
                         </div>}
                     </div>}

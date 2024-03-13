@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
+
 import axios from "axios";
 
 
@@ -7,6 +9,8 @@ export default function EditAuthor() {
     const { id } = useParams()
 
     const [authors, setAuthors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
 
 
     useEffect(() => {
@@ -33,17 +37,37 @@ export default function EditAuthor() {
                 },
             });
 
-            console.log(response);
-
-            window.location.href = `/Author`;
+            setIsSubmitting(true);
+            notifySuccess(`/Author`);
 
         } catch (error) {
             console.error('Error calling API:', error.message);
             if (error.response) {
                 console.error('Server response:', error.response.data);
-
+                setIsSubmitting(true);
+                notifyFail(`/Author/${id}/edit`);
             }
         }
+    };
+
+    const notifySuccess = (redirectUrl) => {
+        toast.success("Author insert with Sucess", {
+            position: "bottom-right",
+            autoClose: 1000,
+            onClose: () => {
+                window.location.href = redirectUrl;
+            },
+        });
+    };
+
+    const notifyFail = (redirectUrl) => {
+        toast.error("Change the name", {
+            position: "bottom-right",
+            autoClose: 1000,
+            onClose: () => {
+                window.location.href = redirectUrl;
+            },
+        });
     };
 
 
@@ -61,7 +85,7 @@ export default function EditAuthor() {
                             <input type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="J. K. Rowling" required onChange={(e) => setAuthors({ ...authors, name: e.target.value })} value={authors.name} />
                         </div>
 
-                        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save the Edit</button>
+                        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" disabled={isSubmitting}>Save the Edit</button >
                     </form>
                 </div>
             </div >

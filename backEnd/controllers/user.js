@@ -23,6 +23,17 @@ module.exports.allUsers = async (req, res) => {
 }
 
 
+module.exports.oneUser = async (req, res) => {
+    const { id } = req.params
+    try {
+        const oneUser = await Users.oneUser(id);
+        return res.status(200).json(oneUser);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
+    }
+}
+
 
 
 module.exports.new = async (req, res) => {

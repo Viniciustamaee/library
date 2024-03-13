@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 import axios from 'axios';
 
@@ -7,6 +9,9 @@ export default function editPerfil() {
     const { id } = useParams()
 
     const [imageUrl, setImageUrl] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+
 
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
@@ -26,6 +31,7 @@ export default function editPerfil() {
         e.preventDefault();
 
         try {
+            setIsSubmitting(true);
             const formDataObject = new FormData();
             formDataObject.append('email', user.email);
             formDataObject.append('username', user.username);
@@ -35,16 +41,17 @@ export default function editPerfil() {
 
             const response = await axios.put(`http://localhost:3000/User/Perfil/${id}/edit`, formDataObject, {});
 
-            clear()
+            notifySucess(`/User/perfil/${id}`);
+
+
         } catch (error) {
             console.error('Error calling API:', error.message);
-            if (error.response) {
-                console.error('Server response:', error.response.data);
-            }
+            setIsSubmitting(true);
+            notifyFail(`/User/Perfil/${id}/edit`)
         }
     };
 
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState({});
 
     const userChange = (e) => {
         setUser({
@@ -56,18 +63,39 @@ export default function editPerfil() {
 
     useEffect(() => {
         const fetchUser = async () => {
-
             try {
-                const response = await axios.get('http://localhost:3000/User');
-                setUser(response.data[id - 1]);
+                const response = await axios.get(`http://localhost:3000/User/${id}`);
+                setUser(response.data[0]);
+
             } catch (error) {
-                console.error("Erro ao buscar os livros:", error);
+                console.error("Error fetching user:", error);
+
             }
         };
 
         fetchUser();
-    }, []);
-    console.log(user)
+    }, [id]);
+
+    const notifySucess = () => {
+        toast.success("Logged in", {
+            position: "bottom-right",
+            autoClose: 1000,
+            onClose: () => {
+                clear()
+            },
+        });
+    };
+
+    const notifyFail = (redirectUrl) => {
+        toast.error("Usernmae or Email Incorrect!", {
+            position: "bottom-right",
+            autoClose: 1000,
+            onClose: () => {
+                window.location.href = redirectUrl;
+            },
+        });
+
+    };
 
 
     return (
@@ -76,7 +104,7 @@ export default function editPerfil() {
                 <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
 
                     <form className="space-y-6" onSubmit={handleSubmit}>
-                        <h5 className="text-xl font-medium text-gray-900 dark:text-white">Sign in Library</h5>
+                        <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">Edit Perfil</h5>
                         <div className="mb-6">
                             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
                             <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required onChange={userChange} value={user.email} />
@@ -89,7 +117,7 @@ export default function editPerfil() {
 
                         <div>
                             <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-                            <input type="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required onChange={userChange} value={user.password} />
+                            <input type="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required onChange={userChange} />
                         </div>
 
                         <div className="">
@@ -108,9 +136,9 @@ export default function editPerfil() {
                         </div>
 
                         <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
-                        <textarea id="description" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..." onChange={userChange} value={user.description}></textarea>
+                        <textarea id="description" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..." onChange={userChange} value={user.description} style={{ marginTop: "10px" }}></textarea>
 
-                        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Account</button>
+                        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" disabled={isSubmitting}>Edit Account</button>
                     </form>
                 </div>
             </div >

@@ -19,6 +19,6 @@ router.get('/', userControllers.allUsers)
 router.put('/Perfil/:id/edit', upload.single('img'), userControllers.update)
 router.post('/register', upload.single('img'), userControllers.new);
 router.post('/login', userControllers.login);
-router.get('/', userControllers.allUsers)
+router.get('/:id', userControllers.oneUser)
 
 module.exports = router;

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Label, Select } from 'flowbite-react';
 import { useParams } from "react-router-dom";
+import { toast } from 'react-toastify';
+
 import axios from "axios";
 
 export default function newBooks() {
 
-    const {id} = useParams()
+    const { id } = useParams()
+
+    const [isSubmitting, setIsSubmitting] = useState(false); // Novo estado
 
 
     const [books, setBooks] = useState({});
@@ -76,6 +80,7 @@ export default function newBooks() {
         const hasToken = localStorage.getItem('token');
 
         try {
+            setIsSubmitting(true);
             const formDataObject = new FormData();
             formDataObject.append('title', books.title);
             formDataObject.append('quantity_available', books.quantity_available);
@@ -92,14 +97,35 @@ export default function newBooks() {
                 },
             });
 
-            console.log(response);
-            window.location.href = `/Books/${id}`;
+            notifySucess('/Books/allBooks')
+
         } catch (error) {
             console.error('Error calling API:', error.message);
-            if (error.response) {
-                console.error('Server response:', error.response.data);
-            }
+            setIsSubmitting(true);
+            notifyFail('/Books/new')
+
         }
+    };
+
+    const notifySucess = (redirectUrl) => {
+        toast.success("Rent made", {
+            position: "bottom-right",
+            autoClose: 1000,
+            onClose: () => {
+                window.location.href = redirectUrl;
+            },
+        });
+    };
+
+    const notifyFail = (redirectUrl) => {
+        toast.error("Quantity is empty", {
+            position: "bottom-right",
+            autoClose: 1000,
+            onClose: () => {
+                window.location.href = redirectUrl;
+            },
+        });
+
     };
 
     return (
@@ -110,13 +136,13 @@ export default function newBooks() {
 
                     <div className="mb-6">
                         <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title of book</label>
-                        <input type="text" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Harry Potter" required onChange={handleChange} value={books.title}/>
+                        <input type="text" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Harry Potter" required onChange={handleChange} value={books.title} />
                     </div>
 
 
                     <div className="mb-6">
                         <label htmlFor="quantity_available" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity of stock</label>
-                        <input type="number" id="quantity_available" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="20" required onChange={handleChange} value={books.quantity_available}/>
+                        <input type="number" id="quantity_available" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="20" required onChange={handleChange} value={books.quantity_available} />
                     </div>
 
                     <div className="">
@@ -152,7 +178,7 @@ export default function newBooks() {
                         </Select>
                     </div>
 
-                    <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Account</button>
+                    <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" disabled={isSubmitting}>Create Account</button>
                 </form>
             </div>
         </div>

@@ -17,8 +17,6 @@ export default function Review({ comment, rating, username, id, idUrl, idReview 
                 const response = await axios.get('http://localhost:3000/User');
                 const filteredUsers = response.data.filter(user => user.id === id);
                 setUsers(filteredUsers);
-                console.log('sla');
-                console.log(filteredUsers);
             } catch (error) {
                 console.error("Erro ao buscar os usuários:", error);
             }
@@ -40,7 +38,6 @@ export default function Review({ comment, rating, username, id, idUrl, idReview 
             });
 
 
-            console.log(response);
             window.location.href = `/Books/${idUrl}`;
 
         } catch (error) {

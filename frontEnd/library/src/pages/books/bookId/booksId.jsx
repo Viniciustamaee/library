@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import { useState, useEffect } from "react";
 import Rating from '@mui/material/Rating';
+import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Review from "./reviewCard"
 import * as React from 'react';
@@ -15,6 +16,8 @@ export default function haha() {
     const { id } = useParams()
 
     const [books, setBooks] = useState([]);
+    const [isSubmitting, setIsSubmitting] = useState(false); // Novo estado
+
 
     const [formData, setFormData] = useState({
         comment: '',
@@ -54,13 +57,36 @@ export default function haha() {
                 },
             });
 
-            console.log(response);
-
-            window.location.href = `/Books/${id}`;
+            setIsSubmitting(true);
+            notifySucess(`/Books/${id}`);
 
         } catch (error) {
             console.error('Error calling API:', error.message);
+            setIsSubmitting(true);
+            notifyFail(`/Books/${id}`);
         }
+    };
+
+
+    const notifySucess = (redirectUrl) => {
+        toast.success("Comment Post", {
+            position: "bottom-right",
+            autoClose: 1000,
+            onClose: () => {
+                window.location.href = redirectUrl;
+            },
+        });
+    };
+
+    const notifyFail = (redirectUrl) => {
+        toast.error("Error in Comment", {
+            position: "bottom-right",
+            autoClose: 1000,
+            onClose: () => {
+                window.location.href = redirectUrl;
+            },
+        });
+
     };
 
     const handleRatingChange = (event, newValue) => {
@@ -78,7 +104,6 @@ export default function haha() {
             try {
                 const response = await axios.get(`http://localhost:3000/Review/${id}`);
                 setReview(response.data);
-                console.log(response.data);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
             }
@@ -86,6 +111,9 @@ export default function haha() {
 
         fectReview();
     }, []);
+
+
+
 
 
     return (
@@ -150,7 +178,7 @@ export default function haha() {
 
                             </div>
                             <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600 text-center">
-                                <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800 w-full" >
+                                <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800 w-full" disabled={isSubmitting}>
                                     <p className="mx-auto">Post comment</p>
                                 </button>
                             </div>
