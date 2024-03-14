@@ -7,9 +7,6 @@ const { storage } = require('../cloudinary/cloud')
 const multer = require('multer')
 const upload = multer({ storage })
 
-
-
-
 passport.use('login', userControllers.passwordValid);
 passport.deserializeUser(userControllers.valid);
 passport.serializeUser(userControllers.valid);

@@ -50,7 +50,6 @@ module.exports.delete = async (req, res) => {
         return;
     }
 
-
     try {
 
         const existingId = await Authors.foundOneId(id);

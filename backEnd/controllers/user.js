@@ -67,8 +67,6 @@ module.exports.update = async (req, res) => {
     const { id } = req.params
     const img = req.file.path
 
-    console.log(req.body)
-
     if (!email || !username || !password || !img || !description) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
     }

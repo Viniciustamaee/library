@@ -53,7 +53,6 @@ module.exports.oneBooks = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     const { id } = req.params
-    console.log(id)
 
     if (!/^[1-9]\d*$/.test(id)) {
         res.status(400).json({ "mensagem": "O 'id' deve ser um número inteiro positivo e não pode ter letras!!" });
@@ -78,8 +77,6 @@ module.exports.updateBooks = async (req, res) => {
     let { title, quantity_available, description, author_id, category_id } = req.body;
     let { id } = req.params
     const img = req.file.path
-
-    console.log(req.body)
 
     if (!title || !quantity_available || !img || !author_id || !category_id || !description) {
         return res.status(422).json({ "mensagem": "Campo é obrigatório!" });

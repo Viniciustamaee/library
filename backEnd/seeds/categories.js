@@ -1,4 +1,3 @@
-// Criar categorias padrões
 const con = require('../database/db')
 
 const category = ['Romance', 'Ficção científica', 'Fantasia', 'Terror', 'Mistério', 'Suspense', 'Drama', 'Comédia', 'Livro infantil']
