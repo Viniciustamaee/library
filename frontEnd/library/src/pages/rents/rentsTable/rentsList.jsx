@@ -22,7 +22,7 @@ export default function RentsList({ rented_date, due_date, user_id, books_id, id
             });
 
             setIsSubmitting(true);
-            notifySuccess(`/Rents/${id}`);
+            notifySuccess(`/Books`);
         } catch (error) {
             console.error('Error calling API:', error.message);
             setIsSubmitting(true);

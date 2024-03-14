@@ -9,14 +9,13 @@ import Review from "./reviewCard"
 import * as React from 'react';
 import axios from "axios";
 
-
 export default function haha() {
     const adminData = localStorage.getItem('user');
     const adminObject = JSON.parse(adminData);
     const { id } = useParams()
 
     const [books, setBooks] = useState([]);
-    const [isSubmitting, setIsSubmitting] = useState(false); // Novo estado
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
 
     const [formData, setFormData] = useState({
@@ -114,8 +113,6 @@ export default function haha() {
 
 
 
-
-
     return (
         <div className="flex justify-center">
             <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-2 gap-1">
@@ -126,7 +123,7 @@ export default function haha() {
                         </div>
                         <div class="p-5">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{books.title}</h5>
-                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{books.description}</p>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 break-all">{books.description}</p>
 
                             <GrupoButton
                                 id={id}

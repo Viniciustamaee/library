@@ -71,7 +71,7 @@ export default function Rents() {
                             key={rents.id}
                             rented_date={getStandardFormattedDateTime(rents.rented_date.slice(0, 10))}
                             due_date={getStandardFormattedDateTime(rents.due_date.slice(0, 10))}
-                            user_id={user[rents.user_id - 1].username}
+                            user_id={user.find(user => user.id === rents.user_id)?.username || "N/A"}
                             books_id={books.find(book => book.id === rents.book_id)?.title || "N/A"}
                             id={rents.id} />
                     ))}

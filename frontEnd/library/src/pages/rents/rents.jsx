@@ -69,6 +69,7 @@ export default function Rents() {
                             due_date={getStandardFormattedDateTime(rents.due_date.slice(0, 10))}
                             user_id={user[rents.user_id - 1].username}
                             books_id={books.find(book => book.id === rents.book_id)?.title || "N/A"}
+                            id_book={books.id}
                             id={rents.id} />
                     ))}
                 </table>

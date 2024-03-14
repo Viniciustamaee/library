@@ -20,8 +20,15 @@ export default function Component() {
     const hasToken = localStorage.getItem('token')
     const adminData = localStorage.getItem('user');
     const adminObject = JSON.parse(adminData);
+    const currentUrl = window.location.href;
 
-
+    const backGround = () => {
+        if (currentUrl === "http://localhost:8000/") {
+            return "fixed bg-tranparent";
+        } else {
+            return "bg-tranparent ";
+        }
+    }
 
     if (adminData) {
         const adminObject = JSON.parse(adminData);
@@ -53,8 +60,8 @@ export default function Component() {
     }, []);
 
     return (
-        <div className=" w-full z-50">
-            <Navbar fluid rounded className="bg-transparent">
+        <div className=" flex content-between " >
+            {<Navbar fluid rounded className={`w-screen ${backGround()}`} >
 
                 <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                     <svg className="w-10 h-10 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -91,7 +98,7 @@ export default function Component() {
                             </div>
                         </Link>
 
-                        <Link to={`Rents/${userData.id}`}>
+                        {hasToken && <Link to={`Rents/${userData.id}`}>
                             <div className="flex flex-row">
                                 <DropdownItem>
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -100,7 +107,7 @@ export default function Component() {
                                     Rents</DropdownItem>
                             </div>
                             <DropdownDivider />
-                        </Link>
+                        </Link>}
 
 
                         <div className="flex flex-row">
@@ -117,56 +124,60 @@ export default function Component() {
 
                     <NavbarToggle />
                 </div>
+
+
                 <NavbarCollapse>
-                    <div className="flex flex-row">
-                        <NavbarLink className='text-lg text-white '><Link to="/">Home
-                        </Link></NavbarLink>
-                        <svg class="w-6 h-6 ml-2 text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5" />
-                        </svg>
+                    <div className="xl:flex flex-row text-center">
+                        <NavbarLink className='text-lg text-white hover:bg-transparent'><Link to="/">Home</Link>
+                            <svg class="w-6 h-6 ml-2  mb-1 text-white hidden sm:inline " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5" />
+                            </svg>
+
+                        </NavbarLink>
                     </div>
-                    <Dropdown
-                        arrowIcon={false}
-                        inline
-                        label={
-                            <a className='flex items-center text-lg text-white' >
-                                Books
-                                <svg className="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 9-7 7-7-7" />
-                                </svg>
-                            </a>
 
-                        }
-                    >
-                        <Link to='Books'><Dropdown.Item>Books</Dropdown.Item></Link>
-                        <Link to='Books/allBooks'><Dropdown.Item>All books</Dropdown.Item></Link>
-                        {hasToken && <Dropdown.Divider />}
-                        {hasToken && <Link to='Books/new'>{adminObject.admin == '1' && <Dropdown.Item>New book</Dropdown.Item>}</Link>}
-                    </Dropdown>
 
-                    {hasToken && adminObject.admin == '1' ? <div className="flex flex-row">
-                        <NavbarLink href="#" className='text-lg text-white'>
-                            <Link to={`Rents/${userData.id}`}>All Rents</Link>
+                    {hasToken && <div className="xl:flex flex-row text-center">
+                        <NavbarLink href="#" className='text-lg text-white hover:bg-transparent'>
+                            <Link to={`Rents/${userData.id}`}>Rents</Link>
+                            <svg class="w-6 h-6 ml-2 text-white hidden sm:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
+                            </svg>
                         </NavbarLink>
-                        <svg class="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
-                        </svg>
-                    </div> : <div className="flex flex-row">
-                        <NavbarLink href="#" className='text-lg text-white'>
-                            <Link to={`/Rents/${userData.id}`}>Rents</Link>
-                        </NavbarLink>
-                        <svg class="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
-                        </svg>
-                    </div>}
-                    {hasToken && <div >
-                        {<div className="flex flex-row">
+                    </div>
+                    }
+
+                    <div className="flex justify-around	">
+                        {hasToken && <div>
+                            {<div >
+                                <div className="flex justify-center mr-5">
+                                    <Dropdown
+                                        arrowIcon={false}
+                                        inline
+                                        label={
+                                            <a className='flex items-center text-lg text-white' >
+                                                Authors
+                                                <svg className="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 9-7 7-7-7" />
+                                                </svg>
+                                            </a>
+
+                                        }
+                                    >
+                                        <Link to='Author'><Dropdown.Item>All Authors</Dropdown.Item></Link>
+                                        {adminObject.admin == '1' && <Link to='Author/new'><Dropdown.Item>New Author</Dropdown.Item></Link>}
+                                    </Dropdown>
+                                </div>
+                            </div>}
+                        </div>}
+                        <div className="flex justify-center">
                             <Dropdown
                                 arrowIcon={false}
                                 inline
+                                className=''
                                 label={
                                     <a className='flex items-center text-lg text-white' >
-                                        Authors
+                                        Books
                                         <svg className="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 9-7 7-7-7" />
                                         </svg>
@@ -174,13 +185,15 @@ export default function Component() {
 
                                 }
                             >
-                                <Link to='Author'><Dropdown.Item>All Authors</Dropdown.Item></Link>
-                                {adminObject == '0' && <Link to='Author/new'><Dropdown.Item>New Author</Dropdown.Item></Link>}
+                                <Link to='Books'><Dropdown.Item>Books</Dropdown.Item></Link>
+                                <Link to='Books/allBooks'><Dropdown.Item>All books</Dropdown.Item></Link>
+                                {hasToken && <Dropdown.Divider />}
+                                {hasToken && <Link to='Books/new'>{adminObject.admin == '1' && <Dropdown.Item>New book</Dropdown.Item>}</Link>}
                             </Dropdown>
-                        </div>}
-                    </div>}
+                        </div>
+                    </div>
                 </NavbarCollapse>
-            </Navbar>
+            </Navbar>}
         </div >
     );
 }

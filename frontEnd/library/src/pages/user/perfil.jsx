@@ -31,7 +31,7 @@ export default function Perfil() {
                             </h5>
                         </div>
 
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center mb-5">{userData.description}</p>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center mb-5 break-all">{userData.description}</p>
 
 
                         <div className="flex justify-center">

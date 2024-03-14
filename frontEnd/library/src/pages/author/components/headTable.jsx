@@ -1,4 +1,6 @@
 export default function authorHeads() {
+    const adminData = localStorage.getItem('user');
+    const adminObject = JSON.parse(adminData);
 
 
     return (
@@ -8,12 +10,12 @@ export default function authorHeads() {
                     <th scope="col" class="px-6 py-3">
                         Name
                     </th>
-                    <th scope="col" class="px-6 py-3" >
+                    {adminObject.admin == '1' && <th scope="col" class="px-6 py-3" >
                         Action
-                    </th>
-                    <th scope="col" class="px-6 py-3" >
+                    </th>}
+                    {adminObject.admin == '1' && <th scope="col" class="px-6 py-3" >
                         Action
-                    </th>
+                    </th>}
                 </tr>
             </thead>
         </>
