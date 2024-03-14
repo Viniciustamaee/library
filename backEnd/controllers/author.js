@@ -10,7 +10,6 @@ module.exports.allAuthors = async (req, res) => {
     }
 }
 
-
 module.exports.oneAuthor = async (req, res) => {
     const { id } = req.params
     try {
