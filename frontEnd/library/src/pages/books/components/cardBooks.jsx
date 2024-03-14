@@ -9,7 +9,7 @@ export default function CardBooks({ title, img, id, quantity, description }) {
                 <div className="">
                     <a href="#" class="flex flex-col bg-black rounded-lg shadow-lg md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 m-3  " style={{ backgroundColor: "#cccccc" }}
                     >
-                        <img className="object-cover w-full rounded-t-lg h-48 md:h-80 md:w-48 md:rounded-none md:rounded-s-lg" src={img} alt="" />
+                        <img className="object-cover w-full rounded-t-lg h-48 md:h-80 md:w-48 md:rounded-none md:rounded-s-lg " src={img} alt="" />
 
                         <div className="flex flex-col p-2 leading-normal justify-between" id='text'>
                             <div className="flex flex-col justify-between p-2 leading-normal">

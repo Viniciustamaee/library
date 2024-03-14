@@ -3,16 +3,14 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const Register = () => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [imageUrl, setImageUrl] = useState('');
     const [formData, setFormData] = useState({
         email: '',
         username: '',
         password: '',
         description: ''
     });
-
-    const [imageUrl, setImageUrl] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
 
     const handleChange = (e) => {
         setFormData({
@@ -29,11 +27,11 @@ const Register = () => {
         }
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
+            setIsSubmitting(true);
             const formDataObject = new FormData();
             formDataObject.append('email', formData.email);
             formDataObject.append('username', formData.username);
@@ -42,7 +40,6 @@ const Register = () => {
             formDataObject.append('description', formData.description);
 
             const response = await axios.post('http://localhost:3000/User/register', formDataObject, {});
-            setIsSubmitting(true);
             notifySucess('/User/login');
         } catch (error) {
             console.error('Error calling API:', error.message);
@@ -56,7 +53,7 @@ const Register = () => {
     };
 
     const notifySucess = (redirectUrl) => {
-        toast.success("Logged in", {
+        toast.success("Create user", {
             position: "bottom-right",
             autoClose: 1000,
             onClose: () => {
@@ -76,11 +73,9 @@ const Register = () => {
 
     };
 
-
-
     return (
         <>
-            <div className="flex items-center justify-center h-screen">
+            <div className="flex items-center justify-center h-4/5 mt-5">
                 <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
 
                     <form className="space-y-6" onSubmit={handleSubmit}>

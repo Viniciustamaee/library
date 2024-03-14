@@ -1,21 +1,12 @@
-import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 import axios from 'axios';
 
 
 export default function newAuthor() {
 
-    const [authors, setAuthors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-
-
-    const handleChange = (e) => {
-        setAuthors({
-            ...authors,
-            [e.target.id]: e.target.value,
-        });
-    };
+    const [authors, setAuthors] = useState({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,7 +31,6 @@ export default function newAuthor() {
         }
     };
 
-
     const notifySuccess = (redirectUrl) => {
         toast.success("Author insert with Sucess", {
             position: "bottom-right",
@@ -60,9 +50,16 @@ export default function newAuthor() {
             },
         });
     };
+
+    const handleChange = (e) => {
+        setAuthors({
+            ...authors,
+            [e.target.id]: e.target.value,
+        });
+    };
     return (
         <>
-            <div className="flex items-center justify-center h-screen">
+            <div className="flex items-center justify-center " style={{ height: "70vh" }}>
                 <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
 
                     <form className="space-y-6" onSubmit={handleSubmit}>

@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 
 export default function Perfil() {
-    const { id } = useParams();
-
-
     const [userData, setUserData] = useState('');
+    const { id } = useParams();
 
     useEffect(() => {
         const userDataFromStorage = localStorage.getItem('user');
@@ -19,9 +17,9 @@ export default function Perfil() {
 
     return (
         <>
-            <div className="flex justify-center">
+            <div className="flex justify-center ">
                 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
-                    <img class="rounded-lg" src={userData.img} alt="" />
+                    <img class="rounded-lg h-96 w-auto ml-1" src={userData.img} alt="" />
 
                     <div class="p-5">
                         <div className="emailAndUsername">
@@ -32,7 +30,6 @@ export default function Perfil() {
                         </div>
 
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center mb-5 break-all">{userData.description}</p>
-
 
                         <div className="flex justify-center">
                             <div class="inline-flex rounded-md shadow-lg flex" role="group">

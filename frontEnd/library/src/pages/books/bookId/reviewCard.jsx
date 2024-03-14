@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-
-
 export default function Review({ comment, rating, username, id, idUrl, idReview }) {
 
     const adminData = localStorage.getItem('user');
     const adminObject = JSON.parse(adminData);
-
     const [users, setUsers] = useState([]);
+
 
 
     useEffect(() => {

@@ -1,6 +1,6 @@
-import BooksCover from "../components/bookCover";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import BooksCover from "./components/bookCover";
+import axios from "axios";
 
 
 
@@ -21,6 +21,7 @@ export default function allBooks() {
 
         fetchBooks();
     }, []);
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-1 p-5 gap-4">
 

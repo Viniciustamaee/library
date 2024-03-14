@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
-
 import axios from 'axios';
 
+
+
 export default function editPerfil() {
-    const { id } = useParams()
 
     const [imageUrl, setImageUrl] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { id } = useParams()
 
 
 
@@ -77,7 +77,7 @@ export default function editPerfil() {
     }, [id]);
 
     const notifySucess = () => {
-        toast.success("Logged in", {
+        toast.success("User edit", {
             position: "bottom-right",
             autoClose: 1000,
             onClose: () => {
@@ -87,7 +87,7 @@ export default function editPerfil() {
     };
 
     const notifyFail = (redirectUrl) => {
-        toast.error("Usernmae or Email Incorrect!", {
+        toast.error("Error to edit", {
             position: "bottom-right",
             autoClose: 1000,
             onClose: () => {

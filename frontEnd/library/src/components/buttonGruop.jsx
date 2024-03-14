@@ -117,7 +117,7 @@ export default function GrupoButton({ urlLink, quantity }) {
     };
 
     const notifyDelete = (redirectUrl) => {
-        toast.error("Delete done", {
+        toast.success("Delete done", {
             position: "bottom-right",
             autoClose: 1000,
             onClose: () => {

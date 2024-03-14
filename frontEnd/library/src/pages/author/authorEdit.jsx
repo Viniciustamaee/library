@@ -11,8 +11,6 @@ export default function EditAuthor() {
     const [authors, setAuthors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-
-
     useEffect(() => {
         const fetchAuthors = async () => {
             try {
@@ -69,9 +67,6 @@ export default function EditAuthor() {
             },
         });
     };
-
-
-
 
     return (
         <>

@@ -22,19 +22,21 @@ export default function AllAuthors() {
 
     return (
         <>
-            <div className="pt-20 flex justify-center content-center " >
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"></table>
-                    <AuthorHeads />
+            <div className="">
+                <div className=" flex justify-center content-center " >
+                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"></table>
+                        <AuthorHeads />
 
-                    {authors.map((author) => (
-                        <AuthorList
-                            key={author.id}
-                            nameAuthor={author.name}
-                            id={author.id}
-                        />
-                    ))}
-                    <table />
+                        {authors.map((author) => (
+                            <AuthorList
+                                key={author.id}
+                                nameAuthor={author.name}
+                                id={author.id}
+                            />
+                        ))}
+                        <table />
+                    </div>
                 </div>
             </div>
         </>

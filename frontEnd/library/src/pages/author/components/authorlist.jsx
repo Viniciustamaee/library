@@ -6,12 +6,16 @@ import axios from "axios";
 export default function authorList({ nameAuthor, id }) {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const hasToken = localStorage.getItem('token');
     const adminData = localStorage.getItem('user');
     const adminObject = JSON.parse(adminData);
 
     const deleteAuthor = async (e) => {
         e.preventDefault();
-        const hasToken = localStorage.getItem('token');
+        if (isSubmitting) {
+            return;
+        }
+
 
         try {
             const response = await axios.delete(`http://localhost:3000/Authors/${id}`, {
@@ -22,7 +26,6 @@ export default function authorList({ nameAuthor, id }) {
 
             console.log(response)
 
-            setIsSubmitting(true);
             notifySuccess(`/Author`)
 
         } catch (error) {
@@ -33,7 +36,7 @@ export default function authorList({ nameAuthor, id }) {
     };
 
     const notifySuccess = (redirectUrl) => {
-        toast.success("Author insert with Sucess", {
+        toast.success("Author delete", {
             position: "bottom-right",
             autoClose: 1000,
             onClose: () => {

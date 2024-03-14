@@ -10,19 +10,26 @@ import * as React from 'react';
 import axios from "axios";
 
 export default function haha() {
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const adminData = localStorage.getItem('user');
     const adminObject = JSON.parse(adminData);
-    const { id } = useParams()
-
+    const [review, setReview] = useState([]);
     const [books, setBooks] = useState([]);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
+    const { id } = useParams()
 
     const [formData, setFormData] = useState({
         comment: '',
         rating: '',
         user_id: adminObject.id,
     });
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.id]: e.target.value,
+        });
+    };
+
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -36,13 +43,6 @@ export default function haha() {
 
         fetchBooks();
     }, []);
-
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.id]: e.target.value,
-        });
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -65,7 +65,6 @@ export default function haha() {
             notifyFail(`/Books/${id}`);
         }
     };
-
 
     const notifySucess = (redirectUrl) => {
         toast.success("Comment Post", {
@@ -95,9 +94,6 @@ export default function haha() {
         });
     };
 
-    const [review, setReview] = useState([]);
-
-
     useEffect(() => {
         const fectReview = async () => {
             try {
@@ -111,8 +107,6 @@ export default function haha() {
         fectReview();
     }, []);
 
-
-
     return (
         <div className="flex justify-center">
             <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-2 gap-1">
@@ -123,7 +117,7 @@ export default function haha() {
                         </div>
                         <div class="p-5">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{books.title}</h5>
-                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 break-all">{books.description}</p>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 ">{books.description}</p>
 
                             <GrupoButton
                                 id={id}

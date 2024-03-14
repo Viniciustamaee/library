@@ -8,8 +8,9 @@ export default function Footer() {
         if (currentUrl === "http://localhost:8000/") {
             return "fixed bg-transparent bottom-0 left-0 z-20 w-full p-4 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600";
         } else {
-            return " bottom bg-transparent  left-0 w-full  p-4 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600 ";
+            return " fixed inset-x-0 bottom-0 bottom bg-transparent  left-0 w-full  p-4 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600 ";
         }
+
     }
 
     return (
