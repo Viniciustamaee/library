@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser');
 const express = require('express')
-const port = process.env.NODE_PORT;
+const port = 3000;
 const cors = require('cors');
 require('dotenv').config();
 const app = express();
@@ -8,6 +8,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+
 
 const categories = require('./router/categories')
 const authors = require('./router/authors');

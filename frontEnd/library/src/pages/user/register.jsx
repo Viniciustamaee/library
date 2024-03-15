@@ -46,7 +46,6 @@ const Register = () => {
                 setIsSubmitting(true);
                 console.error('Server response:', error.response.data);
                 notifyFail('/User/register')
-
             }
         }
     };
