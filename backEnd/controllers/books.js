@@ -10,10 +10,12 @@ module.exports.allBooks = async (req, res) => {
 }
 
 module.exports.newBooks = async (req, res) => {
-    const { title, quantity_available, author_id, category_id, description } = req.body
-    const img = req.file.path
+    const { title, quantity_available, author_id, category_id, description } = req.body;
 
-    if (!title || !quantity_available || !img || !author_id || !category_id || !description) {
+    // Verifica se um arquivo foi enviado e atribui o caminho do arquivo a img, caso contrário, usa a imagem padrão
+    const img = req.file ? req.file.path : "https://res.cloudinary.com/dtuxy5k7v/image/upload/v1710514781/vector-flat-illustration-grayscale-avatar-600nw-2281862025_grjznc.jpg";
+
+    if (!title || !quantity_available || !author_id || !category_id || !description) {
         return res.status(422).json({ "mensagem": "Campo é obrigatório!" });
     }
 
@@ -25,8 +27,8 @@ module.exports.newBooks = async (req, res) => {
         const existingTitle = await Books.foundOneName(title);
         if (existingTitle.length >= 1) {
             return res.status(409).json({ "mensagem": "Este livro já existe!" });
-
         }
+
         await Books.newBooks(title, quantity_available, img, description, author_id, category_id);
         return res.status(200).json({ "mensagem": "Livro inserido com sucesso!" });
 
@@ -34,6 +36,7 @@ module.exports.newBooks = async (req, res) => {
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }
 };
+
 
 module.exports.oneBooks = async (req, res) => {
     const { id } = req.params
