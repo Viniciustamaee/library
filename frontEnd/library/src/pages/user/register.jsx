@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const Register = () => {
-    const PORT = process.env.PORT
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [formData, setFormData] = useState({
@@ -40,7 +39,7 @@ const Register = () => {
             formDataObject.append('img', imageUrl);
             formDataObject.append('description', formData.description);
 
-            const response = await axios.post(`http://localhost:${PORT}/User/register`, formDataObject, {});
+            const response = await axios.post(`http://localhost:${import.meta.env.VITE_PORT}/User/register`, formDataObject, {});
             notifySucess('/User/login');
         } catch (error) {
             console.error('Error calling API:', error.message);
