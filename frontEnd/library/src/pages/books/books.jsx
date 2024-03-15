@@ -13,12 +13,10 @@ export default function Allbooks() {
             try {
                 const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Books`);
                 setBooks(response.data);
-                setIsAuthenticated(true);
                 console.log(response.data)
 
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
-                setIsAuthenticated(false);
 
             }
         };
@@ -40,11 +38,14 @@ export default function Allbooks() {
         fetchBooks();
     }, []);
 
+
+    console.log();
+
     return (
         <>
             <div className="xl:container mx-auto px-1">
                 <div className="flex text-center justify-center ">
-                    <h1 className="ml-5 mr-5 text-3xl">Famous Books</h1>
+                    {books.length == 0 ? <h1 className="ml-5 mr-5 text-3xl hidden">Famous Books</h1> : <h1 className="ml-5 mr-5 text-3xl">Famous Books</h1>}
                 </div>
                 <div className="flex justify-center">
                     {<div className="grid md:grid-cols-1 xl:grid-cols-3 gap-1 ">
@@ -90,11 +91,11 @@ export default function Allbooks() {
                 </div>
 
                 <div className="flex pt-10 text-center	justify-center ">
-                    <h1 className="ml-5 mr-5 text-3xl mb-2">Books</h1>
+                    {books.length == 0 ? <h1 className="ml-5 mr-5 text-3xl mb-2 hidden">Books</h1> : <h1 className="ml-5 mr-5 text-3xl mb-2">Books</h1>}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-1 flex justify-center ">
-                    {books.slice(3, 7).map((book) => (
+                    {books.slice(0, 4).map((book) => (
                         <BooksCover
                             key={book.id}
                             className='h-auto max-w-full rounded-lg'

@@ -1,8 +1,14 @@
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from '@mui/icons-material/Visibility';
+import IconButton from '@mui/material/IconButton';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const Register = () => {
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const [showPassword, setShowPassword] = React.useState(false);
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
     const [formData, setFormData] = useState({
@@ -17,6 +23,10 @@ const Register = () => {
             ...formData,
             [e.target.id]: e.target.value,
         });
+    };
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
     };
 
     const handleFileChange = async (e) => {
@@ -88,9 +98,28 @@ const Register = () => {
                             <input type="text" id="username" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Admin" required onChange={handleChange} />
                         </div>
 
-                        <div>
+                        <div className=''>
                             <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-                            <input type="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required onChange={handleChange} />
+                            <div className='relative'>
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    id="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    placeholder="••••••••"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    required
+                                />
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                    style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)' }}
+                                >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </div>
                         </div>
 
                         <div className="">
