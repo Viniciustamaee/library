@@ -1,11 +1,9 @@
-const session = require('express-session');
 const bodyParser = require('body-parser');
-const passport = require('passport');
 const express = require('express')
+const port = process.env.NODE_PORT;
 const cors = require('cors');
 require('dotenv').config();
 const app = express();
-const port = process.env.NODE_PORT;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
@@ -20,6 +18,7 @@ const rents = require('./router/rents')
 
 const category = require('./seeds/categories')
 const admin = require('./seeds/admin')
+const author = require('./seeds/author')
 
 app.use(cors({
     origin: `http://localhost:${process.env.VITE_PORT}`,
