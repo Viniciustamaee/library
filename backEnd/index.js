@@ -3,8 +3,9 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const express = require('express')
 const cors = require('cors');
+require('dotenv').config();
 const app = express();
-const port = 3000;
+const port = process.env.NODE_PORT;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
@@ -21,7 +22,7 @@ const category = require('./seeds/categories')
 const admin = require('./seeds/admin')
 
 app.use(cors({
-    origin: 'http://localhost:8000',
+    origin: `http://localhost:${process.env.VITE_PORT}`,
     credentials: true
 }));
 

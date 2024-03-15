@@ -18,8 +18,7 @@ con.connect((err) => {
                 } else if (result.length > 0) {
                     console.log('Usuário administrador já existe');
                 } else {
-                    // URL do banco
-                    const insertAdminQuery = `INSERT INTO users (email, username, password, img, description ,admin) VALUES ('admin@library.com', 'admin', '${passwordHash}', 'https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2281862025.jpg', 'Eu amo livros HAHAHAHAHAH','1')`;
+                    const insertAdminQuery = `INSERT INTO users (email, username, password, img, description ,admin) VALUES ('admin@library.com', 'admin', '${passwordHash}', 'https://res.cloudinary.com/dtuxy5k7v/image/upload/v1710514781/vector-flat-illustration-grayscale-avatar-600nw-2281862025_grjznc.jpg', 'Eu amo livros HAHAHAHAHAH','1')`;
 
                     con.query(insertAdminQuery, (err, result) => {
                         if (err) {

@@ -14,7 +14,7 @@ export default function EditAuthor() {
     useEffect(() => {
         const fetchAuthors = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/Authors/${id}`);
+                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Authors/${id}`);
                 setAuthors(response.data[0]);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
@@ -29,7 +29,7 @@ export default function EditAuthor() {
         const hasToken = localStorage.getItem('token');
 
         try {
-            const response = await axios.put(`http://localhost:3000/Authors/${id}`, authors, {
+            const response = await axios.put(`http://localhost:${import.meta.env.VITE_PORT}/Authors/${id}`, authors, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },

@@ -18,7 +18,7 @@ export default function authorList({ nameAuthor, id }) {
 
 
         try {
-            const response = await axios.delete(`http://localhost:3000/Authors/${id}`, {
+            const response = await axios.delete(`http://localhost:${import.meta.env.VITE_PORT}/Authors/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },

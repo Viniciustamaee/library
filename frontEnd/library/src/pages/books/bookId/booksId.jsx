@@ -34,7 +34,7 @@ export default function haha() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/Books/${id}`);
+                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Books/${id}`);
                 setBooks(response.data[0]);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
@@ -48,7 +48,7 @@ export default function haha() {
         e.preventDefault();
         const hasToken = localStorage.getItem('token');
         try {
-            const response = await axios.post(`http://localhost:3000/Review/${id}`, {
+            const response = await axios.post(`http://localhost:${import.meta.env.VITE_PORT}/Review/${id}`, {
                 ...formData,
             }, {
                 headers: {
@@ -97,7 +97,7 @@ export default function haha() {
     useEffect(() => {
         const fectReview = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/Review/${id}`);
+                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Review/${id}`);
                 setReview(response.data);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);

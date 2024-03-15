@@ -15,7 +15,7 @@ export default function RentsList({ rented_date, due_date, user_id, books_id, id
         const hasToken = localStorage.getItem('token');
 
         try {
-            const response = await axios.delete(`http://localhost:3000/Rents/${id}`, {
+            const response = await axios.delete(`http://localhost:${import.meta.env.VITE_PORT}/Rents/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },

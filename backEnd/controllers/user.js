@@ -5,12 +5,11 @@ const Users = require('../models/Users');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const scretKey = 'teste' //Aqui vai ficar .env
+const scretKey = process.env.SECRET_KEY
 
 module.exports.valid = function (user, done) {
     done(null, user);
 }
-
 
 module.exports.allUsers = async (req, res) => {
     try {
@@ -87,16 +86,6 @@ module.exports.update = async (req, res) => {
 
     }
 };
-
-
-
-
-
-
-
-
-
-
 
 module.exports.passwordValid = new LocalStrategy(function (username, password, done) {
     Users.login(username)

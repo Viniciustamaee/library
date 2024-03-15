@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Label, Select } from 'flowbite-react';
 import { useParams } from "react-router-dom";
 import { toast } from 'react-toastify';
-
 import axios from "axios";
 
 export default function newBooks() {
@@ -17,7 +16,7 @@ export default function newBooks() {
     useEffect(() => {
         const fectcBooks = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/Books/${id}`);
+                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Books/${id}`);
                 setBooks(response.data[0]);
                 console.log(response.data)
             } catch (error) {
@@ -46,7 +45,7 @@ export default function newBooks() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/Categories');
+                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Categories`);
                 setCategories(response.data);
             } catch (error) {
                 console.error("Error fetching categories:", error);
@@ -60,7 +59,7 @@ export default function newBooks() {
     useEffect(() => {
         const fetchAuthors = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/Authors');
+                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Authors`);
                 setAuthors(response.data);
             } catch (error) {
                 console.error("Error fetching authors:", error);

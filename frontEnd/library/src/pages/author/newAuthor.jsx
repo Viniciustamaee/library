@@ -15,7 +15,7 @@ export default function newAuthor() {
         try {
 
 
-            const response = await axios.post('http://localhost:3000/Authors', authors, {
+            const response = await axios.post(`http://localhost:${import.meta.env.VITE_PORT}/Authors`, authors, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },

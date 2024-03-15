@@ -14,7 +14,7 @@ export default function Rents() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/Books`);
+                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Books`);
                 setBooks(response.data);
                 console.log(response.data)
             } catch (error) {

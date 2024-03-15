@@ -1,7 +1,7 @@
 #container {
     height: 100vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-        url("https://images.unsplash.com/photo-1531429745839-827a6a45e040?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        url("https://res.cloudinary.com/dtuxy5k7v/image/upload/v1710515062/photo-1544640808-32ca72ac7f37_rbdc3c.jpg");
     background-size: cover;
     background-position: center;
     text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);

@@ -4,9 +4,7 @@ import axios from 'axios';
 
 
 const Login = () => {
-
     const [isSubmitting, setIsSubmitting] = useState(false);
-
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -29,7 +27,7 @@ const Login = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:3000/User/login', formData, config);
+            const response = await axios.post(`http://localhost:${import.meta.env.VITE_PORT}/User/login`, formData, config);
             const data = response.data;
             setIsSubmitting(true);
 
@@ -71,7 +69,7 @@ const Login = () => {
 
     return (
         <>
-            <div className="flex items-center justify-center h-4/5">
+            <div className="flex items-center justify-center" style={{ height: "70vh" }}>
                 <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">Sign in Library</h5>
@@ -93,6 +91,7 @@ const Login = () => {
                     </form>
                 </div>
             </div >
+
         </>
     );
 };
