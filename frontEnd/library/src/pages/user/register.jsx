@@ -26,7 +26,6 @@ const Register = () => {
             setImageUrl(file);
         }
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
