@@ -7,15 +7,13 @@ const con = mysql.createConnection({
     database: process.env.DB_DATABASE
 });
 
-con.connect(function (err) {
-    while (err) {
-        if (err) {
-            return console.error('Error connecting to MySQL database:', err);
-        } else {
-            console.log('Connected to MySQL database');
-        }
-    }
 
-});
+(con.connect(function (err) {
+    if (err) {
+        return console.error('Erro ao conectar ao banco de dados MySQL:', err);
+    } else {
+        console.log('Conectado ao banco de dados MySQL');
+    }
+}), 5000);
 
 module.exports = con

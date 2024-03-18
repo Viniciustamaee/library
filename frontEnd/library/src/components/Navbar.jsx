@@ -26,7 +26,7 @@ export default function Component() {
         if (currentUrl === "http://localhost:8000/") {
             return "fixed bg-tranparent";
         } else {
-            return "bg-tranparent ";
+            return "bg-tranparent";
         }
     }
 
@@ -61,6 +61,9 @@ export default function Component() {
 
     return (
         <div className=" flex content-between " >
+            
+
+
             {<Navbar fluid rounded className={`w-screen ${backGround()}`} >
 
                 <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">

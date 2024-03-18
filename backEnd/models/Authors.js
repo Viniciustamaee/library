@@ -49,24 +49,20 @@ function foundOneName(name) {
 
 function Delete(id) {
     return new Promise((resolve, reject) => {
-        console.log('caralho')
         con.connect((err) => {
             if (err) {
                 reject(err);
                 console.log(err)
             } else {
-                console.log('cu')
                 const sql1 = `SELECT id FROM books WHERE author_id = '${id}'`;
                 con.query(sql1, (err, result) => {
                     if (err) {
                         reject(err);
                         console.log(err)
                     } else {
-                        console.log('pfv')
                         const ids = result.map(sla => sla.id);
                         let completedOperations = 0;
 
-                        console.log(ids.length)
 
                         if (ids.length == 0) {
                             const apagaAuthor = `DELETE FROM authors WHERE id = '${id}'`;
