@@ -22,7 +22,7 @@ export default function AllAuthors() {
 
     return (
         <>
-            <div className="">
+            <div className="mt-20">
                 <div className=" flex justify-center content-center " >
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"></table>

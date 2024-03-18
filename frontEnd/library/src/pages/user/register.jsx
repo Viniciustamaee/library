@@ -15,6 +15,7 @@ const Register = () => {
         email: '',
         username: '',
         password: '',
+        passwordConfirm: '',
         description: ''
     });
 
@@ -45,13 +46,18 @@ const Register = () => {
             const formDataObject = new FormData();
             formDataObject.append('email', formData.email);
             formDataObject.append('username', formData.username);
-            formDataObject.append('password', formData.password);
+
+            if (formData.password == formData.passwordConfirm) {
+                formDataObject.append('password', formData.password);
+            } else {
+                wrongPassword('/User/register')
+            }
+
 
             if (imageUrl) {
                 formDataObject.append('img', imageUrl);
             } else {
                 formDataObject.append('img', '');
-
             }
 
             formDataObject.append('description', formData.description);
@@ -62,8 +68,8 @@ const Register = () => {
             console.error('Error calling API:', error.message);
             if (error.response) {
                 setIsSubmitting(true);
-                console.error('Server response:', error.response.data);
                 notifyFail('/User/register')
+                console.error('Server response:', error.response.data);
             }
         }
     };
@@ -86,12 +92,24 @@ const Register = () => {
                 window.location.href = redirectUrl;
             },
         });
+    };
+
+    const wrongPassword = (redirectUrl) => {
+        toast.error("Password Wrong!", {
+            position: "bottom-right",
+            autoClose: 1000,
+            onClose: () => {
+                window.location.href = redirectUrl;
+            },
+        });
 
     };
 
+
+
     return (
         <>
-            <div className="flex items-center justify-center h-4/5 mt-5">
+            <div className="flex items-center justify-center h-4/5 mt-1 mb-5">
                 <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
 
                     <form className="space-y-6" onSubmit={handleSubmit}>
@@ -113,6 +131,30 @@ const Register = () => {
                                     type={showPassword ? 'text' : 'password'}
                                     id="password"
                                     value={formData.password}
+                                    onChange={handleChange}
+                                    placeholder="••••••••"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    required
+                                />
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                    style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)' }}
+                                >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </div>
+                        </div>
+
+
+                        <div className=''>
+                            <label htmlFor="passwordConfirm" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+                            <div className='relative'>
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    id="passwordConfirm"
                                     onChange={handleChange}
                                     placeholder="••••••••"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"

@@ -59,7 +59,7 @@ export default function newAuthor() {
     };
     return (
         <>
-            <div className="flex items-center justify-center " style={{ height: "70vh" }}>
+            <div className="flex items-center justify-center mt-20 ">
                 <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
 
                     <form className="space-y-6" onSubmit={handleSubmit}>

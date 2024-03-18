@@ -37,10 +37,15 @@ module.exports.oneUser = async (req, res) => {
 
 module.exports.new = async (req, res) => {
     const { email, username, password, description } = req.body
-    const img = req.file.path
+    let img;
 
+    if (req.file && req.file.path) {
+        img = req.file.path;
+    } else {
+        img = "https://res.cloudinary.com/dtuxy5k7v/image/upload/v1710514781/vector-flat-illustration-grayscale-avatar-600nw-2281862025_grjznc.jpg";
+    }
 
-    if (!email || !username || !password || !img || !description) {
+    if (!email || !username || !password || !description) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
     }
 
