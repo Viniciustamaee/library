@@ -13,17 +13,15 @@ function newAuthors(name) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
-                reject(err);
-            } else {
-                var sql = `INSERT INTO authors (name) VALUES ('${name}')`;
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(result);
-                    }
-                });
+                return reject(err);
             }
+            var sql = `INSERT INTO authors (name) VALUES ('${name}')`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
         });
     });
 }
@@ -32,17 +30,15 @@ function foundOneName(name) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
-                reject(err);
-            } else {
-                let sql = `select * from authors where name='${name}'`;
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(result);
-                    }
-                });
+                return reject(err);
             }
+            let sql = `select * from authors where name='${name}'`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
         });
     });
 };
@@ -51,8 +47,7 @@ function Delete(id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
-                reject(err);
-                console.log(err)
+                return reject(err);
             } else {
                 const sql1 = `SELECT id FROM books WHERE author_id = '${id}'`;
                 con.query(sql1, (err, result) => {
@@ -62,8 +57,6 @@ function Delete(id) {
                     } else {
                         const ids = result.map(sla => sla.id);
                         let completedOperations = 0;
-
-
                         if (ids.length == 0) {
                             const apagaAuthor = `DELETE FROM authors WHERE id = '${id}'`;
                             con.query(apagaAuthor, (err) => {
@@ -129,17 +122,15 @@ function foundOneId(id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
-                reject(err);
-            } else {
-                let sql = `select * from authors where id='${id}'`;
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(result);
-                    }
-                });
+                return reject(err);
             }
+            let sql = `select * from authors where id='${id}'`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
         });
     });
 }
@@ -149,17 +140,14 @@ function update(name, id) {
         con.connect((err) => {
             if (err) {
                 reject(err);
-            } else {
-                let sql = `UPDATE authors SET name = '${name}' WHERE id = '${id}'`;
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        reject(err);
-                        console.log(err)
-                    } else {
-                        resolve(result);
-                    }
-                });
             }
+            let sql = `UPDATE authors SET name = '${name}' WHERE id = '${id}'`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
         });
     });
 };
@@ -169,17 +157,15 @@ function allAuthors() {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
-                reject(err);
-            } else {
-                let sql = `SELECT * FROM authors`;
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(result);
-                    }
-                });
+                return reject(err);
             }
+            let sql = `SELECT * FROM authors`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
         });
     });
 };
@@ -189,17 +175,15 @@ function oneAuthor(id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
-                reject(err);
-            } else {
-                let sql = `SELECT * FROM authors WHERE id=${id}`;
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(result);
-                    }
-                });
+                return reject(err);
             }
+            let sql = `SELECT * FROM authors WHERE id=${id}`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
         });
     });
 };

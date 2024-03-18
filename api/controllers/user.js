@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
-const Users = require('../models/Users');
+const Users = require('../models/User');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -42,7 +42,7 @@ module.exports.new = async (req, res) => {
     if (req.file && req.file.path) {
         img = req.file.path;
     } else {
-        img = "https://res.cloudinary.com/dtuxy5k7v/image/upload/v1710514781/vector-flat-illustration-grayscale-avatar-600nw-2281862025_grjznc.jpg";
+        img = process.env.DEFAULT_USER;
     }
 
     if (!email || !username || !password || !description) {
@@ -55,10 +55,8 @@ module.exports.new = async (req, res) => {
             await Users.newUser(email, username, password, img, description);
             return res.status(200).json({ "mensagem": "User inserido com sucesso!" });
 
-        } else {
-            return res.status(422).json({ "mensagem": "Já existe usuário com esse email ou usernmae" });
-
         }
+        return res.status(422).json({ "mensagem": "Já existe usuário com esse email ou usernmae" });
 
     } catch (error) {
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });
@@ -80,11 +78,9 @@ module.exports.update = async (req, res) => {
         if (existUser.length == 0) {
             await Users.update(email, username, password, img, description, id);
             return res.status(200).json({ "mensagem": "User editado com sucesso!" });
-
-        } else {
-            return res.status(422).json({ "mensagem": "Já existe usuário com esse email ou usernmae" });
-
         }
+
+        return res.status(422).json({ "mensagem": "Já existe usuário com esse email ou usernmae" });
 
     } catch (error) {
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });

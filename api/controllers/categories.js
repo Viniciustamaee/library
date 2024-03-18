@@ -1,4 +1,4 @@
-const Categories = require('../models/Categories')
+const Categories = require('../models/Categorie')
 
 module.exports.allCategories = async (req, res) => {
     try {
@@ -13,7 +13,7 @@ module.exports.allCategories = async (req, res) => {
 module.exports.new = async (req, res) => {
     const { category_name } = req.body
 
-    if (category_name === "") {
+    if (!category_name) {
         res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });
         return;
     }

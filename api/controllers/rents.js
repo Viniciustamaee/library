@@ -1,4 +1,4 @@
-const Rents = require('../models/Rents');
+const Rents = require('../models/Rent');
 
 module.exports.allRents = async (req, res) => {
     try {
@@ -13,8 +13,8 @@ module.exports.allRents = async (req, res) => {
 module.exports.allRentsUser = async (req, res) => {
     const { id } = req.params
     try {
-        const pfv = await Rents.allRentsUser(id);
-        return res.status(200).json(pfv);
+        const allUSers = await Rents.allRentsUser(id);
+        return res.status(200).json(allUSers);
     } catch (error) {
         console.error(error);
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });
@@ -40,13 +40,9 @@ module.exports.newRents = async (req, res) => {
                 await Rents.newRents(rented_date, due_date, book_id, user_id);
                 return res.status(200).json({ "mensagem": "rents inserido com sucesso!" });
             }
-            else {
-                return res.status(422).json({ "mensagem": "Não existe produtos dentro do estoque" });
-
-            }
-        } else {
-            return res.status(422).json({ "mensagem": "Não existe esse id de Books" });
+            return res.status(422).json({ "mensagem": "Não existe produtos dentro do estoque" });
         }
+        return res.status(422).json({ "mensagem": "Não existe esse id de Books" });
 
     } catch (error) {
         console.error("Erro ao buscar livro:", error);
@@ -75,14 +71,11 @@ module.exports.update = async (req, res) => {
             if (existingId.length >= 1) {
                 await Rents.update(rented_date, due_date, book_id, user_id, id)
                 return res.status(200).json({ "mensagem": "Troca atualizado com sucesso" });
-
-            } else {
-                return res.status(422).json({ "mensagem": "Não existe esse id de troca" });
             }
+            return res.status(422).json({ "mensagem": "Não existe esse id de troca" });
 
-        } else {
-            return res.status(422).json({ "mensagem": "Não existe esse id de Books" });
         }
+        return res.status(422).json({ "mensagem": "Não existe esse id de Books" });
 
     } catch (erro) {
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });
@@ -101,10 +94,10 @@ module.exports.delete = async (req, res) => {
         const existingId = await Rents.oneRents(id);
         if (existingId.length > 0) {
             await Rents.Delete(id)
-            res.status(200).json({ "mensagem": "Rents apagado com sucesso" });
-        } else {
-            res.status(422).json({ "mensagem": "Não existe esse id de Rents" });
+            return res.status(200).json({ "mensagem": "Rents apagado com sucesso" });
         }
+        return res.status(422).json({ "mensagem": "Não existe esse id de Rents" });
+
     } catch (error) {
         res.status(500).json({ "mensagem": "Erro interno do servidor" });
     }

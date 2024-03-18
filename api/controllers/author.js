@@ -1,4 +1,4 @@
-const Authors = require('../models/Authors')
+const Authors = require('../models/Author')
 
 module.exports.allAuthors = async (req, res) => {
     try {
@@ -25,7 +25,7 @@ module.exports.oneAuthor = async (req, res) => {
 module.exports.new = async (req, res) => {
     const { name } = req.body;
 
-    if (name == "") {
+    if (!name) {
         return res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });
     }
 
@@ -51,7 +51,6 @@ module.exports.delete = async (req, res) => {
     }
 
     try {
-
         const existingId = await Authors.foundOneId(id);
 
         if (existingId.length >= 1) {
@@ -74,7 +73,7 @@ module.exports.updateName = async (req, res) => {
         return;
     }
 
-    if (name == "") {
+    if (!name) {
         return res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });
     }
 

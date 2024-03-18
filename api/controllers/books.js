@@ -1,4 +1,4 @@
-const Books = require('../models/Books')
+const Books = require('../models/Book')
 
 module.exports.allBooks = async (req, res) => {
     try {
@@ -11,9 +11,13 @@ module.exports.allBooks = async (req, res) => {
 
 module.exports.newBooks = async (req, res) => {
     const { title, quantity_available, author_id, category_id, description } = req.body;
+    let img;
 
-    // Verifica se um arquivo foi enviado e atribui o caminho do arquivo a img, caso contrário, usa a imagem padrão
-    const img = req.file ? req.file.path : "https://res.cloudinary.com/dtuxy5k7v/image/upload/v1710514781/vector-flat-illustration-grayscale-avatar-600nw-2281862025_grjznc.jpg";
+    if (req.file && req.file.path) {
+        img = req.file.path;
+    } else {
+        img = process.env.DEFAULT_BOOK;
+    }
 
     if (!title || !quantity_available || !author_id || !category_id || !description) {
         return res.status(422).json({ "mensagem": "Campo é obrigatório!" });

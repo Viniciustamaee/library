@@ -1,4 +1,4 @@
-const Reviews = require('../models/Reviews')
+const Reviews = require('../models/Review')
 
 module.exports.allReviews = async (req, res) => {
     const { id } = req.params
@@ -32,7 +32,6 @@ module.exports.new = async (req, res) => {
     try {
         await Reviews.newReview(comment, rating, user_id, id);
         return res.status(200).json({ "mensagem": "Reviews inserido com sucesso!" });
-
 
     } catch (error) {
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });

@@ -3,25 +3,27 @@ services:
 
   react:
     build:
-      dockerfile: ./frontEnd/library/Dockerfile
+      dockerfile: ./front/Dockerfile
       context: .
-    container_name: react
+    container_name: library-front
     ports:
       - "8000:8000"
     volumes:
       - ./:/usr/scr/app
+    networks:
+      - library-networl
 
   node:
     build:
-      dockerfile: ./backEnd/Dockerfile
+      dockerfile: ./api/Dockerfile
       context: .
-    container_name: node
+    container_name: library-api
     ports:
       - "3000:3000"
     volumes:
       - ./:/usr/scr/app
     networks:
-      - my_network
+      - library-networl
     depends_on:
       - mysql
 
@@ -31,12 +33,12 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysqlBanco:/var/lib/mysql
+      - db-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "1234"
       MYSQL_DATABASE: "library"
     networks:
-      - my_network
+      - library-networl
 
   phpmyadmin:
     image: phpmyadmin
@@ -47,11 +49,11 @@ services:
     ports:
       - "8080:80"
     networks:
-      - my_network
+      - library-networl
 
 networks:
-  my_network:
+  library-networl:
 
 
 volumes:
-  mysqlBanco:
+  db-data:
