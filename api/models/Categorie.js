@@ -13,17 +13,15 @@ function allCategory() {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
-                reject(err);
-            } else {
-                let sql = `SELECT * FROM categories`;
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(result);
-                    }
-                });
+                return reject(err);
             }
+            let sql = `SELECT * FROM categories`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
         });
     });
 };
@@ -32,17 +30,16 @@ function insertCategory(category_name) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
-                reject(err);
-            } else {
-                var sql = `INSERT INTO categories (category_name) VALUES ('${category_name}')`;
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(result);
-                    }
-                });
+                return reject(err);
             }
+            var sql = `INSERT INTO categories (category_name) VALUES ('${category_name}')`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+
+            });
         });
     });
 }
@@ -51,17 +48,15 @@ function foundOneName(category_name) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
-                reject(err);
-            } else {
-                let sql = `select * from categories where category_name='${category_name}'`;
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(result);
-                    }
-                });
+                return reject(err);
             }
+            let sql = `select * from categories where category_name='${category_name}'`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
         });
     });
 };
@@ -70,17 +65,15 @@ function foundOneId(id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
-                reject(err);
-            } else {
-                let sql = `select * from categories where id='${id}'`;
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(result);
-                    }
-                });
+                return reject(err);
             }
+            let sql = `select * from categories where id='${id}'`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
         });
     });
 }
@@ -89,17 +82,15 @@ function Delete(id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
-                reject(err);
-            } else {
-                let sql = `DELETE FROM categories WHERE id='${id}'`;
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(result);
-                    }
-                });
+                return reject(err);
             }
+            let sql = `DELETE FROM categories WHERE id='${id}'`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
         });
     });
 };
@@ -108,17 +99,15 @@ function update(name, id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
-                reject(err);
-            } else {
-                let sql = `UPDATE categories SET category_name = '${name}' WHERE id = '${id}'`;
-                con.query(sql, (err, result) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(result);
-                    }
-                });
+                return reject(err);
             }
+            let sql = `UPDATE categories SET category_name = '${name}' WHERE id = '${id}'`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
         });
     });
 }
