@@ -37,11 +37,11 @@ export const oneRent = async (id) => {
 // }
 
 
-// export const insertAuthor = async (authors, config) => {
-//     try {
-//         const response = axios.post(`${import.meta.env.VITE_PORT}/Authors`, authors, config);
-//         return response.data;
-//     } catch (error) {
-//         throw error;
-//     }
-// }
+export const insertRent = async (dataForInsert, config) => {
+    try {
+        const response = axios.post('http://localhost:3000/Rents', dataForInsert, config);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}

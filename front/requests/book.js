@@ -41,4 +41,12 @@ export const insertBooks = async (formDataObject, config) => {
     }
 }
 
+export const deleteBook = async (id, config) => {
+    try {
+        const response = await axios.delete(`http://localhost:3000/Books/${id}`, config);
+        return response.data;
+    } catch {
+        throw error;
+    }
+}
 

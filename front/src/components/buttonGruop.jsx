@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { insertRent } from "../../requests/rent";
+import { deleteBook } from "../../requests/book";
 import { toast } from 'react-toastify';
 
 import axios from "axios";
@@ -10,9 +12,6 @@ export default function GrupoButton({ urlLink, quantity }) {
     const adminObject = JSON.parse(adminData);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const location = useLocation();
-
-
 
     // Rent
     const { id } = useParams();
@@ -54,7 +53,7 @@ export default function GrupoButton({ urlLink, quantity }) {
         const hasToken = localStorage.getItem('token');
 
         try {
-            await axios.post('http://localhost:3000/Rents', dataForInsert, {
+            await insertRent(dataForInsert, {
                 withCredentials: true,
             }, {
                 headers: {
@@ -102,7 +101,7 @@ export default function GrupoButton({ urlLink, quantity }) {
         const hasToken = localStorage.getItem('token');
 
         try {
-            const response = await axios.delete(`http://localhost:3000/Books/${id}`, {
+            await deleteBook(id, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },

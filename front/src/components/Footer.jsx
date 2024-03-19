@@ -11,11 +11,8 @@ export default function Footer() {
 
         if (currentUrl === "http://localhost:8000/") {
             return "fixed bg-transparent bottom-0 left-0 z-20 w-full p-4 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600";
-        } else {
-            return "fixed bottom-0 w-full md:flex md:items-end md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600 mt-20";
         }
-
-
+        return "fixed bottom-0 w-full md:flex md:items-end md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600 mt-20";
     }
 
 

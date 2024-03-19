@@ -30,12 +30,12 @@ app.use(function (err, req, res, next) {
     res.json({ error: err });
 });
 
-app.use('/Categories', categories)
-app.use('/Authors', authors)
-app.use('/Books', books)
-app.use('/Review', review)
-app.use('/Rents', rents)
-app.use('/User', user)
+app.use('/categories', categories)
+app.use('/authors', authors)
+app.use('/books', books)
+app.use('/review', review)
+app.use('/rents', rents)
+app.use('/user', user)
 
 app.listen(process.env.NODE_PORT, () => {
     console.log('A porta está conectada')
