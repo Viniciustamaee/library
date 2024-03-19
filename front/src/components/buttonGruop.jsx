@@ -9,7 +9,7 @@ export default function GrupoButton({ urlLink, quantity }) {
     const adminData = localStorage.getItem('user');
     const adminObject = JSON.parse(adminData);
 
-    const [isSubmitting, setIsSubmitting] = useState(false); // Novo estado
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const location = useLocation();
 
 
@@ -42,7 +42,7 @@ export default function GrupoButton({ urlLink, quantity }) {
         return dateFuture;
     };
 
-    const dadosParaInserir = {
+    const dataForInsert = {
         rented_date: rentedDate,
         due_date: dueDate,
         user_id: userData.id,
@@ -54,7 +54,7 @@ export default function GrupoButton({ urlLink, quantity }) {
         const hasToken = localStorage.getItem('token');
 
         try {
-            const response = await axios.post('http://localhost:3000/Rents', dadosParaInserir, {
+            await axios.post('http://localhost:3000/Rents', dataForInsert, {
                 withCredentials: true,
             }, {
                 headers: {

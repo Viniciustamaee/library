@@ -38,7 +38,7 @@ const Login = () => {
         };
 
         try {
-            const response = await axios.post(`http://localhost:${import.meta.env.VITE_PORT}/User/login`, formData, config);
+            const response = await axios.post(`${import.meta.env.VITE_PORT}/User/login`, formData, config);
             const data = response.data;
             setIsSubmitting(true);
 
@@ -50,7 +50,7 @@ const Login = () => {
             notifySucess('/Books');
 
         } catch (error) {
-                notifyFail('/User/login')
+            notifyFail('/User/login')
             console.error('Erro ao chamar a API:', error.message);
             setIsSubmitting(true);
 

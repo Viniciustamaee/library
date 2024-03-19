@@ -33,9 +33,6 @@ export default function Component() {
     if (adminData) {
         const adminObject = JSON.parse(adminData);
 
-        const adminId = adminObject.id;
-
-        console.log(adminId);
     } else {
         console.log('Não há dados de usuário no localStorage');
     }

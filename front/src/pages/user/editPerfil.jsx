@@ -34,7 +34,7 @@ export default function editPerfil() {
             formDataObject.append('img', imageUrl);
             formDataObject.append('description', user.description);
 
-            const response = await axios.put(`http://localhost:${import.meta.env.VITE_PORT}/User/Perfil/${id}/edit`, formDataObject, {});
+            const response = await axios.put(`${import.meta.env.VITE_PORT}/User/Perfil/${id}/edit`, formDataObject, {});
 
             notifySucess(`/User/perfil/${id}`);
 
@@ -59,7 +59,7 @@ export default function editPerfil() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/User/${id}`);
+                const response = await axios.get(`${import.meta.env.VITE_PORT}/User/${id}`);
                 setUser(response.data[0]);
 
             } catch (error) {
