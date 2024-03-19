@@ -12,7 +12,7 @@ export default function Review({ comment, rating, username, id, idUrl, idReview 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/User`);
+                const response = await axios.get(`${import.meta.env.VITE_PORT}/User`);
                 const filteredUsers = response.data.filter(user => user.id === id);
                 setUsers(filteredUsers);
             } catch (error) {
@@ -29,7 +29,7 @@ export default function Review({ comment, rating, username, id, idUrl, idReview 
         const hasToken = localStorage.getItem('token');
 
         try {
-            const response = await axios.delete(`http://localhost:${import.meta.env.VITE_PORT}/Review/${idUrl}/${idReview}`, {
+            const response = await axios.delete(`${import.meta.env.VITE_PORT}/Review/${idUrl}/${idReview}`, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },

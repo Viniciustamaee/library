@@ -9,7 +9,7 @@ export default function allBooks() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Books`);
+                const response = await axios.get(`${import.meta.env.VITE_PORT}/Books`);
                 setBooks(response.data);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);

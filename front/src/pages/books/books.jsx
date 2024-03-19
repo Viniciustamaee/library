@@ -11,7 +11,7 @@ export default function Allbooks() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Books`);
+                const response = await axios.get(`${import.meta.env.VITE_PORT}/Books`);
                 setBooks(response.data);
                 console.log(response.data)
 
@@ -27,7 +27,7 @@ export default function Allbooks() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/User`);
+                const response = await axios.get(`${import.meta.env.VITE_PORT}/User`);
                 setUser(response.data);
                 console.log(response.data)
             } catch (error) {
@@ -70,7 +70,7 @@ export default function Allbooks() {
                             <p className="text-start tracking-wider sm:text-center">Our library offers a vast collection of rental books, providing an enriching literary experience for all. From timeless classics to contemporary bestsellers, explore our shelves and embark on countless adventures through the power of storytelling.
                             </p>
                         </div>
-                        <img src="https://res.cloudinary.com/dtuxy5k7v/image/upload/v1710515828/photo-1495446815901-a7297e633e8d_wxvsfa.jpg" alt="" className="h-64 rounded-lg sm:h-auto" />
+                        <img src={import.meta.env.VITE_IMG_BOOK} alt="" className="h-64 rounded-lg sm:h-auto" />
 
                     </div>
                 </div>

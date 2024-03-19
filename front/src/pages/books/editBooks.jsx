@@ -16,7 +16,7 @@ export default function newBooks() {
     useEffect(() => {
         const fectcBooks = async () => {
             try {
-                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Books/${id}`);
+                const response = await axios.get(`${import.meta.env.VITE_PORT}/Books/${id}`);
                 setBooks(response.data[0]);
                 console.log(response.data)
             } catch (error) {
@@ -45,7 +45,7 @@ export default function newBooks() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Categories`);
+                const response = await axios.get(`${import.meta.env.VITE_PORT}/Categories`);
                 setCategories(response.data);
             } catch (error) {
                 console.error("Error fetching categories:", error);
@@ -59,7 +59,7 @@ export default function newBooks() {
     useEffect(() => {
         const fetchAuthors = async () => {
             try {
-                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Authors`);
+                const response = await axios.get(`${import.meta.env.VITE_PORT}/Authors`);
                 setAuthors(response.data);
             } catch (error) {
                 console.error("Error fetching authors:", error);
@@ -85,7 +85,7 @@ export default function newBooks() {
             formDataObject.append('category_id', books.category_id);
 
 
-            const response = await axios.put(`http://localhost:3000/Books/${id}`, formDataObject, {
+            await axios.put(`${import.meta.env.VITE_PORT}/Books/${id}`, formDataObject, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },
