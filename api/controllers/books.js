@@ -83,7 +83,13 @@ module.exports.delete = async (req, res) => {
 module.exports.updateBooks = async (req, res) => {
     let { title, quantity_available, description, author_id, category_id } = req.body;
     let { id } = req.params
-    const img = req.file.path
+    let img;
+
+    if (req.file && req.file.path) {
+        img = req.file.path;
+    } else {
+        img = process.env.DEFAULT_BOOK;
+    }
 
     if (!title || !quantity_available || !img || !author_id || !category_id || !description) {
         return res.status(422).json({ "mensagem": "Campo é obrigatório!" });

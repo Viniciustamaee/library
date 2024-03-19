@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import { useState } from 'react';
-import axios from 'axios';
+import { insertAuthor } from '../../../requests/author';
 
 
 export default function newAuthor() {
@@ -15,7 +15,7 @@ export default function newAuthor() {
         try {
 
 
-            const response = await axios.post(`${import.meta.env.VITE_PORT}/Authors`, authors, {
+            await insertAuthor(authors, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },

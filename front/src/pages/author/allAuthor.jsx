@@ -1,7 +1,7 @@
 import AuthorHeads from "./components/headTable"
+import { allAuthors } from "../../../requests/author";
 import AuthorList from "./components/authorlist"
 import { useState, useEffect } from "react";
-import axios from "axios";
 
 export default function AllAuthors() {
 
@@ -10,8 +10,8 @@ export default function AllAuthors() {
     useEffect(() => {
         const fetchAuthors = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Authors`);
-                setAuthors(response.data);
+                const response = await allAuthors();
+                setAuthors(response);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
             }
@@ -19,8 +19,6 @@ export default function AllAuthors() {
 
         fetchAuthors();
     }, []);
-
-    console.log(authors.length)
 
     return (
         <>

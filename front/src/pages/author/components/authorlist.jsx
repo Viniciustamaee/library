@@ -1,6 +1,9 @@
 import { toast } from 'react-toastify';
+import { deleteAuhtor } from "../../../../requests/author";
+
 import { useState } from 'react';
 import axios from "axios";
+
 
 
 export default function authorList({ nameAuthor, id }) {
@@ -13,9 +16,8 @@ export default function authorList({ nameAuthor, id }) {
     const deleteAuthor = async (e) => {
         e.preventDefault();
 
-
         try {
-            await axios.delete(`${import.meta.env.VITE_PORT}/Authors/${id}`, {
+            await deleteAuhtor(id, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },

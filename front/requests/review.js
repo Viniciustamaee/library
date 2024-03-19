@@ -10,7 +10,6 @@ export const insertReview = async (id, formData, config) => {
     }
 }
 
-
 export const allReview = async (id) => {
     try {
         const response = await axios.get(`${import.meta.env.VITE_PORT}/Review/${id}`);

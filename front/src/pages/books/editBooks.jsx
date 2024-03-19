@@ -95,7 +95,7 @@ export default function newBooks() {
         } catch (error) {
             console.error('Error calling API:', error.message);
             setIsSubmitting(true);
-            notifyFail('/Books/new')
+            notifyFail('/Books')
 
         }
     };

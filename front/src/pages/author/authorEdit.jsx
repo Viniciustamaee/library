@@ -1,9 +1,7 @@
+import { oneAuthor, updateAuthor } from "../../../requests/author";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
-
-import axios from "axios";
-
 
 export default function EditAuthor() {
     const { id } = useParams()
@@ -14,8 +12,8 @@ export default function EditAuthor() {
     useEffect(() => {
         const fetchAuthors = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Authors/${id}`);
-                setAuthors(response.data[0]);
+                const response = await oneAuthor(id);
+                setAuthors(response[0]);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
             }
@@ -29,7 +27,7 @@ export default function EditAuthor() {
         const hasToken = localStorage.getItem('token');
 
         try {
-            const response = await axios.put(`${import.meta.env.VITE_PORT}/Authors/${id}`, authors, {
+            await updateAuthor(id, authors, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },
