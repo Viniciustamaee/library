@@ -3,7 +3,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import { insertBook } from '../../../requests/user';
 
 const Register = () => {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -46,12 +46,12 @@ const Register = () => {
             const formDataObject = new FormData();
             formDataObject.append('email', formData.email);
             formDataObject.append('username', formData.username);
+            formDataObject.append('description', formData.description);
 
-            if (formData.password == formData.passwordConfirm) {
-                formDataObject.append('password', formData.password);
-            } else {
-                wrongPassword('/User/register')
+            if (formData.password !== formData.passwordConfirm) {
+                return wrongPassword('/User/register')
             }
+            formDataObject.append('password', formData.password);
 
 
             if (imageUrl) {
@@ -60,9 +60,8 @@ const Register = () => {
                 formDataObject.append('img', '');
             }
 
-            formDataObject.append('description', formData.description);
 
-            const response = await axios.post(`${import.meta.env.VITE_PORT}/User/register`, formDataObject, {});
+            await insertBook(formDataObject);
             notifySucess('/User/login');
         } catch (error) {
             console.error('Error calling API:', error.message);

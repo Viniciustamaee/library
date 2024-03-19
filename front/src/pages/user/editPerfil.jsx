@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { updateUser, oneUser } from '../../../requests/user';
 import axios from 'axios';
 
 export default function editPerfil() {
@@ -34,7 +35,7 @@ export default function editPerfil() {
             formDataObject.append('img', imageUrl);
             formDataObject.append('description', user.description);
 
-            const response = await axios.put(`${import.meta.env.VITE_PORT}/User/Perfil/${id}/edit`, formDataObject, {});
+            await updateUser(id, formDataObject);
 
             notifySucess(`/User/perfil/${id}`);
 
@@ -59,8 +60,8 @@ export default function editPerfil() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/User/${id}`);
-                setUser(response.data[0]);
+                const response = await oneUser(id);
+                setUser(response[0]);
 
             } catch (error) {
                 console.error("Error fetching user:", error);

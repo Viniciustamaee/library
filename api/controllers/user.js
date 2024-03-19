@@ -45,6 +45,7 @@ module.exports.new = async (req, res) => {
         img = process.env.DEFAULT_USER;
     }
 
+
     if (!email || !username || !password || !description) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
     }

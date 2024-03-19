@@ -2,6 +2,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
 import { toast } from 'react-toastify';
+import { login } from '../../../requests/user';
 import { useState } from 'react';
 import * as React from 'react';
 import axios from 'axios';
@@ -38,8 +39,8 @@ const Login = () => {
         };
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_PORT}/User/login`, formData, config);
-            const data = response.data;
+            const response = await login(formData, config);
+            const data = response;
             setIsSubmitting(true);
 
 
