@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from 'react-toastify';
+import { rentsDelete } from "../../../../requests/rent";
 import { useState } from "react";
 
 export default function RentsList({ rented_date, due_date, user_id, books_id, id }) {
@@ -15,7 +16,7 @@ export default function RentsList({ rented_date, due_date, user_id, books_id, id
         const hasToken = localStorage.getItem('token');
 
         try {
-            const response = await axios.delete(`${import.meta.env.VITE_PORT}/Rents/${id}`, {
+            await rentsDelete(id, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },

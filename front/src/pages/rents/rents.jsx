@@ -1,10 +1,11 @@
+import { allBooksCover } from "../../../requests/book";
 import React, { useEffect, useState } from "react";
+import { allUsers } from "../../../requests/user";
 import RentsList from './rentsTable/rentsList'
 import RentsHead from './rentsTable/rentsHead'
 import { useParams } from "react-router-dom";
 import { format } from 'date-fns';
-import axios from "axios";
-import { height } from "@mui/system";
+import { oneRent } from "../../../requests/rent";
 
 export default function Rents() {
     const [rents, setRents] = useState([]);
@@ -15,9 +16,8 @@ export default function Rents() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Books`);
-                setBooks(response.data);
-                console.log(response.data)
+                const response = await allBooksCover();
+                setBooks(response);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
             }
@@ -30,9 +30,8 @@ export default function Rents() {
     useEffect(() => {
         const fetchRents = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/User`);
-                setUser(response.data);
-                console.log(response.data)
+                const response = await allUsers();
+                setUser(response);
             } catch (error) {
                 console.error("Erro ao buscar os rents:", error);
             }
@@ -44,9 +43,8 @@ export default function Rents() {
     useEffect(() => {
         const fetchRents = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Rents/${id}`);
-                setRents(response.data);
-                console.log(response.data)
+                const response = await oneRent(id);
+                setRents(response);
             } catch (error) {
                 console.error("Erro ao buscar os rents:", error);
             }
@@ -58,9 +56,6 @@ export default function Rents() {
     function getStandardFormattedDateTime(date = new Date()) {
         return format(date, 'dd-MM-yyyy');
     }
-
-
-    console.log(books.length)
 
     return (
         <>
