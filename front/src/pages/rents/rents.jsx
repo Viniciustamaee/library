@@ -15,7 +15,7 @@ export default function Rents() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Books`);
+                const response = await axios.get(`${import.meta.env.VITE_PORT}/Books`);
                 setBooks(response.data);
                 console.log(response.data)
             } catch (error) {
@@ -30,7 +30,7 @@ export default function Rents() {
     useEffect(() => {
         const fetchRents = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/User');
+                const response = await axios.get(`${import.meta.env.VITE_PORT}/User`);
                 setUser(response.data);
                 console.log(response.data)
             } catch (error) {
@@ -44,7 +44,7 @@ export default function Rents() {
     useEffect(() => {
         const fetchRents = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/Rents/${id}`);
+                const response = await axios.get(`${import.meta.env.VITE_PORT}/Rents/${id}`);
                 setRents(response.data);
                 console.log(response.data)
             } catch (error) {

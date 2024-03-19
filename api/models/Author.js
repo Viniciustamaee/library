@@ -45,65 +45,13 @@ function foundOneName(name) {
 
 function Delete(id) {
     return new Promise((resolve, reject) => {
-        con.connect((err) => {
+        const deletAuthor = `DELETE FROM authors WHERE id = '${id}'`;
+        con.query(deletAuthor, (err, result) => {
             if (err) {
+                console.log(err);
                 return reject(err);
             }
-            const sql1 = `SELECT id FROM books WHERE author_id = '${id}'`;
-            con.query(sql1, (err, result) => {
-                if (err) {
-                    console.log(err)
-                    return reject(err);
-                }
-                const ids = result.map(sla => sla.id);
-                let completedOperations = 0;
-                if (ids.length == 0) {
-                    const deleteAuthor = `DELETE FROM authors WHERE id = '${id}'`;
-                    con.query(deleteAuthor, (err) => {
-                        if (err) {
-                            console.log(err);
-                            return reject(err);
-                        }
-                        return resolve("Operação concluída com sucesso");
-                    })
-                }
-                for (let i = 0; i < ids.length; i++) {
-
-                    const deleteReview = `DELETE FROM reviews WHERE book_id = '${ids[i]}'`;
-                    con.query(deleteReview, (err) => {
-                        if (err) {
-                            reject(err);
-                            return console.log(err);
-                        }
-                        const deleteRents = `DELETE FROM rents WHERE book_id = ${ids[i]}`;
-                        con.query(deleteRents, (err) => {
-                            if (err) {
-                                console.log(err);
-                                return reject(err);
-                            }
-                            const apagaBooks = `DELETE FROM books WHERE id = ${ids[i]}`;
-                            con.query(apagaBooks, (err) => {
-                                if (err) {
-                                    console.log(err);
-                                    return reject(err);
-                                }
-                                completedOperations++;
-                                if (completedOperations === ids.length) {
-                                    const deletAuthor = `DELETE FROM authors WHERE id = '${id}'`;
-                                    con.query(deletAuthor, (err) => {
-                                        if (err) {
-                                            console.log(err);
-                                            return reject(err);
-                                        }
-                                        return resolve("Operação concluída com sucesso");
-
-                                    });
-                                }
-                            });
-                        });
-                    });
-                }
-            });
+            resolve("Operação concluída com sucesso");
         });
     });
 }

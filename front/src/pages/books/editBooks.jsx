@@ -1,8 +1,10 @@
+import { allCategories } from "../../../requests/categories";
+import { oneBook, updateBook } from "../../../requests/book";
+import { allAuthors } from "../../../requests/author";
 import React, { useEffect, useState } from "react";
 import { Label, Select } from 'flowbite-react';
 import { useParams } from "react-router-dom";
 import { toast } from 'react-toastify';
-import axios from "axios";
 
 export default function newBooks() {
 
@@ -16,9 +18,8 @@ export default function newBooks() {
     useEffect(() => {
         const fectcBooks = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Books/${id}`);
-                setBooks(response.data[0]);
-                console.log(response.data)
+                const response = await oneBook(id);
+                setBooks(response[0]);
             } catch (error) {
                 console.error("Error fetching categories:", error);
             }
@@ -45,8 +46,8 @@ export default function newBooks() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Categories`);
-                setCategories(response.data);
+                const response = await allCategories();
+                setCategories(response);
             } catch (error) {
                 console.error("Error fetching categories:", error);
             }
@@ -59,8 +60,8 @@ export default function newBooks() {
     useEffect(() => {
         const fetchAuthors = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Authors`);
-                setAuthors(response.data);
+                const response = await allAuthors();
+                setAuthors(response);
             } catch (error) {
                 console.error("Error fetching authors:", error);
             }
@@ -80,12 +81,10 @@ export default function newBooks() {
             formDataObject.append('quantity_available', books.quantity_available);
             formDataObject.append('description', books.description);
             formDataObject.append('img', imageUrl);
-
             formDataObject.append('author_id', books.author_id);
             formDataObject.append('category_id', books.category_id);
 
-
-            await axios.put(`${import.meta.env.VITE_PORT}/Books/${id}`, formDataObject, {
+            await updateBook(id, formDataObject, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },

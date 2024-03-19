@@ -1,8 +1,9 @@
+import { allBooksCover } from "../../../requests/book";
+import { allUsers } from "../../../requests/user";
 import React, { useEffect, useState } from "react";
 import BooksCover from "./components/bookCover";
 import CardBooks from "./components/cardBooks";
 import "../books/books.css";
-import axios from "axios";
 
 export default function Allbooks() {
     const [books, setBooks] = useState([]);
@@ -11,9 +12,8 @@ export default function Allbooks() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Books`);
-                setBooks(response.data);
-                console.log(response.data)
+                const response = await allBooksCover();
+                setBooks(response);
 
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
@@ -27,9 +27,8 @@ export default function Allbooks() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/User`);
-                setUser(response.data);
-                console.log(response.data)
+                const response = await allUsers();
+                setUser(response);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
             }

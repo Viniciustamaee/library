@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { allBooksCover } from "../../../requests/book";
 import BooksCover from "./components/bookCover";
-import axios from "axios";
 
-export default function allBooks() {
+export default function AllBooks() {
 
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Books`);
-                setBooks(response.data);
+                const response = await allBooksCover();
+                setBooks(response);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
             }
@@ -18,9 +18,6 @@ export default function allBooks() {
 
         fetchBooks();
     }, []);
-
-
-    console.log(books.length)
 
     return (
         <>

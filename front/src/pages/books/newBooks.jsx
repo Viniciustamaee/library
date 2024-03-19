@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { allCategories } from "../../../requests/categories";
+import { allAuthors } from "../../../requests/author";
+import { insertBooks } from "../../../requests/book";
 import { Label, Select } from 'flowbite-react';
 import { toast } from 'react-toastify';
-import axios from "axios";
 
 export default function newBooks() {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,8 +38,8 @@ export default function newBooks() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Categories`);
-                setCategories(response.data);
+                const response = await allCategories();
+                setCategories(response);
             } catch (error) {
                 console.error("Error fetching categories:", error);
             }
@@ -50,8 +52,8 @@ export default function newBooks() {
     useEffect(() => {
         const fetchAuthors = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Authors`);
-                setAuthors(response.data);
+                const response = await allAuthors();
+                setAuthors(response);
             } catch (error) {
                 console.error("Error fetching authors:", error);
             }
@@ -65,6 +67,7 @@ export default function newBooks() {
         const hasToken = localStorage.getItem('token');
 
         try {
+            setIsSubmitting(true);
             const formDataObject = new FormData();
             formDataObject.append('title', formData.title);
             formDataObject.append('quantity_available', formData.quantity_available);
@@ -74,9 +77,8 @@ export default function newBooks() {
             formDataObject.append('author_id', formData.author_id);
             formDataObject.append('category_id', formData.category_id);
 
-            setIsSubmitting(true);
 
-            const response = await axios.post(`${import.meta.env.VITE_PORT}/Books`, formDataObject, {
+            await insertBooks(formDataObject, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },

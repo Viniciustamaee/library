@@ -1,7 +1,7 @@
 const con = require('../database/db')
 
 con.connect(function () {
-    let sql = "CREATE TABLE IF NOT EXISTS reviews (id INT PRIMARY KEY AUTO_INCREMENT,comment VARCHAR(255),rating INT(5),user_id INT,book_id INT,FOREIGN KEY(book_id) REFERENCES books(id),FOREIGN KEY(user_id) REFERENCES users(id)); ";
+    let sql = "CREATE TABLE IF NOT EXISTS reviews (id INT PRIMARY KEY AUTO_INCREMENT,comment VARCHAR(255),rating INT(5),user_id INT,book_id INT,FOREIGN KEY(book_id) REFERENCES books(id) ON DELETE CASCADE,FOREIGN KEY(user_id) REFERENCES users(id)); ";
     con.query(sql, function (err, result) {
         if (err) {
             console.error('Error creating table:', err);

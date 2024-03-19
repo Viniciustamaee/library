@@ -1,13 +1,14 @@
 import GrupoButton from "../../../components/buttonGruop";
-import { Link, useParams } from "react-router-dom";
 import Typography from '@mui/material/Typography';
+import { oneBook } from "../../../../requests/book";
+import { insertReview, allReview } from "../../../../requests/review";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Rating from '@mui/material/Rating';
 import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Review from "./reviewCard"
 import * as React from 'react';
-import axios from "axios";
 
 export default function haha() {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,8 +35,8 @@ export default function haha() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Books/${id}`);
-                setBooks(response.data[0]);
+                const response = await oneBook(id);
+                setBooks(response[0]);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
             }
@@ -48,9 +49,7 @@ export default function haha() {
         e.preventDefault();
         const hasToken = localStorage.getItem('token');
         try {
-            await axios.post(`${import.meta.env.VITE_PORT}/Review/${id}`, {
-                ...formData,
-            }, {
+            await insertReview(id, formData, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },
@@ -97,8 +96,8 @@ export default function haha() {
     useEffect(() => {
         const fectReview = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/Review/${id}`);
-                setReview(response.data);
+                const response = await allReview(id);
+                setReview(response);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
             }

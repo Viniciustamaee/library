@@ -1,7 +1,8 @@
+import { deleteReview } from "../../../../requests/review";
+import { allUsers } from "../../../../requests/user";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
-export default function Review({ comment, rating, username, id, idUrl, idReview }) {
+export default function Review({ comment, rating, id, idUrl, idReview }) {
 
     const adminData = localStorage.getItem('user');
     const adminObject = JSON.parse(adminData);
@@ -12,8 +13,8 @@ export default function Review({ comment, rating, username, id, idUrl, idReview 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_PORT}/User`);
-                const filteredUsers = response.data.filter(user => user.id === id);
+                const response = await allUsers(id);
+                const filteredUsers = response.filter(user => user.id === id);
                 setUsers(filteredUsers);
             } catch (error) {
                 console.error("Erro ao buscar os usuários:", error);
@@ -29,7 +30,7 @@ export default function Review({ comment, rating, username, id, idUrl, idReview 
         const hasToken = localStorage.getItem('token');
 
         try {
-            const response = await axios.delete(`${import.meta.env.VITE_PORT}/Review/${idUrl}/${idReview}`, {
+            await deleteReview(idUrl, idReview, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },
