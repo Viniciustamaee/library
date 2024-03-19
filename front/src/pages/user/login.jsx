@@ -50,7 +50,7 @@ const Login = () => {
             notifySucess('/Books');
 
         } catch (error) {
-            notifyFail('/User/login')
+                notifyFail('/User/login')
             console.error('Erro ao chamar a API:', error.message);
             setIsSubmitting(true);
 

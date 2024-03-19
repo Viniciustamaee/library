@@ -20,9 +20,11 @@ export default function AllAuthors() {
         fetchAuthors();
     }, []);
 
+    console.log(authors.length)
+
     return (
         <>
-            <div className="mt-20">
+            {authors.length !== 0 ? <div className="mt-20">
                 <div className=" flex justify-center content-center " >
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"></table>
@@ -38,7 +40,12 @@ export default function AllAuthors() {
                         <table />
                     </div>
                 </div>
-            </div>
+            </div> : (
+                <div className="mt-20 text-xl text-center flex justify-center flex-col">
+                    <h1 className="text-4xl">We don't have Author yet</h1>
+                    <p className="">Wait the admin, insert some author...</p>
+                </div>
+            )}
         </>
     )
 }

@@ -20,7 +20,7 @@ const admin = require('./seeds/admin')
 const author = require('./seeds/author')
 
 app.use(cors({
-    origin: `http://localhost:${process.env.VITE_PORT}`,
+    origin: process.env.VITE_PORT,
     credentials: true
 }));
 

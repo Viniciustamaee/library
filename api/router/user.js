@@ -10,7 +10,7 @@ const upload = multer({ storage })
 passport.use('login', userControllers.passwordValid);
 passport.deserializeUser(userControllers.valid);
 passport.serializeUser(userControllers.valid);
-passport.use('teste', userControllers.tokenValid);
+passport.use('protect', userControllers.tokenValid);
 
 router.get('/', userControllers.allUsers)
 router.put('/Perfil/:id/edit', upload.single('img'), userControllers.update)

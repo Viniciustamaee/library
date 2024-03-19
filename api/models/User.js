@@ -37,6 +37,7 @@ function newUser(email, username, password, img, description) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
+                console.log(err)
                 return reject(err);
             }
             try {
