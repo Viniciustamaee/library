@@ -10,7 +10,7 @@ export default function AllAuthors() {
     useEffect(() => {
         const fetchAuthors = async () => {
             try {
-                const response = await axios.get(`http://localhost:${import.meta.env.VITE_PORT}/Authors`);
+                const response = await axios.get(`${import.meta.env.VITE_PORT}/Authors`);
                 setAuthors(response.data);
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);

@@ -12,19 +12,18 @@ export default function authorList({ nameAuthor, id }) {
 
     const deleteAuthor = async (e) => {
         e.preventDefault();
-        if (isSubmitting) {
-            return;
-        }
 
 
         try {
-            const response = await axios.delete(`http://localhost:${import.meta.env.VITE_PORT}/Authors/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_PORT}/Authors/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },
             });
 
-            console.log(response)
+            if (isSubmitting) {
+                return;
+            }
 
             notifySuccess(`/Author`)
 
