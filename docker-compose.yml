@@ -9,7 +9,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./front:/usr/scr/app
+      - ./:/usr/scr/app
     networks:
       - library-networl
 
@@ -21,7 +21,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./api:/usr/scr/app
+      - ./:/usr/scr/app
     networks:
       - library-networl
     depends_on:

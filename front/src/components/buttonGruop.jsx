@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom"
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { insertRent } from "../../requests/rent";
 import { deleteBook } from "../../requests/book";
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link } from "react-router-dom"
 import { toast } from 'react-toastify';
 
-import axios from "axios";
 
 export default function GrupoButton({ urlLink, quantity }) {
     const adminData = localStorage.getItem('user');
@@ -13,7 +12,6 @@ export default function GrupoButton({ urlLink, quantity }) {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Rent
     const { id } = useParams();
 
     const [userData, setUserData] = useState('');

@@ -59,7 +59,7 @@ export default function Rents() {
 
     return (
         <>
-            {books.length == 0 ? (
+            {rents.length == 0 ? (
                 <div className="mt-20 text-xl text-center flex justify-center flex-col">
                     <h1 className="text-4xl">You don't have Rents yet</h1>
                     <p className="">Rent some books</p>

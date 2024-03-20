@@ -15,6 +15,7 @@ const books = require('./router/books')
 const review = require('./router/reviews')
 const rents = require('./router/rents')
 
+
 const category = require('./seeds/categories')
 const admin = require('./seeds/admin')
 const author = require('./seeds/author')

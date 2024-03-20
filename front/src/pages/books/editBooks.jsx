@@ -125,7 +125,7 @@ export default function newBooks() {
         <div className="flex items-center justify-center h-screen">
             <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <form className="space-y-6" onSubmit={handleSubmit} encType="multipart/form-data">
-                    <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">Sign in Library</h5>
+                    <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">Edit book</h5>
 
                     <div className="mb-6">
                         <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title of book</label>
@@ -140,7 +140,7 @@ export default function newBooks() {
 
                     <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Choose the books cover</label>
-                        <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" required onChange={handleFileChange} />
+                        <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" onChange={handleFileChange} />
                     </div>
 
                     <label htmlFor="description" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Description</label>

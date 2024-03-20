@@ -152,7 +152,6 @@ module.exports.tokenValid = new JWTstrategy(
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
     },
     async (token, done) => {
-        console.log('Estratégia tokenValid chamada. Token:', token);
         try {
             return done(null, token);
         } catch (error) {

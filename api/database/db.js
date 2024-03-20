@@ -8,12 +8,17 @@ const con = mysql.createConnection({
 });
 
 
-(con.connect(function (err) {
-    if (err) {
-        return console.error('Erro ao conectar ao banco de dados MySQL:', err);
-    } else {
-        console.log('Conectado ao banco de dados MySQL');
-    }
-}), 5000);
+function conectarBancoDeDados() {
+    con.connect(function (err) {
+        if (err) {
+            console.error('Erro ao conectar ao banco de dados MySQL:', err);
+            setTimeout(conectarBancoDeDados, 5000);
+        } else {
+            console.log('Conectado ao banco de dados MySQL');
+        }
+    });
+}
+
+conectarBancoDeDados();
 
 module.exports = con

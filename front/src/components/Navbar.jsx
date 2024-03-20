@@ -23,7 +23,7 @@ export default function Component() {
     const currentUrl = window.location.href;
 
     const backGround = () => {
-        if (currentUrl === "http://localhost:8000/") {
+        if (currentUrl === import.meta.env.VITE_URL_HOME) {
             return "fixed bg-tranparent";
         } else {
             return "bg-tranparent";
@@ -150,7 +150,7 @@ export default function Component() {
 
                     <div className="flex justify-around	">
                         {hasToken && <div>
-                            {<div >
+                            {adminObject.admin == '1' && <div >
                                 <div className="flex justify-center mr-5">
                                     <Dropdown
                                         arrowIcon={false}
