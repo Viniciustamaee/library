@@ -107,7 +107,7 @@ export default function haha() {
     }, []);
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-5">
             <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-2 gap-1">
                 < div className="" >
                     <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" >
@@ -168,7 +168,7 @@ export default function haha() {
 
                             </div>
                             <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600 text-center">
-                                <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800 w-full" disabled={isSubmitting}>
+                                <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-amber-600 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-amber-800 w-full" disabled={isSubmitting}>
                                     <p className="mx-auto">Post comment</p>
                                 </button>
                             </div>

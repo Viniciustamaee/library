@@ -17,7 +17,7 @@ export default function Perfil() {
 
     return (
         <>
-            <div className="flex justify-center ">
+            <div className="flex justify-center mt-5">
                 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
                     <img class="rounded-lg h-96 w-auto " src={userData.img} alt="" />
 

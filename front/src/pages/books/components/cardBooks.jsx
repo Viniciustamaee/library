@@ -13,12 +13,12 @@ export default function CardBooks({ title, img, id, quantity, description }) {
 
                         <div className="flex flex-col p-2 leading-normal justify-between" id='text'>
                             <div className="flex flex-col justify-between p-2 leading-normal">
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white" >{title}</h5>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 break-all">{description}</p>
                             </div>
 
                             <div className="flex items-end">
-                                <button type="button" className="text-white bg-gradient-to-r  hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mt-5 bg-blue-500" >
+                                <button type="button" className="text-white bg-gradient-to-r  hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mt-5 bg-amber-600 hover:bg-amber-800" >
                                     More info
                                 </button>
                                 <h5 className="mb-2 font-medium text-black ">Quantidade: {quantity}</h5>
@@ -33,13 +33,13 @@ export default function CardBooks({ title, img, id, quantity, description }) {
                         <img className="object-cover w-full rounded-t-lg h-48 md:h-80 md:w-48 md:rounded-none md:rounded-s-lg" src={img} alt="" />
 
                         <div className="flex flex-col p-2 leading-normal justify-between" id='text'>
-                            <div className="flex flex-col justify-between p-2 leading-normal">
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
+                            <div className="flex flex-col justify-between p-2 leading-normal text-center">
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white" >{title}</h5>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 break-all">{description}</p>
                             </div>
 
                             <div className="flex items-end">
-                                <button type="button" className="text-white bg-gradient-to-r  hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mt-5 bg-blue-500" >
+                                <button type="button" className="text-white bg-gradient-to-r  hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mt-5 bg-amber-600 hover:bg-amber-800" >
                                     More info
                                 </button>
                                 <h5 className="mb-2 font-medium text-black ">Quantidade: {quantity}</h5>

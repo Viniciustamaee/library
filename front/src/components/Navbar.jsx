@@ -16,6 +16,7 @@ import { Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
+
 export default function Component() {
     const hasToken = localStorage.getItem('token')
     const adminData = localStorage.getItem('user');
@@ -26,7 +27,7 @@ export default function Component() {
         if (currentUrl === import.meta.env.VITE_URL_HOME) {
             return "fixed bg-tranparent";
         } else {
-            return "bg-tranparent";
+            return "bg-amber-600";
         }
     }
 
@@ -61,20 +62,21 @@ export default function Component() {
 
 
 
-            {<Navbar fluid rounded className={`w-screen ${backGround()}`} >
+            {<Navbar fluid rounded className={`w-screen ${backGround()} `} >
 
-                <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                    <svg className="w-10 h-10 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse ">
+                    <svg className="w-10 h-10 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24">
                         <path fillRule="evenodd" d="M11 4.7C8.7 4.1 6.8 4 4 4a2 2 0 0 0-2 2v11c0 1.1 1 2 2 2 2.8 0 4.5.2 7 .8v-15Zm2 15.1c2.5-.6 4.2-.8 7-.8a2 2 0 0 0 2-2V6c0-1-.9-2-2-2-2.8 0-4.7.1-7 .7v15.1Z" clipRule="evenodd" />
                     </svg>
+
 
                     <span class="self-center text-2xl font-semibold whitespace-nowrap text-white ">Páginas Infinitas</span>
                 </a>
 
-                <div className="flex md:order-2 text-lg">
+                <div className="flex md:order-2 text-lg ">
                     <div className="flex flex-wrap gap-2">
-                        {!hasToken && <Button className='mr-2 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2' href='/User/register'>Register</Button>}
-                        {!hasToken && <Button className='mr-2 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-3 py-1 text-center me-2 mb-2' href='/User/Login'>Login</Button>}
+                        {!hasToken && <a className='mr-2 text-white font-medium rounded-lg text-md px-3 py-1 text-center me-2 mb-2  ' href='/User/Register' style={{ color: 'white' }} >Register</a>}
+                        {!hasToken && <a className='mr-2 text-white font-medium rounded-lg text-md px-3 py-1 text-center me-2 mb-2  ' href='/User/Login' style={{ color: 'white' }} >Login</a>}
                     </div>
 
                     {hasToken && (<Dropdown
@@ -127,9 +129,9 @@ export default function Component() {
                 </div>
 
 
-                <NavbarCollapse>
-                    <div className="xl:flex flex-row text-center">
-                        <NavbarLink className='text-lg text-white hover:bg-transparent'><Link to="/">Home</Link>
+                <NavbarCollapse >
+                    <div className="xl:flex flex-row text-center" >
+                        <NavbarLink className='text-lg text-white' style={{ color: 'white' }}><Link to="/" >Home</Link>
                             <svg class="w-6 h-6 ml-2  mb-1 text-white hidden sm:inline " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5" />
                             </svg>
@@ -140,7 +142,7 @@ export default function Component() {
 
                     {hasToken && <div className="xl:flex flex-row text-center">
                         <NavbarLink href="#" className='text-lg text-white hover:bg-transparent'>
-                            <Link to={`Rents/${userData.id}`}>Rents</Link>
+                            <Link to={`Rents/${userData.id}`} style={{ color: 'white' }}>Rents</Link>
                             <svg class="w-6 h-6 ml-2 text-white hidden sm:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
                             </svg>
