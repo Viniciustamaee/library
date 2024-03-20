@@ -80,9 +80,11 @@ export default function newBooks() {
             formDataObject.append('title', books.title);
             formDataObject.append('quantity_available', books.quantity_available);
             formDataObject.append('description', books.description);
-            formDataObject.append('img', imageUrl);
             formDataObject.append('author_id', books.author_id);
-            formDataObject.append('category_id', books.category_id);
+            formDataObject.append('category_id', books.category_id); 4
+
+
+            formDataObject.append('img', imageUrl);
 
             await updateBook(id, formDataObject, {
                 headers: {
@@ -118,8 +120,9 @@ export default function newBooks() {
                 window.location.href = redirectUrl;
             },
         });
-
     };
+
+    console.log(books.img)
 
     return (
         <div className="flex items-center justify-center h-screen">
