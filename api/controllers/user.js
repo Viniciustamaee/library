@@ -45,23 +45,21 @@ module.exports.new = async (req, res) => {
         img = process.env.DEFAULT_USER;
     }
 
-
-    if (!email || !username || !password || !description) {
+    if (!email || !username || !password) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
     }
 
     try {
         const existUser = await Users.existUser(username, email)
-        if (existUser.length == 0) {
-            await Users.newUser(email, username, password, img, description);
-            return res.status(200).json({ "mensagem": "User inserido com sucesso!" });
-
+        if (existUser.length > 0) {
+            return res.status(422).json({ "mensagem": "Já existe usuário com esse email ou usernmae" });
         }
-        return res.status(422).json({ "mensagem": "Já existe usuário com esse email ou usernmae" });
+
+        await Users.newUser(email, username, password, img, description);
+        return res.status(200).json({ "mensagem": "User inserido com sucesso!" });
 
     } catch (error) {
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });
-
     }
 };
 
@@ -82,12 +80,12 @@ module.exports.update = async (req, res) => {
 
     try {
         const existUser = await Users.existUser(username, email)
-        if (existUser.length == 0) {
-            await Users.update(email, username, password, img, description, id);
-            return res.status(200).json({ "mensagem": "User editado com sucesso!" });
+        if (existUser.length > 0) {
+            return res.status(422).json({ "mensagem": "Já existe usuário com esse email ou username" });
         }
+        await Users.update(email, username, password, img, description, id);
+        return res.status(200).json({ "mensagem": "User editado com sucesso!" });
 
-        return res.status(422).json({ "mensagem": "Já existe usuário com esse email ou usernmae" });
 
     } catch (error) {
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });

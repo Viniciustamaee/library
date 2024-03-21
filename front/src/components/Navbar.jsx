@@ -41,21 +41,21 @@ export default function Component() {
     function logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.location.href = '/User/Login';
+        window.location.href = '/login';
     }
 
 
     const [userData, setUserData] = useState('');
 
+    const userDataFromStorage = localStorage.getItem('user');
 
     useEffect(() => {
-        const userDataFromStorage = localStorage.getItem('user');
-
         if (userDataFromStorage) {
             const parsedUserData = JSON.parse(userDataFromStorage);
             setUserData(parsedUserData);
         }
-    }, []);
+    }, [userDataFromStorage]);
+
 
     return (
         <div className=" flex content-between " >
@@ -75,8 +75,8 @@ export default function Component() {
 
                 <div className="flex md:order-2 text-lg ">
                     <div className="flex flex-wrap gap-2">
-                        {!hasToken && <a className='mr-2 text-white font-medium rounded-lg text-md px-3 py-1 text-center me-2 mb-2  ' href='/User/Register' style={{ color: 'white' }} >Register</a>}
-                        {!hasToken && <a className='mr-2 text-white font-medium rounded-lg text-md px-3 py-1 text-center me-2 mb-2  ' href='/User/Login' style={{ color: 'white' }} >Login</a>}
+                        {!hasToken && <a className='mr-2 text-white font-medium rounded-lg text-md px-3 py-1 text-center me-2 mb-2  ' href='/register' style={{ color: 'white' }} >Register</a>}
+                        {!hasToken && <a className='mr-2 text-white font-medium rounded-lg text-md px-3 py-1 text-center me-2 mb-2  ' href='/login' style={{ color: 'white' }} >Login</a>}
                     </div>
 
                     {hasToken && (<Dropdown
@@ -91,7 +91,7 @@ export default function Component() {
                             <span className="block truncate text-sm font-medium">{userData.email}</span>
                         </DropdownHeader>
 
-                        <Link to={`User/perfil/${userData.id}`}>
+                        <Link to={`user/perfil/${userData.id}`}>
                             <div className="flex flex-row">
                                 <DropdownItem>
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -101,7 +101,7 @@ export default function Component() {
                             </div>
                         </Link>
 
-                        {hasToken && <Link to={`Rents/${userData.id}`}>
+                        {hasToken && <Link to={`rents/${userData.id}`}>
                             <div className="flex flex-row">
                                 <DropdownItem>
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -142,7 +142,7 @@ export default function Component() {
 
                     {hasToken && <div className="xl:flex flex-row text-center">
                         <NavbarLink href="#" className='text-lg text-white hover:bg-transparent'>
-                            <Link to={`Rents/${userData.id}`} style={{ color: 'white' }}>Rents</Link>
+                            <Link to={`rents/${userData.id}`} style={{ color: 'white' }}>Rents</Link>
                             <svg class="w-6 h-6 ml-2 text-white hidden sm:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
                             </svg>
@@ -167,8 +167,8 @@ export default function Component() {
 
                                         }
                                     >
-                                        <Link to='Author'><Dropdown.Item>All Authors</Dropdown.Item></Link>
-                                        {adminObject.admin == '1' && <Link to='Author/new'><Dropdown.Item>New Author</Dropdown.Item></Link>}
+                                        <Link to='author'><Dropdown.Item>All Authors</Dropdown.Item></Link>
+                                        {adminObject.admin == '1' && <Link to='author/new'><Dropdown.Item>New Author</Dropdown.Item></Link>}
                                     </Dropdown>
                                 </div>
                             </div>}
@@ -188,10 +188,10 @@ export default function Component() {
 
                                 }
                             >
-                                <Link to='Books'><Dropdown.Item>Books</Dropdown.Item></Link>
-                                <Link to='Books/allBooks'><Dropdown.Item>All books</Dropdown.Item></Link>
+                                <Link to='books'><Dropdown.Item>Books</Dropdown.Item></Link>
+                                <Link to='books/allbooks'><Dropdown.Item>All books</Dropdown.Item></Link>
                                 {hasToken && <Dropdown.Divider />}
-                                {hasToken && <Link to='Books/new'>{adminObject.admin == '1' && <Dropdown.Item>New book</Dropdown.Item>}</Link>}
+                                {hasToken && <Link to='books/new'>{adminObject.admin == '1' && <Dropdown.Item>New book</Dropdown.Item>}</Link>}
                             </Dropdown>
                         </div>
                     </div>

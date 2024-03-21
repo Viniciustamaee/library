@@ -31,7 +31,6 @@ function App() {
 
   return (
     <>
-      <ToastContainer />
       <Navbar />
 
       {/* Home */}
@@ -41,34 +40,35 @@ function App() {
 
       {/* Books */}
       <Routes>
-        <Route path='/Books' element={<Books />} />
-        <Route path='/Books/new' element={<NewBooks />} />
-        <Route path='/Books/allBooks' element={<Allbooks />} />
-        <Route path="/Books/:id" element={<BooksId />}></Route>
-        <Route path="/Books/:id/edit" element={<EditBooks />}></Route>
+        <Route path='/books' element={<Books />} />
+        <Route path='/books/new' element={<NewBooks />} />
+        <Route path='/books/allbooks' element={<Allbooks />} />
+        <Route path="/books/:id" element={<BooksId />}></Route>
+        <Route path="/books/:id/edit" element={<EditBooks />}></Route>
       </Routes>
 
       {/* User */}
       <Routes>
-        <Route path='/User/Login' element={<Login />} />
-        <Route path='/User/Register' element={<Register />} />
-        <Route path='/User/Perfil/:id' element={<Perfil />} />
-        <Route path='/User/Perfil/:id/edit' element={<EditPerfil />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/user/perfil/:id' element={<Perfil />} />
+        <Route path='/user/perfil/:id/edit' element={<EditPerfil />} />
       </Routes>
 
       {/* Rents */}
       <Routes>
-        <Route path='/Rents/:id' element={<Rents />} />
+        <Route path='/rents/:id' element={<Rents />} />
       </Routes>
 
       {/* Author */}
       <Routes>
-        <Route path='/Author' element={<AllAuthors />} />
-        <Route path='/Author/new' element={<NewAuthor />} />
-        <Route path='/Author/:id/edit' element={<EditAuthor />} />
+        <Route path='/author' element={<AllAuthors />} />
+        <Route path='/author/new' element={<NewAuthor />} />
+        <Route path='/author/:id/edit' element={<EditAuthor />} />
       </Routes>
 
       <Footer />
+      <ToastContainer />
     </>
   );
 }

@@ -1,16 +1,17 @@
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
-import { toast } from 'react-toastify';
 import { login } from '../../../requests/user';
+import { redirect, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import { useState } from 'react';
 import * as React from 'react';
-import axios from 'axios';
 
 
 const Login = () => {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const [showPassword, setShowPassword] = React.useState(false);
+    const navigate = useNavigate();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState({
@@ -43,38 +44,33 @@ const Login = () => {
             const data = response;
             setIsSubmitting(true);
 
-
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.dateUser[0]));
 
             config.headers['Authorization'] = `Bearer ${data.token}`;
-            notifySucess('/Books');
 
+            notifySucess();
+            navigate('/books')
+
+            // Redirect no button, e eu posso tirar o onClose
         } catch (error) {
-            notifyFail('/User/login')
             console.error('Erro ao chamar a API:', error.message);
-            setIsSubmitting(true);
-
+            notifyFail()
         }
     };
 
-    const notifySucess = (redirectUrl) => {
+    const notifySucess = () => {
         toast.success("Logged in", {
             position: "bottom-right",
-            autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
+            autoClose: 500,
+
         });
     };
 
-    const notifyFail = (redirectUrl) => {
+    const notifyFail = () => {
         toast.error("Username or Password Incorrect!", {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
         });
     };
 
@@ -118,11 +114,11 @@ const Login = () => {
 
 
 
-                        <button className="w-full text-white bg-amber-600 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" disabled={isSubmitting}>
+                        <button className="w-full text-white bg-amber-600 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" disabled={isSubmitting} >
                             Login to your account
                         </button>
                         <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                            Not registered? <a href="/User/Register" className="text-amber-600 hover:underline dark:text-blue-500">Create account</a>
+                            Not registered? <a href="/register" className="text-amber-600 hover:underline dark:text-blue-500">Create account</a>
                         </div>
                     </form>
                 </div >

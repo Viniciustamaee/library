@@ -4,9 +4,11 @@ import IconButton from '@mui/material/IconButton';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { insertBook } from '../../../requests/user';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = React.useState(false);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -62,33 +64,28 @@ const Register = () => {
 
 
             await insertBook(formDataObject);
-            notifySucess('/User/login');
-        } catch (error) {
-            console.error('Error calling API:', error.message);
-            setIsSubmitting(true);
-            notifyFail('/User/register')
-            console.error('Server response:', error.response.data);
 
+            notifySucess();
+            navigate('/login')
+
+        } catch (error) {
+            notifyFail()
+            console.error('Error calling API:', error.message);
+            console.error('Server response:', error.response.data);
         }
     };
 
-    const notifySucess = (redirectUrl) => {
+    const notifySucess = () => {
         toast.success("Create user", {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
         });
     };
 
-    const notifyFail = (redirectUrl) => {
-        toast.error("Usernmae or Email Incorrect!", {
+    const notifyFail = () => {
+        toast.error("Username and Email already exists", {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
         });
     };
 
@@ -96,9 +93,6 @@ const Register = () => {
         toast.error("Password Wrong!", {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
         });
 
     };
@@ -180,7 +174,7 @@ const Register = () => {
                         <label htmlFor="description" className="block  text-sm font-medium text-gray-900 dark:text-white">Your message</label>
                         <textarea id="description" rows="4" className=" p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..." onChange={handleChange} style={{ marginTop: "10px" }}></textarea>
 
-                        <button type="submit" className="w-full text-white bg-amber-600  hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" disabled={isSubmitting}>Create Account</button>
+                        <button type="submit" className="w-full text-white bg-amber-600  hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Create Account</button>
                     </form>
                 </div>
             </div >
