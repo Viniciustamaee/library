@@ -89,7 +89,7 @@ const Register = () => {
         });
     };
 
-    const wrongPassword = (redirectUrl) => {
+    const wrongPassword = () => {
         toast.error("Password Wrong!", {
             position: "bottom-right",
             autoClose: 1000,

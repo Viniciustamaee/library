@@ -29,7 +29,7 @@ export const oneAuthor = async (id) => {
 
 export const updateAuthor = async (id, authors, config) => {
     try {
-        const response = axios.put(`${import.meta.env.VITE_PORT}/Authors/${id}`, authors, config);
+        const response = await axios.put(`${import.meta.env.VITE_PORT}/Authors/${id}`, authors, config);
         return response.data;
     } catch (error) {
         throw error;
@@ -39,7 +39,7 @@ export const updateAuthor = async (id, authors, config) => {
 
 export const insertAuthor = async (authors, config) => {
     try {
-        const response = axios.post(`${import.meta.env.VITE_PORT}/Authors`, authors, config);
+        const response = await axios.post(`${import.meta.env.VITE_PORT}/Authors`, authors, config);
         return response.data;
     } catch (error) {
         throw error;

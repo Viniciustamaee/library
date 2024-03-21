@@ -24,17 +24,18 @@ module.exports.oneAuthor = async (req, res) => {
 
 module.exports.new = async (req, res) => {
     const { name } = req.body;
+    const realName = name.trim()
 
-    if (!name) {
+    if (!realName) {
         return res.status(422).json({ "mensagem": "Campo Nome é obrigatório!" });
     }
 
     try {
-        const existingAuthor = await Authors.foundOneName(name);
+        const existingAuthor = await Authors.foundOneName(realName);
         if (existingAuthor.length >= 1) {
             return res.status(409).json({ "mensagem": "Este autor já existe!" });
         }
-        await Authors.newAuthors(name);
+        await Authors.newAuthors(realName);
         return res.status(200).json({ "mensagem": "Autor inserido com sucesso!" });
 
     } catch (error) {
