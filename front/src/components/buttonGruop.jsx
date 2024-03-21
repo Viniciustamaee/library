@@ -1,6 +1,6 @@
+import { useParams, useNavigate } from 'react-router-dom';
 import { insertRent } from "../../requests/rent";
 import { deleteBook } from "../../requests/book";
-import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom"
 import { toast } from 'react-toastify';
@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 export default function GrupoButton({ urlLink, quantity }) {
     const adminData = localStorage.getItem('user');
     const adminObject = JSON.parse(adminData);
+    const navigate = useNavigate();
+
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -59,34 +61,34 @@ export default function GrupoButton({ urlLink, quantity }) {
                 },
             });
 
-            setIsSubmitting(true);
-            notifySucess(`/Rents/${adminObject.id}`)
+            notifySucess();
+            navigate(`/rents/${adminObject.id}`)
 
         } catch (error) {
-            setIsSubmitting(true);
-            notifyFail(`/Books/${id}`)
-            console.error('Error calling API:', error.message);
+            if (error.message) {
+                notifyFail()
+                navigate(0)
+
+                console.error('Error calling API:', error.message);
+            }
+
         }
     };
 
 
-    const notifySucess = (redirectUrl) => {
+    const notifySucess = () => {
         toast.success("Rent made", {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
+
         });
     };
 
-    const notifyFail = (redirectUrl) => {
+    const notifyFail = () => {
         toast.error("Quantity is empty", {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
+
         });
 
     };
@@ -160,7 +162,7 @@ export default function GrupoButton({ urlLink, quantity }) {
                         <button
                             type="button"
                             class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b  border-l border-r border-gray-400 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white  rounded-lg"
-                            onClick={quantity === 0 ? null : handleSubmit} disabled={isSubmitting}
+                            onClick={quantity === 0 ? notifyFail : handleSubmit}
                         >
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />

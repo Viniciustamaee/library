@@ -1,10 +1,13 @@
-import axios from "axios";
 import { toast } from 'react-toastify';
 import { rentsDelete } from "../../../../requests/rent";
+import { useNavigate } from "react-router-dom";
+
 import { useState } from "react";
 
 export default function RentsList({ rented_date, due_date, user_id, books_id, id }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const navigate = useNavigate();
+
 
     const deleteRents = async (e) => {
         e.preventDefault();
@@ -22,8 +25,7 @@ export default function RentsList({ rented_date, due_date, user_id, books_id, id
                 },
             });
 
-            setIsSubmitting(true);
-            notifySuccess(`/Books`);
+            notifySuccess();
         } catch (error) {
             console.error('Error calling API:', error.message);
             setIsSubmitting(true);
@@ -31,12 +33,12 @@ export default function RentsList({ rented_date, due_date, user_id, books_id, id
         }
     };
 
-    const notifySuccess = (redirectUrl) => {
+    const notifySuccess = () => {
         toast.success("Rent returned successfully", {
             position: "bottom-right",
             autoClose: 1000,
             onClose: () => {
-                window.location.href = redirectUrl;
+                navigate(0)
             },
         });
     };

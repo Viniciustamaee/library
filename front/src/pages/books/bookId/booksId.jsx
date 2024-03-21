@@ -121,7 +121,7 @@ export default function haha() {
 
                             <GrupoButton
                                 id={id}
-                                urlLink={`/Books/${id}/edit`}
+                                urlLink={`/books/${id}/edit`}
                                 quantity={books.quantity_available}
                             />
                         </div>

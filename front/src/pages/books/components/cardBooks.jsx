@@ -26,7 +26,7 @@ export default function CardBooks({ title, img, id, quantity, description }) {
                         </div>
                     </a>
                 </div>
-            </Link > : <Link to={`/Books/${id}`}>
+            </Link > : <Link to={`/books/${id}`}>
                 <div className="">
                     <a href="#" class="flex flex-col bg-black rounded-lg shadow-lg md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 m-3  " style={{ backgroundColor: "#cccccc" }}
                     >
