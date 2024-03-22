@@ -20,7 +20,7 @@ module.exports.new = async (req, res) => {
     const { comment, rating, user_id } = req.body
     const { id } = req.params
 
-    if (!comment || !rating || !user_id) {
+    if (!user_id) {
         return res.status(422).json({ "mensagem": "Campo é obrigatório!" })
     }
 

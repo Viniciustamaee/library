@@ -4,7 +4,7 @@ import { oneBook } from "../../../../requests/book";
 import { insertReview, allReview } from "../../../../requests/review";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Rating from '@mui/material/Rating';
+import Rating, { ratingClasses } from '@mui/material/Rating';
 import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Review from "./reviewCard"
@@ -20,7 +20,7 @@ export default function haha() {
 
     const [formData, setFormData] = useState({
         comment: '',
-        rating: '',
+        rating: '1',
         user_id: adminObject.id,
     });
 
@@ -47,6 +47,7 @@ export default function haha() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const hasToken = localStorage.getItem('token');
         try {
             await insertReview(id, formData, {
@@ -60,8 +61,7 @@ export default function haha() {
 
         } catch (error) {
             console.error('Error calling API:', error.message);
-            setIsSubmitting(true);
-            notifyFail(`/Books/${id}`);
+            notifyFail();
         }
     };
 
@@ -79,9 +79,7 @@ export default function haha() {
         toast.error("Error in Comment", {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
+
         });
 
     };
@@ -146,8 +144,7 @@ export default function haha() {
                                     <div className="flex justify-start">
                                         <Rating
                                             name="simple-controlled"
-                                            defaultValue={1}
-                                            value={parseInt(formData.rating) || 1}
+                                            value={parseInt(formData.rating)}
                                             max={5}
                                             id="rating"
                                             onChange={handleRatingChange}
@@ -165,7 +162,6 @@ export default function haha() {
                                     rows="4"
                                     className="w-full px-0 text-sm text-gray-500 bg-gray-100 border-0 focus:ring-0 text-black placeholder-gray-400 rounded-md "
                                     placeholder="Write a comment..."
-                                    required
                                     onChange={handleChange}
                                 ></textarea>
 
@@ -188,8 +184,12 @@ export default function haha() {
                             idReview={reviews.id}
                         />
                     ))}
+
                 </div>
+
             </div >
+
         </div>
+
     );
 }

@@ -63,18 +63,20 @@ export default function AllAuthors() {
                     <p className="">Wait the admin, insert some author...</p>
                 </div>
             )}
+            {authors.length !== 0 ? <div>
+                {totalPages != 1 && <div className="flex justify-center mt-4">
+                    <Pagination
+                        layout="pagination"
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={onPageChange}
+                        previousLabel="Back"
+                        nextLabel="Next"
+                        showIcons
+                    />
+                </div>}
+            </div> : <div className="hidden"></div>}
 
-            {totalPages != 1 && <div className="flex justify-center mt-4">
-                <Pagination
-                    layout="pagination"
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={onPageChange}
-                    previousLabel="Back"
-                    nextLabel="Next"
-                    showIcons
-                />
-            </div>}
         </>
     );
 }
