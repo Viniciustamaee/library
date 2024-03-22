@@ -16,8 +16,10 @@ import Perfil from "./pages/user/perfil"
 import Footer from './components/Footer'
 import Books from "./pages/books/books"
 import Rents from './pages/rents/rents'
+import About from './pages/home/about'
 import Login from "./pages/user/login"
 import Home from "./pages/home/home"
+
 
 
 
@@ -36,6 +38,7 @@ function App() {
       {/* Home */}
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
       </Routes>
 
       {/* Books */}
