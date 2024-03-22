@@ -3,6 +3,7 @@ import { allAuthors } from "../../../requests/author";
 import { insertBooks } from "../../../requests/book";
 import React, { useEffect, useState } from "react";
 import { Label, Select } from 'flowbite-react';
+import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 
 export default function newBooks() {
@@ -10,6 +11,8 @@ export default function newBooks() {
     const [categories, setCategories] = useState([]);
     const [imageUrl, setImageUrl] = useState('');
     const [authors, setAuthors] = useState([]);
+    const navigate = useNavigate();
+
 
     const [formData, setFormData] = useState({
         title: '',
@@ -83,32 +86,30 @@ export default function newBooks() {
                     'Authorization': `Bearer ${hasToken}`,
                 },
             });
-            notifySucess('/Books/allBooks')
+
+
+            notifySucess()
+            navigate('/books/allbooks')
         } catch (error) {
+            notifyFail()
             console.error('Error calling API:', error.message);
-            setIsSubmitting(true);
-            notifyFail('/Books/new')
         }
     };
 
 
-    const notifySucess = (redirectUrl) => {
+    const notifySucess = () => {
         toast.success("Book insert with success", {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
+
         });
     };
 
-    const notifyFail = (redirectUrl) => {
-        toast.error("Something empty", {
+    const notifyFail = () => {
+        toast.error("already title this name", {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
+
         });
 
     };
@@ -166,7 +167,7 @@ export default function newBooks() {
                         </Select>
                     </div>
 
-                    <button type="submit" className="w-full text-white bg-amber-600 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" disabled={isSubmitting} >Create New Book</button>
+                    <button type="submit" className="w-full text-white bg-amber-600 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"  >Create New Book</button>
                 </form>
             </div>
         </div>

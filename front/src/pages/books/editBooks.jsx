@@ -3,7 +3,7 @@ import { oneBook, updateBook } from "../../../requests/book";
 import { allAuthors } from "../../../requests/author";
 import React, { useEffect, useState } from "react";
 import { Label, Select } from 'flowbite-react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 
 export default function newBooks() {
@@ -13,7 +13,9 @@ export default function newBooks() {
     const [imageUrl, setImageUrl] = useState('');
     const [authors, setAuthors] = useState([]);
     const [books, setBooks] = useState({});
+    const navigate = useNavigate();
     const { id } = useParams()
+
 
     useEffect(() => {
         const fectcBooks = async () => {
@@ -92,33 +94,29 @@ export default function newBooks() {
                 },
             });
 
-            notifySucess('/Books/allBooks')
+
+
+            notifySucess()
+            navigate('/books/allbooks')
 
         } catch (error) {
             console.error('Error calling API:', error.message);
-            setIsSubmitting(true);
-            notifyFail('/Books')
+            notifyFail()
 
         }
     };
 
-    const notifySucess = (redirectUrl) => {
+    const notifySucess = () => {
         toast.success("Succss edit", {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
         });
     };
 
-    const notifyFail = (redirectUrl) => {
+    const notifyFail = () => {
         toast.error("Edit fail", {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
         });
     };
 

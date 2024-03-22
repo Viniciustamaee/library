@@ -33,7 +33,7 @@ export const updateBook = async (id, formDataObject, config) => {
 
 export const insertBooks = async (formDataObject, config) => {
     try {
-        const response = axios.post(`${import.meta.env.VITE_PORT}/Books`, formDataObject, config);
+        const response = await axios.post(`${import.meta.env.VITE_PORT}/Books`, formDataObject, config);
         return response.data;
     } catch {
         console.log(error)

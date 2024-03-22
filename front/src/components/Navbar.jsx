@@ -92,36 +92,37 @@ export default function Component() {
                         </DropdownHeader>
 
                         <Link to={`user/perfil/${userData.id}`}>
-                            <div className="flex flex-row">
-                                <DropdownItem>
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <DropdownItem >
+                                <div className="flex flex-row ">
+                                    <svg class="h-6 text-gray-800 dark:text-white " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd" d="M12 20a8 8 0 0 1-5-1.8v-.6c0-1.8 1.5-3.3 3.3-3.3h3.4c1.8 0 3.3 1.5 3.3 3.3v.6a8 8 0 0 1-5 1.8ZM2 12a10 10 0 1 1 10 10A10 10 0 0 1 2 12Zm10-5a3.3 3.3 0 0 0-3.3 3.3c0 1.7 1.5 3.2 3.3 3.2 1.8 0 3.3-1.5 3.3-3.3C15.3 8.6 13.8 7 12 7Z" clip-rule="evenodd" />
                                     </svg>
-                                    Perfil</DropdownItem>
-                            </div>
+                                    Perfil
+                                </div>
+                            </DropdownItem>
                         </Link>
 
                         {hasToken && <Link to={`rents/${userData.id}`}>
-                            <div className="flex flex-row">
-                                <DropdownItem>
+                            <DropdownItem>
+                                <div className="flex flex-row">
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd" d="M7 2a2 2 0 0 0-2 2v1a1 1 0 0 0 0 2v1a1 1 0 0 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H7Zm3 8a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm-1 7a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3c0 .6-.4 1-1 1h-6a1 1 0 0 1-1-1Z" clip-rule="evenodd" />
                                     </svg>
-                                    Rents</DropdownItem>
-                            </div>
+                                    Rents
+                                </div>
+                            </DropdownItem>
                             <DropdownDivider />
                         </Link>}
 
 
-                        <div className="flex flex-row">
-                            <DropdownItem onClick={logout}>
+                        <DropdownItem onClick={logout}>
+                            <div className="flex flex-row">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2" />
                                 </svg>
                                 Sign out
-
-                            </DropdownItem>
-                        </div>
+                            </div>
+                        </DropdownItem>
                     </Dropdown>
                     )}
 
@@ -131,7 +132,7 @@ export default function Component() {
 
                 <NavbarCollapse >
                     <div className="xl:flex flex-row text-center" >
-                        <NavbarLink className='text-lg text-white' style={{ color: 'white' }}><Link to="/" >Home</Link>
+                        <NavbarLink className='text-lg text-white hover:bg-transparent' style={{ color: 'white' }}><Link to="/" >Home</Link>
                             <svg class="w-6 h-6 ml-2  mb-1 text-white hidden sm:inline " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5" />
                             </svg>

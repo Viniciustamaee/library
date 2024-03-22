@@ -24,7 +24,6 @@ export default function RentsList({ rented_date, due_date, user_id, books_id, id
             });
 
             notifySuccess();
-            // useEffect dentro list para atualizar só alista
         } catch (error) {
             console.error('Error calling API:', error.message);
             setIsSubmitting(true);

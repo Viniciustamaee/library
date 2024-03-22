@@ -2,6 +2,7 @@ import AuthorHeads from "./components/headTable"
 import { allAuthors } from "../../../requests/author";
 import AuthorList from "./components/authorlist"
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function AllAuthors() {
 
@@ -35,6 +36,11 @@ export default function AllAuthors() {
                             />
                         ))}
                         <table />
+                        <Link to={'/author/new'}>
+                            <div className="flex justify-center items-center text-white  bg-amber-600 hover:bg-amber-800 pb-2 ">
+                                <h1 className="" >New author</h1>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </div> : (

@@ -56,8 +56,8 @@ export default function authorList({ nameAuthor, id }) {
 
     return (
         <>
-            <tbody>
 
+            <tbody>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center">
 
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white ">
@@ -89,11 +89,9 @@ export default function authorList({ nameAuthor, id }) {
                             </Modal.Body>
                         </Modal>
                     </td>}
-
-
                 </tr>
-            </tbody>
 
+            </tbody>
         </>
     )
 }
