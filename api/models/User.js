@@ -77,6 +77,24 @@ function existUser(username, email) {
     });
 };
 
+
+function img(email) {
+    return new Promise((resolve, reject) => {
+        con.connect((err) => {
+            if (err) {
+                return reject(err);
+            }
+            let sql = `select * from users WHERE email='${email}'`;
+            con.query(sql, (err, result) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(result);
+            });
+        });
+    });
+};
+
 function login(username) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
@@ -136,7 +154,8 @@ module.exports = {
     login,
     oneUser,
     allUsers,
-    update
+    update,
+    img
 }
 
 

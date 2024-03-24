@@ -1,10 +1,11 @@
-import GrupoButton from "../../../components/buttonGruop";
-import Typography from '@mui/material/Typography';
-import { oneBook } from "../../../../requests/book";
 import { insertReview, allReview } from "../../../../requests/review";
+import GrupoButton from "../../../components/buttonGruop";
+import { oneBook } from "../../../../requests/book";
+import Typography from '@mui/material/Typography';
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Rating, { ratingClasses } from '@mui/material/Rating';
+import { Pagination } from 'flowbite-react';
+import Rating from '@mui/material/Rating';
 import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Review from "./reviewCard"
@@ -12,6 +13,9 @@ import * as React from 'react';
 
 export default function haha() {
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const onPageChange = (page) => setCurrentPage(page);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     const adminData = localStorage.getItem('user');
     const adminObject = JSON.parse(adminData);
     const [review, setReview] = useState([]);
@@ -91,11 +95,14 @@ export default function haha() {
         });
     };
 
+
     useEffect(() => {
         const fectReview = async () => {
             try {
                 const response = await allReview(id);
                 setReview(response);
+                setTotalPages(Math.ceil(response.length / 3));
+
             } catch (error) {
                 console.error("Erro ao buscar os livros:", error);
             }
@@ -103,6 +110,11 @@ export default function haha() {
 
         fectReview();
     }, []);
+
+    const indexOfLastAuthor = currentPage * 3;
+    const indexOfFirstAuthor = indexOfLastAuthor - 3;
+    const currentReview = review.slice(indexOfFirstAuthor, indexOfLastAuthor);
+
 
 
     return (
@@ -174,7 +186,7 @@ export default function haha() {
                         </div>
                     </form>
 
-                    {review.map((reviews) => (
+                    {currentReview.map((reviews) => (
                         <Review
                             key={reviews.id}
                             id={reviews.user_id}
@@ -184,10 +196,27 @@ export default function haha() {
                             idReview={reviews.id}
                         />
                     ))}
-
+                    {totalPages != 1 && <div className="flex justify-center mt-4">
+                        {review.length !== 0 ? <div>
+                            {totalPages != 1 && <div className="flex justify-center mt-4">
+                                <Pagination
+                                    layout="pagination"
+                                    currentPage={currentPage}
+                                    totalPages={totalPages}
+                                    onPageChange={onPageChange}
+                                    previousLabel="Back"
+                                    nextLabel="Next"
+                                    showIcons
+                                />
+                            </div>}
+                        </div> : <div className="hidden"></div>}
+                    </div>}
                 </div>
 
+
             </div >
+
+
 
         </div>
 

@@ -72,11 +72,11 @@ export default function Rents() {
     return (
         <>
             {rents.length == 0 ? (
-                <div className="mt-20 text-xl text-center flex justify-center flex-col">
+                <div className="mt-20 text-xl text-center flex justify-center flex-col" style={{height: "65vh"}}>
                     <h1 className="text-4xl">You don't have Rents yet</h1>
                     <p className="">Rent some books</p>
                 </div>) :
-                <div className="flex items-center justify-center mt-10 ">
+                <div className="flex items-center justify-center mt-20" >
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <RentsHead />

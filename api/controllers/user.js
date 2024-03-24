@@ -37,7 +37,10 @@ module.exports.oneUser = async (req, res) => {
 
 module.exports.new = async (req, res) => {
     const { email, username, password, description } = req.body
+
     let img;
+
+
 
     if (req.file && req.file.path) {
         img = req.file.path;
@@ -68,13 +71,7 @@ module.exports.update = async (req, res) => {
     const { id } = req.params
     let img;
 
-    if (req.file && req.file.path) {
-        img = req.file.path;
-    } else {
-        img = process.env.DEFAULT_USER;
-    }
-
-    if (!email || !username || !password || !img || !description) {
+    if (!email || !username || !password  || !description) {
         return res.status(406).json({ "erros": "Dados insuficientes" })
     }
 
@@ -83,11 +80,22 @@ module.exports.update = async (req, res) => {
         if (existUser.length > 0) {
             return res.status(422).json({ "mensagem": "Já existe usuário com esse email ou username" });
         }
-        await Users.update(email, username, password, img, description, id);
-        return res.status(200).json({ "mensagem": "User editado com sucesso!" });
+
+
+        if (req.file && req.file.path) {
+            img = req.file.path;
+        } else {
+            const imgUser = await Users.img(email)
+            img = imgUser[0].img;
+            await Users.update(email, username, password, img, description, id);
+            return res.status(200).json({ "mensagem": "User editado com sucesso!" });
+        }
+
+
 
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ "mensagem": "Erro interno do servidor" });
 
     }

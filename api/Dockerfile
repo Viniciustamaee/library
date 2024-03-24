@@ -4,7 +4,7 @@ COPY . .
 
 COPY ./ package*.json  
 
-RUN npm i -g nodemon
+RUN npm i -g --exitcrash nodemon
 
 WORKDIR /usr/scr/app/api
 

@@ -85,13 +85,9 @@ module.exports.updateBooks = async (req, res) => {
     let { id } = req.params
     let img;
 
-    if (req.file && req.file.path) {
-        img = req.file.path;
-    } else {
-        img = process.env.DEFAULT_BOOK;
-    }
+   
 
-    if (!title || !quantity_available || !img || !author_id || !category_id || !description) {
+    if (!title || !quantity_available || !author_id || !category_id || !description) {
         return res.status(422).json({ "mensagem": "Campo é obrigatório!" });
     }
 
@@ -107,9 +103,21 @@ module.exports.updateBooks = async (req, res) => {
     try {
         const existingId = await Books.oneBook(id);
         if (existingId.length >= 1) {
+
+            const imgBook = await Books.oneBook(id);
+
+            if (req.file && req.file.path) {
+                img = req.file.path;
+            } else {
+                img = imgBook[0].img;
+            }
+
             await Books.update(title, quantity_available, img, description, author_id, category_id, id)
             return res.status(200).json({ "mensagem": "Autor atualizado com sucesso" });
         }
+
+
+        
         return res.status(422).json({ "mensagem": "Não existe esse id de author" });
 
     } catch (erro) {

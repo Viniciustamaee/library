@@ -1,15 +1,18 @@
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
 import { insertBook } from '../../../requests/user';
 import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import zxcvbn from 'zxcvbn';
+
 
 const Register = () => {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const navigate = useNavigate();
     const [showPassword, setShowPassword] = React.useState(false);
+    const navigate = useNavigate();
+
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
@@ -43,6 +46,13 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const passwordStrength = zxcvbn(formData.password);
+        if (passwordStrength.score < 2) {
+            console.log(passwordStrength.score)
+            notifyFail("A senha é muito fraca. Tente uma senha mais complexa.");
+            return;
+        }
+
         try {
             setIsSubmitting(true);
             const formDataObject = new FormData();
@@ -51,7 +61,7 @@ const Register = () => {
             formDataObject.append('description', formData.description);
 
             if (formData.password !== formData.passwordConfirm) {
-                return wrongPassword('/User/register')
+                return notifyFail("Senha nao é a mesma")
             }
             formDataObject.append('password', formData.password);
 
@@ -69,7 +79,7 @@ const Register = () => {
             navigate('/login')
 
         } catch (error) {
-            notifyFail()
+            notifyFail("Username and Email already exists")
             console.error('Error calling API:', error.message);
             console.error('Server response:', error.response.data);
         }
@@ -82,20 +92,13 @@ const Register = () => {
         });
     };
 
-    const notifyFail = () => {
-        toast.error("Username and Email already exists", {
+    const notifyFail = (mensagem) => {
+        toast.error(mensagem, {
             position: "bottom-right",
             autoClose: 1000,
         });
     };
 
-    const wrongPassword = () => {
-        toast.error("Password Wrong!", {
-            position: "bottom-right",
-            autoClose: 1000,
-        });
-
-    };
 
 
 

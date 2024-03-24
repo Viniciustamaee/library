@@ -83,10 +83,9 @@ export default function newBooks() {
             formDataObject.append('quantity_available', books.quantity_available);
             formDataObject.append('description', books.description);
             formDataObject.append('author_id', books.author_id);
-            formDataObject.append('category_id', books.category_id); 4
-
-
+            formDataObject.append('category_id', books.category_id); 
             formDataObject.append('img', imageUrl);
+            
 
             await updateBook(id, formDataObject, {
                 headers: {
