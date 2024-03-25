@@ -54,7 +54,7 @@ const Register = () => {
         e.preventDefault();
 
         const passwordStrength = zxcvbn(formData.password);
-        if (passwordStrength.score < 1) {
+        if (passwordStrength.score < 4) {
             console.log(passwordStrength)
             notifyFail("The password is very weak. Try a more complex password.");
             return;
@@ -105,6 +105,8 @@ const Register = () => {
             autoClose: 1000,
         });
     };
+
+    console.log(validationPassword.score + "0")
 
     return (
         <>
@@ -175,11 +177,15 @@ const Register = () => {
                             </div>
                         </div>
 
-                        {<div>
-                            {validationPassword.score < 1 && < div className='bg-slate-100 rounded-lg border-solid border-2 border-gray-300'>
-                                <p className='text-black text-sm indent-5 p-3'>{validationPassword.feedback.suggestions}</p>
-                            </div>}
-                        </div>}
+
+                        <div className="flex items-center mt-4">
+                            <div className="w h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700" style={{ width: "100%" }}>
+                                <div className="h-5 bg-green-700 rounded" style={{ width: `${(validationPassword.score / 4) * 100}%` }}></div>
+                            </div>
+                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{(validationPassword.score / 4) * 100}%</span>
+                        </div>
+
+
 
 
                         <div className="">
