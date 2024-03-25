@@ -8,8 +8,6 @@ export default function Review({ comment, rating, id, idUrl, idReview }) {
     const adminObject = JSON.parse(adminData);
     const [users, setUsers] = useState([]);
 
-
-
     useEffect(() => {
         const fetchUsers = async () => {
             try {

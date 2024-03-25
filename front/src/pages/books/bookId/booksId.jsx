@@ -42,7 +42,7 @@ export default function haha() {
                 const response = await oneBook(id);
                 setBooks(response[0]);
             } catch (error) {
-                console.error("Erro ao buscar os livros:", error);
+                console.error("Error search book:", error);
             }
         };
 
@@ -104,7 +104,7 @@ export default function haha() {
                 setTotalPages(Math.ceil(response.length / 3));
 
             } catch (error) {
-                console.error("Erro ao buscar os livros:", error);
+                console.error("Error search book:", error);
             }
         };
 

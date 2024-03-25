@@ -25,7 +25,7 @@ export default function Component() {
 
     const backGround = () => {
         if (currentUrl === import.meta.env.VITE_URL_HOME) {
-            return "fixed bg-tranparent";
+            return "fixed bg-amber-600";
         } else {
             return "bg-amber-600";
         }
@@ -35,7 +35,7 @@ export default function Component() {
         const adminObject = JSON.parse(adminData);
 
     } else {
-        console.log('Não há dados de usuário no localStorage');
+        console.log('Dont have data in localStorage');
     }
 
     function logout() {
@@ -70,7 +70,7 @@ export default function Component() {
                     </svg>
 
 
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap text-white ">Páginas Infinitas</span>
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap text-white ">Infinity page</span>
                 </a>
 
                 <div className="flex md:order-2 text-lg ">

@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 export default function EditAuthor() {
     const { id } = useParams()
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [authors, setAuthors] = useState({});
     const navigate = useNavigate();
 
@@ -17,7 +16,7 @@ export default function EditAuthor() {
                 const response = await oneAuthor(id);
                 setAuthors(response[0]);
             } catch (error) {
-                console.error("Erro ao buscar os livros:", error);
+                console.error("Error search book:", error);
             }
         };
 

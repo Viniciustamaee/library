@@ -12,7 +12,7 @@ export default function AllBooks() {
                 const response = await allBooksCover();
                 setBooks(response);
             } catch (error) {
-                console.error("Erro ao buscar os livros:", error);
+                console.error("Error search book:", error);
             }
         };
 

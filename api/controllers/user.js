@@ -17,7 +17,7 @@ module.exports.allUsers = async (req, res) => {
         return res.status(200).json(allUsers);
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Internal server error" });
     }
 }
 
@@ -29,7 +29,7 @@ module.exports.oneUser = async (req, res) => {
         return res.status(200).json(oneUser);
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Internal server error" });
     }
 }
 
@@ -49,20 +49,20 @@ module.exports.new = async (req, res) => {
     }
 
     if (!email || !username || !password) {
-        return res.status(406).json({ "erros": "Dados insuficientes" })
+        return res.status(406).json({ "erros": "Insufficient data" })
     }
 
     try {
         const existUser = await Users.existUser(username, email)
         if (existUser.length > 0) {
-            return res.status(422).json({ "mensagem": "Já existe usuário com esse email ou usernmae" });
+            return res.status(422).json({ "mensagem": "There is already a user with this email and username" });
         }
 
         await Users.newUser(email, username, password, img, description);
-        return res.status(200).json({ "mensagem": "User inserido com sucesso!" });
+        return res.status(200).json({ "mensagem": "User insert with success" });
 
     } catch (error) {
-        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Internal server error" });
     }
 };
 
@@ -71,14 +71,14 @@ module.exports.update = async (req, res) => {
     const { id } = req.params
     let img;
 
-    if (!email || !username || !password  || !description) {
-        return res.status(406).json({ "erros": "Dados insuficientes" })
+    if (!email || !username || !password || !description) {
+        return res.status(406).json({ "erros": "Insufficient data" })
     }
 
     try {
         const existUser = await Users.existUser(username, email)
         if (existUser.length > 0) {
-            return res.status(422).json({ "mensagem": "Já existe usuário com esse email ou username" });
+            return res.status(422).json({ "mensagem": "There is already a user with this email and username" });
         }
 
 
@@ -88,7 +88,7 @@ module.exports.update = async (req, res) => {
             const imgUser = await Users.img(email)
             img = imgUser[0].img;
             await Users.update(email, username, password, img, description, id);
-            return res.status(200).json({ "mensagem": "User editado com sucesso!" });
+            return res.status(200).json({ "mensagem": "User edit with success!" });
         }
 
 
@@ -96,7 +96,7 @@ module.exports.update = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ "mensagem": "Erro interno do servidor" });
+        return res.status(500).json({ "mensagem": "Internal server error" });
 
     }
 };
@@ -105,7 +105,7 @@ module.exports.passwordValid = new LocalStrategy(function (username, password, d
     Users.login(username)
         .then(rows => {
             if (rows.length === 0) {
-                return done(null, false, { message: 'Usuário não encontrado.' });
+                return done(null, false, { message: 'User does not find.' });
             }
 
             const user = rows[0];
@@ -115,7 +115,7 @@ module.exports.passwordValid = new LocalStrategy(function (username, password, d
                     if (passwordMatch) {
                         return done(null, user);
                     } else {
-                        return done(null, false, { message: 'Senha incorreta.' });
+                        return done(null, false, { message: 'Wrong Passwrod.' });
                     }
                 })
                 .catch(error => done(error));
@@ -161,7 +161,7 @@ module.exports.tokenValid = new JWTstrategy(
         try {
             return done(null, token);
         } catch (error) {
-            console.error('Erro na validação do token:', error);
+            console.error('Erro in validation token:', error);
             return done(error);
         }
     }

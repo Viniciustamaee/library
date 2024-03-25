@@ -15,7 +15,7 @@ export default function Allbooks() {
                 setBooks(response);
 
             } catch (error) {
-                console.error("Erro ao buscar os livros:", error);
+                console.error("Erro search book:", error);
 
             }
         };
@@ -24,16 +24,16 @@ export default function Allbooks() {
     }, []);
 
     useEffect(() => {
-        const fetchBooks = async () => {
+        const fetchUser = async () => {
             try {
                 const response = await allUsers();
                 setUser(response);
             } catch (error) {
-                console.error("Erro ao buscar os livros:", error);
+                console.error("Erro search user:", error);
             }
         };
 
-        fetchBooks();
+        fetchUser();
     }, []);
 
 
@@ -41,8 +41,6 @@ export default function Allbooks() {
     return (
         <>
             <div className="xl:container mx-auto px-1">
-
-
                 <div className="flex justify-center mt-10">
                     <div className="flex gap-10 w-4/6 items-center grid grid-cols-1 md:grid-cols-2">
                         <div className="">

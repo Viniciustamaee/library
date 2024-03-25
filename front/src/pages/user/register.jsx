@@ -22,12 +22,19 @@ const Register = () => {
         password: '',
         passwordConfirm: '',
         description: ''
+
     });
+    const validationPassword = (zxcvbn(formData.password))
+
+
 
     const handleChange = (e) => {
+
         setFormData({
             ...formData,
+
             [e.target.id]: e.target.value,
+
         });
     };
 
@@ -47,9 +54,9 @@ const Register = () => {
         e.preventDefault();
 
         const passwordStrength = zxcvbn(formData.password);
-        if (passwordStrength.score < 2) {
-            console.log(passwordStrength.score)
-            notifyFail("A senha é muito fraca. Tente uma senha mais complexa.");
+        if (passwordStrength.score < 1) {
+            console.log(passwordStrength)
+            notifyFail("The password is very weak. Try a more complex password.");
             return;
         }
 
@@ -61,7 +68,7 @@ const Register = () => {
             formDataObject.append('description', formData.description);
 
             if (formData.password !== formData.passwordConfirm) {
-                return notifyFail("Senha nao é a mesma")
+                return notifyFail("Password is not the same")
             }
             formDataObject.append('password', formData.password);
 
@@ -99,9 +106,6 @@ const Register = () => {
         });
     };
 
-
-
-
     return (
         <>
             <div className="flex items-center justify-center h-4/5 mt-1 mb-5 mt-5">
@@ -136,12 +140,15 @@ const Register = () => {
                                     onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}
                                     edge="end"
+                                    tabindex="-1"
+
                                     style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)' }}
                                 >
                                     {showPassword ? <VisibilityOff /> : <Visibility />}
                                 </IconButton>
                             </div>
                         </div>
+
 
 
                         <div className=''>
@@ -160,6 +167,7 @@ const Register = () => {
                                     onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}
                                     edge="end"
+                                    tabindex="-1"
                                     style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)' }}
                                 >
                                     {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -167,6 +175,11 @@ const Register = () => {
                             </div>
                         </div>
 
+                        {<div>
+                            {validationPassword.score < 1 && < div className='bg-slate-100 rounded-lg border-solid border-2 border-gray-300'>
+                                <p className='text-black text-sm indent-5 p-3'>{validationPassword.feedback.suggestions}</p>
+                            </div>}
+                        </div>}
 
 
                         <div className="">
@@ -179,7 +192,7 @@ const Register = () => {
 
                         <button type="submit" className="w-full text-white bg-amber-600  hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Create Account</button>
                     </form>
-                </div>
+                </div >
             </div >
 
         </>

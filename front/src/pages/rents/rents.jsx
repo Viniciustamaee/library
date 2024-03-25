@@ -25,7 +25,7 @@ export default function Rents() {
                 const response = await allBooksCover();
                 setBooks(response);
             } catch (error) {
-                console.error("Erro ao buscar os livros:", error);
+                console.error("Erro search book:", error);
             }
         };
 
@@ -40,7 +40,7 @@ export default function Rents() {
                 setUser(response);
                 setTotalPages(Math.ceil(response.length / 5));
             } catch (error) {
-                console.error("Erro ao buscar os rents:", error);
+                console.error("Erro search rents:", error);
             }
         };
 
@@ -54,7 +54,7 @@ export default function Rents() {
                 setRents(response);
                 setTotalPages(Math.ceil(response.length / 5));
             } catch (error) {
-                console.error("Erro ao buscar os rents:", error);
+                console.error("Erro search rents:", error);
             }
         };
 
@@ -72,7 +72,7 @@ export default function Rents() {
     return (
         <>
             {rents.length == 0 ? (
-                <div className="mt-20 text-xl text-center flex justify-center flex-col" style={{height: "65vh"}}>
+                <div className="mt-20 text-xl text-center flex justify-center flex-col" style={{ height: "65vh" }}>
                     <h1 className="text-4xl">You don't have Rents yet</h1>
                     <p className="">Rent some books</p>
                 </div>) :
