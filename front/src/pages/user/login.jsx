@@ -52,7 +52,6 @@ const Login = () => {
             notifySucess();
             navigate('/books')
 
-            // Redirect no button, e eu posso tirar o onClose
         } catch (error) {
             console.error('Erro ao chamar a API:', error.message);
             notifyFail()

@@ -4,12 +4,11 @@ COPY . .
 
 COPY ./ package*.json  
 
-RUN npm i -g --exitcrash nodemon
+RUN npm i -g nodemon
 
 WORKDIR /usr/scr/app/api
 
 
 EXPOSE 3000
-# ENV PORT 3000
 
 CMD [ "npm", "start" ]
