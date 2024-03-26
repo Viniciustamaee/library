@@ -58,7 +58,7 @@ export default function AllAuthors() {
 
                 </div>
             ) : (
-                <div className="mt-20 text-xl text-center flex justify-center flex-col">
+                <div className="mt-20 text-xl text-center flex justify-center flex-col" style={{ height: "65vh" }}>
                     <h1 className="text-4xl">We don't have Author yet</h1>
                     <p className="">Wait the admin, insert some author...</p>
                 </div>

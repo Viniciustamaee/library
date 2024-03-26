@@ -24,7 +24,7 @@ export default function About() {
 
     return (
         <div>
-            {books.length == 0 ? <><div className="mt-20 text-xl text-center flex justify-center flex-col">
+            {books.length == 0 ? <><div className="mt-20 text-xl text-center flex justify-center flex-col" style={{ height: "65vh" }}>
                 <h1 className="text-4xl">We don't have book yet</h1>
                 <p className="">Wait the admin, insert some books...</p>
             </div></> : <div>

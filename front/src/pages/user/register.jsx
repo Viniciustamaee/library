@@ -24,10 +24,6 @@ const Register = () => {
         description: ''
 
     });
-    const validationPassword = (zxcvbn(formData.password))
-
-
-
     const handleChange = (e) => {
 
         setFormData({
@@ -53,9 +49,12 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const passwordStrength = zxcvbn(formData.password);
-        if (passwordStrength.score < 4) {
-            console.log(passwordStrength)
+        if (
+            !containsNumber(formData.password) ||
+            !containsSpecialCharacter(formData.password) ||
+            formData.password.length < 5 ||
+            !containsUppercaseLetter(formData.password)
+        ) {
             notifyFail("The password is very weak. Try a more complex password.");
             return;
         }
@@ -106,7 +105,23 @@ const Register = () => {
         });
     };
 
-    console.log(validationPassword.score + "0")
+    const containsNumber = (password) => {
+        const numbers = password.match(/\d/g);
+        return numbers ? numbers.length : 0;
+    };
+
+    const containsSpecialCharacter = (password) => {
+        const specialCharacters = /[!@#$%^&*(),.?":{}|<>]/g;
+        const matches = password.match(specialCharacters);
+        return matches ? matches.length : 0;
+    };
+
+    const containsUppercaseLetter = (password) => {
+        return /[A-Z]/.test(password);
+    };
+
+
+
 
     return (
         <>
@@ -177,16 +192,25 @@ const Register = () => {
                             </div>
                         </div>
 
-
-                        <div className="flex items-center mt-4">
-                            <div className="w h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700" style={{ width: "100%" }}>
-                                <div className="h-5 bg-green-700 rounded" style={{ width: `${(validationPassword.score / 4) * 100}%` }}></div>
-                            </div>
-                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{(validationPassword.score / 4) * 100}%</span>
+                        <div className='text-sm	bg-gray-200 rounded-lg drop-shadow-lg'>
+                            <h1 className='text-black text-center text-lg'>Suggestions Password</h1>
+                            {formData.password.length < 5 ? <p className='text-red-500 p-2'>Password must contain 5 character</p> : <p className='text-green-500 p-2'>Password must contain 5 character</p>}
+                            {containsNumber(formData.password) < 2 ? (
+                                <p className="text-red-500 p-2">Password must contain at least 2 numbers</p>
+                            ) : (
+                                <p className="text-green-500 p-2">Password contains at least 2 numbers</p>
+                            )}
+                            {containsSpecialCharacter(formData.password) < 2 ? (
+                                <p className="text-red-500 p-2">Password must contain at least 2 special characters</p>
+                            ) : (
+                                <p className="text-green-500 p-2">Password must contains at least 2 special characters</p>
+                            )}
+                            {!containsUppercaseLetter(formData.password) ? (
+                                <p className="text-red-500 p-2">Password must contain at least one uppercase letter</p>
+                            ) : (
+                                <p className="text-green-500 p-2">Password contains at least one uppercase letter</p>
+                            )}
                         </div>
-
-
-
 
                         <div className="">
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Choose your profile picture</label>

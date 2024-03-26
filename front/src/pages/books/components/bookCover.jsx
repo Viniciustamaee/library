@@ -41,7 +41,7 @@ export default function booksCover({ title, img, id, quantity, bookId, rentId })
                                 <div className="">
                                     <h3 className="text-center text-gray-500">Status:</h3>
                                     <h5 className={`mb-1 text-lg font-bold tracking-tight ${(quantity > 0 ? 'text-green-500' : 'text-red-500')} dark:text-white`}>
-                                        {quantity > 0 ? 'Disponivel' : 'Indisponivel'}
+                                        {quantity > 0 ? 'Available' : 'Unavailable'}
                                     </h5>
                                 </div>
                                 <div className="">
