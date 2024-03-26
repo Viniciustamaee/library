@@ -5,7 +5,7 @@ module.exports.allBooks = async (req, res) => {
         const allBooksResult = await Books.allTheBooks();
         return res.status(200).json(allBooksResult);
     } catch (error) {
-        return res.status(500).json({ "mensagem": "Internal server error" });
+        return res.status(500).json({ "message": "Internal server error" });
     }
 }
 
@@ -20,24 +20,24 @@ module.exports.newBooks = async (req, res) => {
     }
 
     if (!title || !quantity_available || !author_id || !category_id || !description) {
-        return res.status(422).json({ "mensagem": "Camp is mandatory!!" });
+        return res.status(422).json({ "message": "Camp is mandatory!!" });
     }
 
     if (!/^[0-9]+$/.test(author_id) || !/^[0-9]+$/.test(author_id) || !/^[0-9]+$/.test(category_id) || !/^[0-9]+$/.test(quantity_available)) {
-        return res.status(422).json({ "mensagem": "Quantity and ID need to be just a number" });
+        return res.status(422).json({ "message": "Quantity and ID need to be just a number" });
     }
 
     try {
         const existingTitle = await Books.foundOneName(title);
         if (existingTitle.length >= 1) {
-            return res.status(409).json({ "mensagem": "Books existing!" });
+            return res.status(409).json({ "message": "Books existing!" });
         }
 
         await Books.newBooks(title, quantity_available, img, description, author_id, category_id);
-        return res.status(200).json({ "mensagem": "Book insert with success!" });
+        return res.status(200).json({ "message": "Book insert with success!" });
 
     } catch (error) {
-        return res.status(500).json({ "mensagem": "Internal server error" });
+        return res.status(500).json({ "message": "Internal server error" });
     }
 };
 
@@ -46,7 +46,7 @@ module.exports.oneBooks = async (req, res) => {
     const { id } = req.params
 
     if (!/^[1-9]\d*$/.test(id)) {
-        res.status(400).json({ "mensagem": "The 'id' cannot be a letter or negative number!!" });
+        res.status(400).json({ "message": "The 'id' cannot be a letter or negative number!!" });
         return;
     }
     try {
@@ -54,7 +54,7 @@ module.exports.oneBooks = async (req, res) => {
         return res.status(200).json(oneBook);
 
     } catch (error) {
-        return res.status(500).json({ "mensagem": "Internal server error" });
+        return res.status(500).json({ "message": "Internal server error" });
     }
 };
 
@@ -62,21 +62,21 @@ module.exports.delete = async (req, res) => {
     const { id } = req.params
 
     if (!/^[1-9]\d*$/.test(id)) {
-        res.status(400).json({ "mensagem": "The 'id' cannot be a letter or negative number!!" });
+        res.status(400).json({ "message": "The 'id' cannot be a letter or negative number!!" });
         return;
     }
     try {
         const existingId = await Books.oneBook(id);
         if (existingId.length >= 1) {
             await Books.Delete(id)
-            return res.status(200).json({ "mensagem": "Books delete with success" });
+            return res.status(200).json({ "message": "Books delete with success" });
         }
 
-        return res.status(422).json({ "mensagem": "Dont existing book with this id" });
+        return res.status(422).json({ "message": "Dont existing book with this id" });
 
 
     } catch (error) {
-        return res.status(500).json({ "mensagem": "Internal server error" });
+        return res.status(500).json({ "message": "Internal server error" });
     }
 }
 
@@ -88,15 +88,15 @@ module.exports.updateBooks = async (req, res) => {
 
 
     if (!title || !quantity_available || !author_id || !category_id || !description) {
-        return res.status(422).json({ "mensagem": "Camp Name is mandatory!!" });
+        return res.status(422).json({ "message": "Camp Name is mandatory!!" });
     }
 
     if (!/^[0-9]+$/.test(author_id) || !/^[0-9]+$/.test(category_id) || !/^[0-9]+$/.test(quantity_available)) {
-        return res.status(422).json({ "mensagem": "Quantity and ID need to be just a number" });
+        return res.status(422).json({ "message": "Quantity and ID need to be just a number" });
     }
 
     if (!/^[1-9]\d*$/.test(id)) {
-        res.status(400).json({ "mensagem": "The 'id' cannot be a letter or negative number!!" });
+        res.status(400).json({ "message": "The 'id' cannot be a letter or negative number!!" });
         return;
     }
 
@@ -113,14 +113,14 @@ module.exports.updateBooks = async (req, res) => {
             }
 
             await Books.update(title, quantity_available, img, description, author_id, category_id, id)
-            return res.status(200).json({ "mensagem": "Author update with success" });
+            return res.status(200).json({ "message": "Author update with success" });
         }
 
 
 
-        return res.status(422).json({ "mensagem": "Dont existing the author wirh this ID" });
+        return res.status(422).json({ "message": "Dont existing the author wirh this ID" });
 
     } catch (erro) {
-        return res.status(500).json({ "mensagem": "Internal server error" });
+        return res.status(500).json({ "message": "Internal server error" });
     }
 }

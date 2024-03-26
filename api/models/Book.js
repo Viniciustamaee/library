@@ -85,27 +85,13 @@ function Delete(id) {
             if (err) {
                 return reject(err);
             }
-            let sql = `DELETE FROM reviews WHERE book_id='${id}'`
+            let sql = `DELETE FROM books WHERE id='${id}'`
             con.query(sql, (err, result) => {
                 if (err) {
                     console.log(err)
                     return reject(err);
                 }
-                let sql2 = `DELETE FROM rents WHERE book_id='${id}'`
-                con.query(sql2, (err, result) => {
-                    if (err) {
-                        console.log(err)
-                        return reject(err)
-                    }
-                    let sql3 = `DELETE FROM books WHERE id='${id}'`;
-                    con.query(sql3, (err, result) => {
-                        if (err) {
-                            console.log(err)
-                            return reject(err)
-                        }
-                        return resolve(result)
-                    })
-                })
+                return resolve(result);
             });
         });
     });

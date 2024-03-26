@@ -17,7 +17,7 @@ module.exports.allUsers = async (req, res) => {
         return res.status(200).json(allUsers);
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ "mensagem": "Internal server error" });
+        return res.status(500).json({ "message": "Internal server error" });
     }
 }
 
@@ -29,7 +29,7 @@ module.exports.oneUser = async (req, res) => {
         return res.status(200).json(oneUser);
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ "mensagem": "Internal server error" });
+        return res.status(500).json({ "message": "Internal server error" });
     }
 }
 
@@ -55,14 +55,14 @@ module.exports.new = async (req, res) => {
     try {
         const existUser = await Users.existUser(username, email)
         if (existUser.length > 0) {
-            return res.status(422).json({ "mensagem": "There is already a user with this email and username" });
+            return res.status(422).json({ "message": "There is already a user with this email and username" });
         }
 
         await Users.newUser(email, username, password, img, description);
-        return res.status(200).json({ "mensagem": "User insert with success" });
+        return res.status(200).json({ "message": "User insert with success" });
 
     } catch (error) {
-        return res.status(500).json({ "mensagem": "Internal server error" });
+        return res.status(500).json({ "message": "Internal server error" });
     }
 };
 
@@ -78,7 +78,7 @@ module.exports.update = async (req, res) => {
     try {
         const existUser = await Users.existUser(username, email)
         if (existUser.length > 0) {
-            return res.status(422).json({ "mensagem": "There is already a user with this email and username" });
+            return res.status(422).json({ "message": "There is already a user with this email and username" });
         }
 
 
@@ -88,7 +88,7 @@ module.exports.update = async (req, res) => {
             const imgUser = await Users.img(email)
             img = imgUser[0].img;
             await Users.update(email, username, password, img, description, id);
-            return res.status(200).json({ "mensagem": "User edit with success!" });
+            return res.status(200).json({ "message": "User edit with success!" });
         }
 
 
@@ -96,7 +96,7 @@ module.exports.update = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ "mensagem": "Internal server error" });
+        return res.status(500).json({ "message": "Internal server error" });
 
     }
 };
@@ -151,6 +151,7 @@ module.exports.login = ('/login', async (req, res, next) => {
     )(req, res, next);
 }
 );
+
 
 module.exports.tokenValid = new JWTstrategy(
     {
