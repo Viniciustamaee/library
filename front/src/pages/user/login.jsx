@@ -62,7 +62,6 @@ const Login = () => {
         toast.success("Logged in", {
             position: "bottom-right",
             autoClose: 500,
-
         });
     };
 
@@ -72,7 +71,6 @@ const Login = () => {
             autoClose: 1000,
         });
     };
-
 
     return (
         <>

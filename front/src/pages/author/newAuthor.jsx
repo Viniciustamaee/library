@@ -3,10 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 
-
-
 export default function newAuthor() {
-
     const [authors, setAuthors] = useState({});
     const navigate = useNavigate();
 
@@ -32,7 +29,6 @@ export default function newAuthor() {
         toast.success("Author insert with Sucess", {
             position: "bottom-right",
             autoClose: 1000,
-
         });
     };
 
@@ -40,7 +36,6 @@ export default function newAuthor() {
         toast.error("Change the name", {
             position: "bottom-right",
             autoClose: 1000,
-
         });
     };
 

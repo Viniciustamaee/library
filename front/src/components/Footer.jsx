@@ -6,7 +6,6 @@ import { useLocation } from 'react-router-dom';
 export default function Footer() {
     const location = useLocation();
 
-
     const currentUrl = window.location.href;
 
     const backGround = () => {
@@ -19,7 +18,6 @@ export default function Footer() {
         }
         return "bottom-0 w-full md:flex md:items-end md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600 mt-20";
     }
-
 
     return (
         <div className="">

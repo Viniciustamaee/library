@@ -1,7 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-
 export default function Perfil() {
     const [userData, setUserData] = useState('');
     const { id } = useParams();

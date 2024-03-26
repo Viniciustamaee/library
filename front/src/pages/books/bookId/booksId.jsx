@@ -35,7 +35,6 @@ export default function haha() {
         });
     };
 
-
     useEffect(() => {
         const fetchBooks = async () => {
             try {
@@ -79,7 +78,7 @@ export default function haha() {
         });
     };
 
-    const notifyFail = (redirectUrl) => {
+    const notifyFail = () => {
         toast.error("Error in Comment", {
             position: "bottom-right",
             autoClose: 1000,
@@ -94,7 +93,6 @@ export default function haha() {
             rating: newValue.toString(),
         });
     };
-
 
     useEffect(() => {
         const fectReview = async () => {
@@ -114,8 +112,6 @@ export default function haha() {
     const indexOfLastAuthor = currentPage * 3;
     const indexOfFirstAuthor = indexOfLastAuthor - 3;
     const currentReview = review.slice(indexOfFirstAuthor, indexOfLastAuthor);
-
-
 
     return (
         <div className="flex justify-center mt-5">

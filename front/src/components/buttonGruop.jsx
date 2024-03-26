@@ -14,7 +14,6 @@ export default function GrupoButton({ urlLink, quantity }) {
     const adminObject = JSON.parse(adminData);
     const navigate = useNavigate();
 
-
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { id } = useParams();
@@ -78,7 +77,6 @@ export default function GrupoButton({ urlLink, quantity }) {
         }
     };
 
-
     const notifySucess = () => {
         toast.success("Rent made", {
             position: "bottom-right",
@@ -95,9 +93,6 @@ export default function GrupoButton({ urlLink, quantity }) {
         });
 
     };
-
-
-
 
     const deleteBooks = async (e) => {
         e.preventDefault();
@@ -151,7 +146,6 @@ export default function GrupoButton({ urlLink, quantity }) {
                         Edit
                     </button></Link> : <></>}
 
-
                     {adminObject.admin == 1 ? <button
                         type="button"
                         class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b  border-l border-r border-gray-400 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white"
@@ -172,7 +166,6 @@ export default function GrupoButton({ urlLink, quantity }) {
                             </svg>
                             Rents
                         </button>}
-
 
                     {adminObject.admin == 0 ? <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border  border-gray-400 rounded-e-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white hidden" onClick={() => setOpenModal(true)} >
                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

@@ -31,12 +31,7 @@ export default function Component() {
         }
     }
 
-    if (adminData) {
-        const adminObject = JSON.parse(adminData);
 
-    } else {
-        console.log('Dont have data in localStorage');
-    }
 
     function logout() {
         localStorage.removeItem('token');

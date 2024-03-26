@@ -4,8 +4,6 @@ import { toast } from 'react-toastify';
 import { updateUser, oneUser } from '../../../requests/user';
 
 export default function editPerfil() {
-    const adminData = localStorage.getItem('user');
-    const adminObject = JSON.parse(adminData);
     const [imageUrl, setImageUrl] = useState('');
     const navigate = useNavigate();
 
@@ -37,17 +35,14 @@ export default function editPerfil() {
             if (imageUrl) {
                 formDataObject.append('img', imageUrl);
             } else {
-
                 formDataObject.append('img', '');
             }
-
 
             await updateUser(id, formDataObject);
 
             navigate(`/login`)
             notifySucess();
             clear()
-
 
         } catch (error) {
             notifyFail()
@@ -56,14 +51,12 @@ export default function editPerfil() {
     };
 
     const [user, setUser] = useState({});
-
     const userChange = (e) => {
         setUser({
             ...user,
             [e.target.id]: e.target.value,
         });
     };
-
 
     useEffect(() => {
         const fetchUser = async () => {

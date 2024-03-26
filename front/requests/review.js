@@ -1,8 +1,10 @@
 import axios from "axios";
+const url = import.meta.env.VITE_URL_API
+
 
 export const insertReview = async (id, formData, config) => {
     try {
-        const response = await axios.post(`${import.meta.env.VITE_PORT}/Review/${id}`, formData, config);
+        const response = await axios.post(`${url}/Review/${id}`, formData, config);
         return response.data;
     } catch (error) {
         console.log(error)
@@ -12,7 +14,7 @@ export const insertReview = async (id, formData, config) => {
 
 export const allReview = async (id) => {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_PORT}/Review/${id}`);
+        const response = await axios.get(`${url}/Review/${id}`);
         return response.data;
     } catch (error) {
         console.log(error)
@@ -22,7 +24,7 @@ export const allReview = async (id) => {
 
 export const deleteReview = async (idUrl, idReview) => {
     try {
-        const response = axios.delete(`${import.meta.env.VITE_PORT}/Review/${idUrl}/${idReview}`);
+        const response = axios.delete(`${url}/Review/${idUrl}/${idReview}`);
         return response.data;
     } catch (error) {
         console.log(error)

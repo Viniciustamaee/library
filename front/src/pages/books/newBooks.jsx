@@ -13,7 +13,6 @@ export default function newBooks() {
     const [authors, setAuthors] = useState([]);
     const navigate = useNavigate();
 
-
     const [formData, setFormData] = useState({
         title: '',
         quantity_available: '',
@@ -36,7 +35,6 @@ export default function newBooks() {
             setImageUrl(file);
         }
     };
-
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -76,17 +74,14 @@ export default function newBooks() {
             formDataObject.append('quantity_available', formData.quantity_available);
             formDataObject.append('description', formData.description);
             formDataObject.append('img', imageUrl);
-
             formDataObject.append('author_id', formData.author_id);
             formDataObject.append('category_id', formData.category_id);
-
 
             await insertBooks(formDataObject, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },
             });
-
 
             notifySucess()
             navigate('/books/allbooks')
@@ -95,7 +90,6 @@ export default function newBooks() {
             console.error('Error calling API:', error.message);
         }
     };
-
 
     const notifySucess = () => {
         toast.success("Book insert with success", {
@@ -109,13 +103,11 @@ export default function newBooks() {
         toast.error("already title this name", {
             position: "bottom-right",
             autoClose: 1000,
-
         });
-
     };
 
     return (
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center mt-10">
             <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <form className="space-y-6" onSubmit={handleSubmit} encType="multipart/form-data">
                     <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">New Book</h5>
@@ -124,7 +116,6 @@ export default function newBooks() {
                         <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title of book</label>
                         <input type="text" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Harry Potter" required onChange={handleChange} />
                     </div>
-
 
                     <div className="mb-6">
                         <label htmlFor="quantity_available" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity of stock</label>
@@ -138,9 +129,6 @@ export default function newBooks() {
 
                     <label htmlFor="description" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">Description</label>
                     <textarea id="description" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..." style={{ marginTop: "0px" }} required onChange={handleChange}></textarea>
-
-
-
 
                     <div className="max-w-md">
                         <div className="mb-2 block">

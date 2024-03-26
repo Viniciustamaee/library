@@ -8,7 +8,7 @@ con.connect((err) => {
         console.error('Erro na conexão com o banco de dados:', err);
     } else {
         try {
-            const password = '1234';
+            const password = 'Admin123';
             const img = process.env.DEFAULT_USER
             const passwordHash = bcrypt.hashSync(password, salts);
 

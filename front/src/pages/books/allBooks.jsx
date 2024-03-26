@@ -3,7 +3,6 @@ import { allBooksCover } from "../../../requests/book";
 import BooksCover from "./components/bookCover";
 
 export default function AllBooks() {
-
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
@@ -21,7 +20,6 @@ export default function AllBooks() {
 
     return (
         <>
-
             {books.length == 0 && (
                 <div className="mt-20 text-xl text-center flex justify-center flex-col" style={{ height: "60vh" }}>
                     <h1 className="text-4xl">We don't have book yet</h1>

@@ -14,7 +14,6 @@ export default function authorList({ nameAuthor, id }) {
     const adminObject = JSON.parse(adminData);
     const navigate = useNavigate();
 
-
     const deleteAuthor = async (e) => {
         e.preventDefault();
 

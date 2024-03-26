@@ -5,14 +5,11 @@ import { insertBook } from '../../../requests/user';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import zxcvbn from 'zxcvbn';
-
 
 const Register = () => {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const [showPassword, setShowPassword] = React.useState(false);
     const navigate = useNavigate();
-
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
@@ -28,9 +25,7 @@ const Register = () => {
 
         setFormData({
             ...formData,
-
             [e.target.id]: e.target.value,
-
         });
     };
 
@@ -44,7 +39,6 @@ const Register = () => {
             setImageUrl(file);
         }
     };
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -77,7 +71,6 @@ const Register = () => {
             } else {
                 formDataObject.append('img', '');
             }
-
 
             await insertBook(formDataObject);
 
@@ -119,9 +112,6 @@ const Register = () => {
     const containsUppercaseLetter = (password) => {
         return /[A-Z]/.test(password);
     };
-
-
-
 
     return (
         <>

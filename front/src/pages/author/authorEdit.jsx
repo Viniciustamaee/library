@@ -9,7 +9,6 @@ export default function EditAuthor() {
     const [authors, setAuthors] = useState({});
     const navigate = useNavigate();
 
-
     useEffect(() => {
         const fetchAuthors = async () => {
             try {
@@ -41,7 +40,6 @@ export default function EditAuthor() {
             console.error('Error calling API:', error.message);
             notifyFail();
             console.error('Server response:', error.response.data);
-
         }
     };
 

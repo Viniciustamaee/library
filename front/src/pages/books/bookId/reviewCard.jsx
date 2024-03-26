@@ -3,7 +3,6 @@ import { allUsers } from "../../../../requests/user";
 import React, { useEffect, useState } from "react";
 
 export default function Review({ comment, rating, id, idUrl, idReview }) {
-
     const adminData = localStorage.getItem('user');
     const adminObject = JSON.parse(adminData);
     const [users, setUsers] = useState([]);
@@ -43,7 +42,6 @@ export default function Review({ comment, rating, id, idUrl, idReview }) {
     };
 
     const isCurrentUserAuthor = users.some(user => user.id === adminObject.id);
-
 
     const Stars = ({ rating }) => {
         const stars = [];

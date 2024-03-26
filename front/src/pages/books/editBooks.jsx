@@ -7,7 +7,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 
 export default function newBooks() {
-
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [categories, setCategories] = useState([]);
     const [imageUrl, setImageUrl] = useState('');
@@ -15,7 +14,6 @@ export default function newBooks() {
     const [books, setBooks] = useState({});
     const navigate = useNavigate();
     const { id } = useParams()
-
 
     useEffect(() => {
         const fectcBooks = async () => {
@@ -58,7 +56,6 @@ export default function newBooks() {
         fetchCategories();
     }, []);
 
-
     useEffect(() => {
         const fetchAuthors = async () => {
             try {
@@ -86,14 +83,11 @@ export default function newBooks() {
             formDataObject.append('category_id', books.category_id);
             formDataObject.append('img', imageUrl);
 
-
             await updateBook(id, formDataObject, {
                 headers: {
                     'Authorization': `Bearer ${hasToken}`,
                 },
             });
-
-
 
             notifySucess()
             navigate('/books/allbooks')
@@ -101,7 +95,6 @@ export default function newBooks() {
         } catch (error) {
             console.error('Error calling API:', error.message);
             notifyFail()
-
         }
     };
 
@@ -120,7 +113,7 @@ export default function newBooks() {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center mt-10">
             <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <form className="space-y-6" onSubmit={handleSubmit} encType="multipart/form-data">
                     <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">Edit book</h5>
@@ -129,7 +122,6 @@ export default function newBooks() {
                         <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title of book</label>
                         <input type="text" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Harry Potter" required onChange={handleChange} value={books.title} />
                     </div>
-
 
                     <div className="mb-6">
                         <label htmlFor="quantity_available" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity of stock</label>
