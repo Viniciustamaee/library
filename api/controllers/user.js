@@ -71,7 +71,7 @@ module.exports.update = async (req, res) => {
     const { id } = req.params
     let img;
 
-    if (!email || !username || !password || !description) {
+    if (!email || !username || !password) {
         return res.status(406).json({ "erros": "Insufficient data" })
     }
 
@@ -90,9 +90,6 @@ module.exports.update = async (req, res) => {
             await Users.update(email, username, password, img, description, id);
             return res.status(200).json({ "message": "User edit with success!" });
         }
-
-
-
 
     } catch (error) {
         console.log(error)

@@ -4,7 +4,9 @@ import { toast } from 'react-toastify';
 import { updateUser, oneUser } from '../../../requests/user';
 
 export default function editPerfil() {
+    const User = localStorage.getItem('user');
     const [imageUrl, setImageUrl] = useState('');
+    const userData = JSON.parse(User);
     const navigate = useNavigate();
 
     const { id } = useParams()
@@ -15,6 +17,9 @@ export default function editPerfil() {
             setImageUrl(file);
         }
     };
+
+
+
 
     function clear() {
         localStorage.removeItem('token');
@@ -82,7 +87,7 @@ export default function editPerfil() {
     };
 
     const notifyFail = () => {
-        toast.error("Username already exists", {
+        toast.error("There is already a user with that name, change it", {
             position: "bottom-right",
             autoClose: 1000,
         });
@@ -92,7 +97,7 @@ export default function editPerfil() {
 
     return (
         <>
-            <div className="flex items-center justify-center mt-10">
+            {userData.id == id ? <div className="flex items-center justify-center mt-10">
                 <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
 
                     <form className="space-y-6" onSubmit={handleSubmit}>
@@ -123,7 +128,9 @@ export default function editPerfil() {
                         <button type="submit" className="w-full text-white bg-amber-600 hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Edit Account</button>
                     </form>
                 </div>
-            </div >
+            </div > : <div className="mt-20 text-xl text-center flex justify-center flex-col" style={{ height: "65vh" }}>
+                <h1 className="text-4xl">You don't have Permission for enter this page ✋</h1>
+            </div>}
         </>
     )
 }

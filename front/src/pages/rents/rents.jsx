@@ -14,6 +14,8 @@ export default function Rents() {
     const [rents, setRents] = useState([]);
     const [books, setBooks] = useState([]);
     const [user, setUser] = useState([]);
+    const User = localStorage.getItem('user');
+    const userData = JSON.parse(User);
 
     const onPageChange = (page) => setCurrentPage(page);
     const { id } = useParams()
@@ -71,40 +73,44 @@ export default function Rents() {
 
     return (
         <>
-            {rents.length == 0 ? (
-                <div className="mt-20 text-xl text-center flex justify-center flex-col" style={{ height: "65vh" }}>
-                    <h1 className="text-4xl">You don't have Rents yet</h1>
-                    <p className="">Rent some books</p>
-                </div>) :
-                <div className="flex items-center justify-center mt-20" >
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                            <RentsHead />
-                            {currentRents.map((rents) => (
-                                <RentsList
-                                    key={rents.id}
-                                    rented_date={getStandardFormattedDateTime(rents.rented_date.slice(0, 10))}
-                                    due_date={getStandardFormattedDateTime(rents.due_date.slice(0, 10))}
-                                    user_id={user.find(user => user.id === rents.user_id)?.username || "N/A"}
-                                    books_id={books.find(book => book.id === rents.book_id)?.title || "N/A"}
-                                    id={rents.id} />
-                            ))}
-                        </table>
-                    </div>
-                </div>}
-            {rents.length != 0 ? <div>
-                {totalPages != 1 && <div className="flex justify-center mt-4">
-                    <Pagination
-                        layout="pagination"
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={onPageChange}
-                        previousLabel="Back"
-                        nextLabel="Next"
-                        showIcons
-                    />
-                </div>}
-            </div> : <div className="hidden"></div>}
+            {userData.id == id ? <div>
+                {rents.length == 0 ? (
+                    <div className="mt-20 text-xl text-center flex justify-center flex-col" style={{ height: "65vh" }}>
+                        <h1 className="text-4xl">You don't have Rents yet</h1>
+                        <p className="">Rent some books</p>
+                    </div>) :
+                    <div className="flex items-center justify-center mt-20" >
+                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <RentsHead />
+                                {currentRents.map((rents) => (
+                                    <RentsList
+                                        key={rents.id}
+                                        rented_date={getStandardFormattedDateTime(rents.rented_date.slice(0, 10))}
+                                        due_date={getStandardFormattedDateTime(rents.due_date.slice(0, 10))}
+                                        user_id={user.find(user => user.id === rents.user_id)?.username || "N/A"}
+                                        books_id={books.find(book => book.id === rents.book_id)?.title || "N/A"}
+                                        id={rents.id} />
+                                ))}
+                            </table>
+                        </div>
+                    </div>}
+                {rents.length != 0 ? <div>
+                    {totalPages != 1 && <div className="flex justify-center mt-4">
+                        <Pagination
+                            layout="pagination"
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={onPageChange}
+                            previousLabel="Back"
+                            nextLabel="Next"
+                            showIcons
+                        />
+                    </div>}
+                </div> : <div className="hidden"></div>}
+            </div> : <div className="mt-20 text-xl text-center flex justify-center flex-col" style={{ height: "65vh" }}>
+                <h1 className="text-4xl">You don't have Permission for enter this page ✋</h1>
+            </div>}
         </>
     )
 }

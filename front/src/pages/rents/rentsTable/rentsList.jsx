@@ -42,7 +42,7 @@ export default function RentsList({ rented_date, due_date, user_id, books_id, id
     };
 
     const notifyFail = (redirectUrl) => {
-        toast.error("Failed to return rent. Quantity is empty", {
+        toast.error("Failed to return rent.", {
             position: "bottom-right",
             autoClose: 1000,
             onClose: () => {

@@ -12,7 +12,6 @@ import {
     NavbarToggle,
 } from 'flowbite-react';
 
-import { Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
