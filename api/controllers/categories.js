@@ -10,6 +10,7 @@ module.exports.allCategories = async (req, res) => {
     }
 }
 
+
 module.exports.new = async (req, res) => {
     const { category_name } = req.body
 

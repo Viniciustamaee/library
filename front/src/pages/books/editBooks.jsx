@@ -39,7 +39,7 @@ export default function newBooks() {
         const file = e.target.files[0];
 
         if (file) {
-            setImageUrl(file);
+            return setImageUrl(file);
         }
     };
 
@@ -72,6 +72,7 @@ export default function newBooks() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const hasToken = localStorage.getItem('token');
+        console.log(imageUrl)
 
         try {
             setIsSubmitting(true);
@@ -82,6 +83,8 @@ export default function newBooks() {
             formDataObject.append('author_id', books.author_id);
             formDataObject.append('category_id', books.category_id);
             formDataObject.append('img', imageUrl);
+
+            console.log(formDataObject)
 
             await updateBook(id, formDataObject, {
                 headers: {

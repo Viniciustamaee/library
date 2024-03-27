@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Router, useLocation } from 'react-router-dom'
 import EditAuthor from './pages/author/authorEdit'
 import BooksId from './pages/books/bookId/booksId'
 import AllAuthors from './pages/author/allAuthor'
@@ -19,6 +19,8 @@ import Rents from './pages/rents/rents'
 import About from './pages/home/about'
 import Login from "./pages/user/login"
 import Home from "./pages/home/home"
+
+
 
 
 function App() {

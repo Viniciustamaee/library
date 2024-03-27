@@ -1,4 +1,6 @@
 import apiFecth from "../axios/apiAxios";
+const url = import.meta.env.VITE_URL_API
+
 
 export const allUsers = async () => {
     try {
@@ -41,7 +43,7 @@ export const login = async (formData, config) => {
 
 export const updateUser = async (id, formDataObject) => {
     try {
-        const response = await apiFecth.put(`/User/Perfil/${id}/edit`, formDataObject);
+        const response = apiFecth.put(`/User/Perfil/${id}/edit`, formDataObject);
         return response.data;
     } catch {
         console.log(error)

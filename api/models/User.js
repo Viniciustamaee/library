@@ -4,7 +4,7 @@ const salts = 10;
 
 
 con.connect(function () {
-    let sql = "CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT,email VARCHAR(255) UNIQUE, username VARCHAR(255) UNIQUE, password VARCHAR(255), img LONGTEXT, description VARCHAR(255) ,admin ENUM('0','1') DEFAULT '0')";
+    let sql = "CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT,email VARCHAR(255), username VARCHAR(255) UNIQUE, password VARCHAR(255), img LONGTEXT, description VARCHAR(255) ,admin ENUM('0','1') DEFAULT '0')";
     con.query(sql, function (err, result) {
         if (err) {
             return console.error('Error creating table:', err);
@@ -134,12 +134,15 @@ function update(email, username, password, img, description, id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
+                console.log(err)
+
                 return reject(err);
             }
             const passwordHash = bcrypt.hashSync(password, salts);
             let sql = `UPDATE users SET email = '${email}', username  = '${username}', password = '${passwordHash}', img='${img}', description='${description}' WHERE id = '${id}'`;
             con.query(sql, (err, result) => {
                 if (err) {
+                    console.log(err)
                     return reject(err);
                 }
                 return resolve(result);

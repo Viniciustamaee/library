@@ -71,7 +71,7 @@ module.exports.update = async (req, res) => {
     const { id } = req.params
     let img;
 
-    if (!email || !username || !password) {
+    if (!email || !username || !password || !description) {
         return res.status(406).json({ "erros": "Insufficient data" })
     }
 
