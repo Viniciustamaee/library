@@ -1,10 +1,8 @@
-import axios from "axios";
-
-const url = import.meta.env.VITE_URL_API
+import apiFecth from "../axios/apiAxios";
 
 export const allUsers = async () => {
     try {
-        const response = await axios.get(`${url}/User`);
+        const response = await apiFecth.get(`/User`);
         return response.data;
     } catch (error) {
         throw error;
@@ -13,7 +11,7 @@ export const allUsers = async () => {
 
 export const oneUser = async (id) => {
     try {
-        const response = await axios.get(`${url}/User/${id}`);
+        const response = await apiFecth.get(`/User/${id}`);
         return response.data;
     } catch (error) {
         throw error;
@@ -23,7 +21,7 @@ export const oneUser = async (id) => {
 
 export const insertBook = async (formDataObject) => {
     try {
-        const response = await axios.post(`${url}/User/register`, formDataObject);
+        const response = await apiFecth.post(`/User/register`, formDataObject);
         return response.data;
     } catch {
         console.log(error)
@@ -33,7 +31,7 @@ export const insertBook = async (formDataObject) => {
 
 export const login = async (formData, config) => {
     try {
-        const response = await axios.post(`${url}/User/login`, formData, config);
+        const response = await apiFecth.post(`/User/login`, formData, config);
         return response.data;
     } catch {
         console.log(error)
@@ -43,7 +41,7 @@ export const login = async (formData, config) => {
 
 export const updateUser = async (id, formDataObject) => {
     try {
-        const response = await axios.put(`${url}/User/Perfil/${id}/edit`, formDataObject);
+        const response = await apiFecth.put(`/User/Perfil/${id}/edit`, formDataObject);
         return response.data;
     } catch {
         console.log(error)

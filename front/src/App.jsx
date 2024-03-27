@@ -29,26 +29,6 @@ function App() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  // const isLogin = () => {
-  //   const adminData = localStorage.getItem('user');
-  //   const userId = JSON.parse(adminData);
-  //   return userId.id;
-  // }
-
-  // const PrivateRouter = ({ component: Component, ...rest }) => (
-  //   <Route
-  //     {...rest}
-  //     render={props =>
-  //       isLogin() ? (
-  //         <Component {...props} />
-  //       ) : (
-  //         <Location to={{ pathname: "/", state: { from: props.location } }} />
-  //       )
-  //     }
-
-  //   />
-  // )
-
   return (
     <>
       <Navbar />

@@ -1,10 +1,9 @@
-import axios from "axios";
-const url = import.meta.env.VITE_URL_API
+import apiFecth from "../axios/apiAxios";
 
 
 export const allCategories = async () => {
     try {
-        const response = await axios.get(`${url}/Categories`);
+        const response = await apiFecth.get(`/Categories`);
         return response.data;
     } catch (error) {
         throw error;

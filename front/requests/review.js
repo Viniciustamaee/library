@@ -1,10 +1,8 @@
-import axios from "axios";
-const url = import.meta.env.VITE_URL_API
-
+import apiFecth from "../axios/apiAxios";
 
 export const insertReview = async (id, formData, config) => {
     try {
-        const response = await axios.post(`${url}/Review/${id}`, formData, config);
+        const response = await apiFecth.post(`/Review/${id}`, formData, config);
         return response.data;
     } catch (error) {
         console.log(error)
@@ -14,7 +12,7 @@ export const insertReview = async (id, formData, config) => {
 
 export const allReview = async (id) => {
     try {
-        const response = await axios.get(`${url}/Review/${id}`);
+        const response = await apiFecth.get(`/Review/${id}`);
         return response.data;
     } catch (error) {
         console.log(error)
@@ -24,7 +22,7 @@ export const allReview = async (id) => {
 
 export const deleteReview = async (idUrl, idReview) => {
     try {
-        const response = axios.delete(`${url}/Review/${idUrl}/${idReview}`);
+        const response = apiFecth.delete(`/Review/${idUrl}/${idReview}`);
         return response.data;
     } catch (error) {
         console.log(error)

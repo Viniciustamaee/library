@@ -64,7 +64,7 @@ export default function haha() {
 
         } catch (error) {
             console.error('Error calling API:', error.message);
-            notifyFail();
+            notifyFail(error.message);
         }
     };
 
@@ -78,8 +78,8 @@ export default function haha() {
         });
     };
 
-    const notifyFail = () => {
-        toast.error("Error in Comment", {
+    const notifyFail = (error) => {
+        toast.error(error.message, {
             position: "bottom-right",
             autoClose: 1000,
 
