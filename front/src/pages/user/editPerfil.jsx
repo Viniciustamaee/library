@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { updateUser, oneUser } from '../../../requests/user';
+import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 export default function EditPerfil() {
-    const [user, setUser] = useState({});
     const [imageUrl, setImageUrl] = useState('');
-    const { id } = useParams();
+    const [user, setUser] = useState({});
     const navigate = useNavigate();
+    const { id } = useParams();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -36,6 +36,11 @@ export default function EditPerfil() {
         });
     };
 
+    function logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -48,8 +53,10 @@ export default function EditPerfil() {
             formDataObject.append('img', imageUrl);
 
             await updateUser(id, formDataObject);
-
+            navigate('/login');
             notifySuccess();
+            logout()
+
         } catch (error) {
             notifyFail();
             console.error('Error calling API:', error.message);
@@ -76,7 +83,7 @@ export default function EditPerfil() {
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">Edit Profile</h5>
                     <div className="mb-6">
-                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
+                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" id='email'>Email address</label>
                         <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900  bg-slate-200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required onChange={userChange} value={user.email} disabled />
                     </div>
                     <div className="mb-6">
@@ -85,7 +92,7 @@ export default function EditPerfil() {
                     </div>
                     <div>
                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-                        <input type="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required onChange={userChange} value={user.password} />
+                        <input type="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required onChange={userChange} />
                     </div>
                     <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Edit your picture</label>

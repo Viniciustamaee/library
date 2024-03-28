@@ -1,10 +1,12 @@
 import axios from "axios";
 const url = import.meta.env.VITE_URL_API
+import apiFecth from "../axios/apiAxios";
+
 
 
 export const allBooksCover = async () => {
     try {
-        const response = await axios.get(`${url}/Books`);
+        const response = await apiFecth.get(`/Books`);
         return response.data;
     } catch (error) {
         console.log(error)
@@ -14,7 +16,7 @@ export const allBooksCover = async () => {
 
 export const oneBook = async (id) => {
     try {
-        const response = await axios.get(`${url}/Books/${id}`);
+        const response = await apiFecth.get(`/Books/${id}`);
         return response.data;
     } catch (error) {
         console.log(error)
@@ -25,7 +27,7 @@ export const oneBook = async (id) => {
 
 export const updateBook = async (id, formDataObject, config) => {
     try {
-        const response = await axios.put(`${url}/Books/${id}`, formDataObject, config);
+        const response = await apiFecth.put(`/Books/${id}`, formDataObject, config);
         return response.data;
     } catch {
         console.log(error)
@@ -35,7 +37,7 @@ export const updateBook = async (id, formDataObject, config) => {
 
 export const insertBooks = async (formDataObject, config) => {
     try {
-        const response = await axios.post(`${url}/Books`, formDataObject, config);
+        const response = await apiFecth.post(`/Books`, formDataObject, config);
         return response.data;
     } catch {
         console.log(error)
@@ -45,7 +47,7 @@ export const insertBooks = async (formDataObject, config) => {
 
 export const deleteBook = async (id, config) => {
     try {
-        const response = await axios.delete(`${url}/Books/${id}`, config);
+        const response = await apiFecth.delete(`/Books/${id}`, config);
         return response.data;
     } catch {
         throw error;

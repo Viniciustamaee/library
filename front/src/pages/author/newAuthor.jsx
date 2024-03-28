@@ -33,7 +33,7 @@ export default function newAuthor() {
     };
 
     const notifyFail = () => {
-        toast.error("Change the name", {
+        toast.error("There is already an author with that name", {
             position: "bottom-right",
             autoClose: 1000,
         });

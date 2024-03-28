@@ -71,25 +71,26 @@ module.exports.update = async (req, res) => {
     const { id } = req.params
     let img;
 
-    if (!email || !username || !password || !description) {
+    if (!email || !username || !password) {
         return res.status(406).json({ "erros": "Insufficient data" })
     }
 
     try {
         const existUser = await Users.existUser(username, email)
+        const imgUser = await Users.img(email)
+
         if (existUser.length > 0) {
             return res.status(422).json({ "message": "There is already a user with this email and username" });
         }
 
-
         if (req.file && req.file.path) {
             img = req.file.path;
         } else {
-            const imgUser = await Users.img(email)
             img = imgUser[0].img;
-            await Users.update(email, username, password, img, description, id);
-            return res.status(200).json({ "message": "User edit with success!" });
         }
+
+        await Users.update(email, username, password, img, description, id);
+        return res.status(200).json({ "message": "User edit with success!" });
 
     } catch (error) {
         console.log(error)

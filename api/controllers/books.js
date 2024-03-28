@@ -85,9 +85,6 @@ module.exports.updateBooks = async (req, res) => {
     let { id } = req.params
     let img;
 
-
-
-
     if (!title || !quantity_available || !author_id || !category_id || !description) {
         return res.status(422).json({ "message": "Camp Name is mandatory!!" });
     }

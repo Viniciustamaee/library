@@ -43,7 +43,7 @@ export const login = async (formData, config) => {
 
 export const updateUser = async (id, formDataObject) => {
     try {
-        const response = apiFecth.put(`/User/Perfil/${id}/edit`, formDataObject);
+        const response = await apiFecth.put(`/User/Perfil/${id}/edit`, formDataObject);
         return response.data;
     } catch {
         console.log(error)

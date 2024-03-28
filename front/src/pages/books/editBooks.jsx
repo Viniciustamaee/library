@@ -1,9 +1,9 @@
 import { allCategories } from "../../../requests/categories";
 import { oneBook, updateBook } from "../../../requests/book";
+import { useParams, useNavigate } from "react-router-dom";
 import { allAuthors } from "../../../requests/author";
 import React, { useEffect, useState } from "react";
 import { Label, Select } from 'flowbite-react';
-import { useParams, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 
 export default function newBooks() {
@@ -72,7 +72,6 @@ export default function newBooks() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const hasToken = localStorage.getItem('token');
-        console.log(imageUrl)
 
         try {
             setIsSubmitting(true);
@@ -83,8 +82,6 @@ export default function newBooks() {
             formDataObject.append('author_id', books.author_id);
             formDataObject.append('category_id', books.category_id);
             formDataObject.append('img', imageUrl);
-
-            console.log(formDataObject)
 
             await updateBook(id, formDataObject, {
                 headers: {
