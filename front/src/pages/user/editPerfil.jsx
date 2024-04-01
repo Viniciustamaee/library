@@ -87,7 +87,6 @@ export default function EditPerfil() {
                 return;
             }
 
-
             await updateUser(id, formDataObject);
             navigate('/login');
             notifySuccess();

@@ -11,10 +11,10 @@ const con = mysql.createConnection({
 function conectarBancoDeDados() {
     con.connect(function (err) {
         if (err) {
-            console.error('Erro ao conectar ao banco de dados MySQL:', err);
+            console.error('Err to conenct in dataBase:', err);
             setTimeout(conectarBancoDeDados, 5000);
         } else {
-            console.log('Conectado ao banco de dados MySQL');
+            console.log('Connect dataBase');
         }
     });
 }

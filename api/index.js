@@ -19,6 +19,7 @@ require('./seeds/categories')
 require('./seeds/admin')
 require('./seeds/author')
 
+
 app.use(cors({
     origin: process.env.VITE_PORT,
     credentials: true
@@ -38,5 +39,5 @@ app.use('/rents', rents)
 app.use('/user', user)
 
 app.listen(process.env.NODE_PORT, () => {
-    console.log('A porta está conectada')
+    console.log('Connect')
 });

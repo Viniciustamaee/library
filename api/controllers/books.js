@@ -110,7 +110,6 @@ module.exports.updateBooks = async (req, res) => {
                 img = imgBook[0].img;
             }
 
-            console.log(img)
             await Books.update(title, quantity_available, img, description, author_id, category_id, id)
             return res.status(200).json({ "message": "Author update with success" });
         }

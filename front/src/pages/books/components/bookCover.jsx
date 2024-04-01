@@ -6,7 +6,7 @@ export default function booksCover({ title, img, id, quantity, bookId, rentId })
 
     return (
         <>
-            {adminData == null ? <Link to={`/User/login`}>
+            {adminData == null ? <Link to={`/login`}>
                 <div className="flex justify-center " >
                     <div class="h-full w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 " >
                         <a href="#" className="flex justify-center" style={{ height: "400px" }} >
@@ -29,7 +29,7 @@ export default function booksCover({ title, img, id, quantity, bookId, rentId })
                         </div>
                     </div>
                 </div>
-            </Link> : <Link to={`/Books/${id}`}>
+            </Link> : <Link to={`/books/${id}`}>
                 <div className="flex justify-center" >
                     <div class="h-full w-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 " >
                         <a href="#" className="flex justify-center" style={{ height: "400px" }} >
