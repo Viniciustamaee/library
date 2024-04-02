@@ -62,12 +62,12 @@ export default function authorList({ nameAuthor, id }) {
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white ">
                         {nameAuthor}
                     </th>
-                    {adminObject.admin == '1' && <td class="px-6 py-4">
-                        <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer" href={`/author/${id}/edit`}>Edit</a>
-                    </td>}
 
-                    {adminObject.admin == '1' && <td class="px-6 py-4">
-                        <a class="font-medium text-red-600 dark:text-red-500 hover:underline cursor-pointer" onClick={() => setOpenModal(true)}>Delete</a>
+                    {adminObject.admin == '1' && <td>
+
+                        <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer p-5" href={`/author/${id}/edit`}>Edit</a>
+
+                        <a class="font-medium text-red-600 dark:text-red-500 hover:underline cursor-pointer p-5" onClick={() => setOpenModal(true)}>Delete</a>
                         <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
                             <Modal.Header />
                             <Modal.Body>
@@ -87,7 +87,11 @@ export default function authorList({ nameAuthor, id }) {
                                 </div>
                             </Modal.Body>
                         </Modal>
+
                     </td>}
+
+
+
                 </tr>
 
             </tbody>

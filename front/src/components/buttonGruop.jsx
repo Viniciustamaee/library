@@ -63,35 +63,12 @@ export default function GrupoButton({ urlLink, quantity }) {
                 },
             });
 
-            notifySucess();
-            navigate(`/rents/${adminObject.id}`)
+            notifySucess("Rent made");
 
         } catch (error) {
-            if (error.message) {
-                notifyFail()
-                navigate(0)
-
-                console.error('Error calling API:', error.message);
-            }
-
+            notifyFail()
+            console.error('Error calling API:', error.message);
         }
-    };
-
-    const notifySucess = () => {
-        toast.success("Rent made", {
-            position: "bottom-right",
-            autoClose: 1000,
-
-        });
-    };
-
-    const notifyFail = () => {
-        toast.error("Quantity is empty", {
-            position: "bottom-right",
-            autoClose: 1000,
-
-        });
-
     };
 
     const deleteBooks = async (e) => {
@@ -104,33 +81,30 @@ export default function GrupoButton({ urlLink, quantity }) {
                     'Authorization': `Bearer ${hasToken}`,
                 },
             });
-            setIsSubmitting(true);
-            notifyDelete('/Books')
+
+
+            notifySucess('Book delete with success');
+            navigate(`/books`)
         } catch (error) {
             console.error('Error calling API:', error.message);
             setIsSubmitting(true);
-            errNotifyDelete(`/Books/${id}`)
+            notifyFail(error.message)
         }
     };
 
-    const notifyDelete = (redirectUrl) => {
-        toast.success("Delete done", {
+    const notifySucess = (msg) => {
+        toast.success(msg, {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
-        });
 
+        });
     };
 
-    const errNotifyDelete = (redirectUrl) => {
-        toast.error("Err for delete", {
+    const notifyFail = (error) => {
+        toast.error("Quantity is empty" || error, {
             position: "bottom-right",
             autoClose: 1000,
-            onClose: () => {
-                window.location.href = redirectUrl;
-            },
+
         });
 
     };

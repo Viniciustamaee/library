@@ -9,12 +9,9 @@ export default function authorHeads() {
                     <th scope="col" class="px-6 py-3">
                         Name
                     </th>
-                    {adminObject.admin == '1' && <th scope="col" class="px-6 py-3" >
-                        Edit
-                    </th>}
-                    {adminObject.admin == '1' && <th scope="col" class="px-6 py-3" >
-                        Delete
-                    </th>}
+                    <th scope="col" class="px-6 py-3 w-max" >
+                        Action
+                    </th>
                 </tr>
             </thead>
         </>

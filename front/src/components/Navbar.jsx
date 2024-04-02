@@ -14,6 +14,7 @@ import {
 
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { height } from '@mui/system';
 
 
 export default function Component() {
@@ -62,8 +63,6 @@ export default function Component() {
                     <svg className="w-10 h-10 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24">
                         <path fillRule="evenodd" d="M11 4.7C8.7 4.1 6.8 4 4 4a2 2 0 0 0-2 2v11c0 1.1 1 2 2 2 2.8 0 4.5.2 7 .8v-15Zm2 15.1c2.5-.6 4.2-.8 7-.8a2 2 0 0 0 2-2V6c0-1-.9-2-2-2-2.8 0-4.7.1-7 .7v15.1Z" clipRule="evenodd" />
                     </svg>
-
-
                     <span class="self-center text-2xl font-semibold whitespace-nowrap text-white ">Infinity page</span>
                 </a>
 
@@ -119,31 +118,58 @@ export default function Component() {
                         </DropdownItem>
                     </Dropdown>
                     )}
-
                     <NavbarToggle />
                 </div>
 
 
-                <NavbarCollapse >
+                <NavbarCollapse>
                     <div className="xl:flex flex-row text-center" >
-                        <NavbarLink className='text-lg text-white hover:bg-transparent' style={{ color: 'white' }}><Link to="/" >Home</Link>
-                            <svg class="w-6 h-6 ml-2  mb-1 text-white hidden sm:inline " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5" />
-                            </svg>
-
+                        <NavbarLink className='hover:bg-transparent'>
+                            <div className='text-lg text-white hover:bg-transparent  text-center' style={{ color: 'white' }}><Link to="/" >Home</Link>
+                                <svg class="w-6 h-6 ml-2  mb-1 text-white hidden sm:inline " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5" />
+                                </svg>
+                            </div>
                         </NavbarLink>
                     </div>
 
 
-                    {hasToken && <div className="xl:flex flex-row text-center">
-                        <NavbarLink href="#" className='text-lg text-white hover:bg-transparent'>
-                            <Link to={`rents/${userData.id}`} style={{ color: 'white' }}>Rents</Link>
-                            <svg class="w-6 h-6 ml-2 text-white hidden sm:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
-                            </svg>
-                        </NavbarLink>
-                    </div>
-                    }
+
+
+
+
+                    <NavbarLink className='hover:bg-transparent'>
+                        {hasToken && adminObject.admin == 1 && (
+                            <div className="flex justify-center">
+                                <Dropdown
+                                    arrowIcon={false}
+                                    inline
+                                    className=''
+                                    label={
+                                        <a className='flex items-center text-lg text-white'>
+                                            Rents
+                                            <svg className="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 9-7 7-7-7" />
+                                            </svg>
+                                        </a>
+                                    }
+                                >
+                                    <Link to={`rents/${userData.id}`}><Dropdown.Item>Rents</Dropdown.Item></Link>
+                                    <Link to='rents/allrents'><Dropdown.Item>All rents</Dropdown.Item></Link>
+                                </Dropdown>
+                            </div>
+                        )}
+                        {hasToken && adminObject.admin != 1 && (
+                            <div className="flex justify-center">
+                                <Link to={`rents/${userData.id}`} className='text-lg text-white hover:bg-transparent'>
+                                    Rents
+                                    <svg class="w-6 h-6 ml-2 text-white hidden sm:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4c0-.6.4-1 1-1h12c.6 0 1 .4 1 1v13H7a2 2 0 0 0-2 2Zm0 0c0 1.1.9 2 2 2h12M9 3v14m7 0v4" />
+                                    </svg>
+                                </Link>
+                            </div>
+                        )}
+                    </NavbarLink>
 
                     <div className="flex justify-around	">
                         {hasToken && <div>
@@ -168,28 +194,38 @@ export default function Component() {
                                 </div>
                             </div>}
                         </div>}
-                        <div className="flex justify-center">
-                            <Dropdown
-                                arrowIcon={false}
-                                inline
-                                className=''
-                                label={
-                                    <a className='flex items-center text-lg text-white' >
-                                        Books
-                                        <svg className="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 9-7 7-7-7" />
-                                        </svg>
-                                    </a>
 
-                                }
-                            >
-                                <Link to='books'><Dropdown.Item>Books</Dropdown.Item></Link>
-                                <Link to='books/allbooks'><Dropdown.Item>All books</Dropdown.Item></Link>
-                                {hasToken && <Dropdown.Divider />}
-                                {hasToken && <Link to='books/new'>{adminObject.admin == '1' && <Dropdown.Item>New book</Dropdown.Item>}</Link>}
-                            </Dropdown>
+
+                        <div className="flex justify-center">
+                            <div className="flex justify-center mr-5">
+
+                                <Dropdown
+                                    arrowIcon={false}
+                                    inline
+                                    className=''
+                                    label={
+                                        <a className='flex items-center text-lg text-white' >
+                                            Books
+                                            <svg className="w-6 h-6 ml-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 9-7 7-7-7" />
+                                            </svg>
+                                        </a>
+
+                                    }
+                                >
+                                    <Link to='books'><Dropdown.Item>Books</Dropdown.Item></Link>
+                                    <Link to='books/allbooks'><Dropdown.Item>All books</Dropdown.Item></Link>
+                                    {hasToken && <Dropdown.Divider />}
+                                    {hasToken && <Link to='books/new'>{adminObject.admin == '1' && <Dropdown.Item>New book</Dropdown.Item>}</Link>}
+
+                                </Dropdown>
+                            </div>
+
                         </div>
+
+
                     </div>
+
                 </NavbarCollapse>
             </Navbar>}
         </div >

@@ -88,11 +88,11 @@ export default function Review({ comment, rating, id, idUrl, idReview }) {
                     </div>
                 </div>
 
-                <p class="mb-2 text-gray-500 dark:text-gray-400 text-sm m-3 text-black">{comment}</p>
+                <p class="mb-2 text-gray-500 dark:text-gray-400 text-sm m-3 text-black break-all">{comment}</p>
                 <div className="flex justify-end">
-                    {isCurrentUserAuthor && <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={handleSubmit}>Delete</button>}
+                    {adminObject.admin == 1 || isCurrentUserAuthor ? < button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={handleSubmit}>Delete</button> : < button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={handleSubmit}>Delete</button>}
                 </div>
-            </article>
+            </article >
 
         </>
     )

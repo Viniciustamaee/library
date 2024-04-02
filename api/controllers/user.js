@@ -76,12 +76,7 @@ module.exports.update = async (req, res) => {
     }
 
     try {
-        const existUser = await Users.existUser(username, email)
         const imgUser = await Users.img(email)
-
-        if (existUser.length > 0) {
-            return res.status(422).json({ "message": "There is already a user with this email and username" });
-        }
 
         if (req.file && req.file.path) {
             img = req.file.path;

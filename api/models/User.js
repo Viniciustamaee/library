@@ -135,7 +135,6 @@ function update(email, username, password, img, description, id) {
         con.connect((err) => {
             if (err) {
                 console.log(err)
-
                 return reject(err);
             }
             const passwordHash = bcrypt.hashSync(password, salts);
@@ -153,11 +152,11 @@ function update(email, username, password, img, description, id) {
 
 module.exports = {
     existUser,
-    newUser,
-    login,
-    oneUser,
     allUsers,
+    newUser,
+    oneUser,
     update,
+    login,
     img
 }
 

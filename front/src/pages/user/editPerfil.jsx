@@ -6,8 +6,6 @@ import React, { useState, useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import { toast } from 'react-toastify';
 
-
-
 export default function EditPerfil() {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const [showPassword, setShowPassword] = React.useState(false);
@@ -86,6 +84,9 @@ export default function EditPerfil() {
                 notifyFail("Passwords do not match");
                 return;
             }
+
+            console.log(user.username)
+
 
             await updateUser(id, formDataObject);
             navigate('/login');

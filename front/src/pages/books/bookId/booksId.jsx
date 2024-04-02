@@ -208,12 +208,7 @@ export default function haha() {
                         </div> : <div className="hidden"></div>}
                     </div>}
                 </div>
-
-
             </div >
-
-
-
         </div>
 
     );

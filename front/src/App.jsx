@@ -20,7 +20,7 @@ import About from './pages/home/about'
 import Login from "./pages/user/login"
 import Home from "./pages/home/home"
 
-
+import AllRents from './pages/rents/allrents'
 
 
 function App() {
@@ -61,6 +61,8 @@ function App() {
       {/* Rents */}
       <Routes>
         <Route path='/rents/:id' element={<Rents />} />
+        <Route path='/rents/allrents' element={<AllRents />} />
+
       </Routes>
 
       {/* Author */}

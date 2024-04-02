@@ -9,6 +9,8 @@ export const allRents = async () => {
     }
 }
 
+
+
 export const rentsDelete = async (id, config) => {
     try {
         const response = await apiFecth.delete(`/Rents/${id}`, config);
@@ -29,7 +31,7 @@ export const oneRent = async (id) => {
 
 export const insertRent = async (dataForInsert, config) => {
     try {
-        const response = apiFecth.post(`/Rents`, dataForInsert, config);
+        const response = await apiFecth.post(`/Rents`, dataForInsert, config);
         return response.data;
     } catch (error) {
         throw error;
