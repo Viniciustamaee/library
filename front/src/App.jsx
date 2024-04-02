@@ -21,6 +21,7 @@ import Login from "./pages/user/login"
 import Home from "./pages/home/home"
 
 import AllRents from './pages/rents/allrents'
+import EditRent from './pages/rents/editRents'
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
       <Routes>
         <Route path='/rents/:id' element={<Rents />} />
         <Route path='/rents/allrents' element={<AllRents />} />
+        <Route path='/rents/:id/edit' element={<EditRent />} />
 
       </Routes>
 

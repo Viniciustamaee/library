@@ -5,6 +5,8 @@ import { useState } from "react";
 
 export default function RentsList({ rented_date, due_date, user_id, books_id, id }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const adminData = localStorage.getItem('user');
+    const adminObject = JSON.parse(adminData);
     const navigate = useNavigate();
 
     const deleteRents = async (e) => {
@@ -69,6 +71,9 @@ export default function RentsList({ rented_date, due_date, user_id, books_id, id
                         >
                             Return
                         </a>
+                        {adminObject.admin == 1 && <a href={`${id}/edit`}
+                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer ${isSubmitting ? 'pointer-events-none p-4"
+                        >Edit</a>}
                     </td>
                 </tr>
             </tbody>

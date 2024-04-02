@@ -10,6 +10,17 @@ module.exports.allRents = async (req, res) => {
     }
 };
 
+module.exports.oneRent = async (req, res) => {
+    const { id } = req.params
+    try {
+        const oneRent = await Rents.oneRents(id);
+        return res.status(200).json(oneRent);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ "message": "Internal server error" });
+    }
+}
+
 module.exports.allRentsUser = async (req, res) => {
     const { id } = req.params
     try {
