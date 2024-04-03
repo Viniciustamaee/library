@@ -5,7 +5,6 @@ import { allUsers } from "../../../requests/user";
 import RentsList from './rentsTable/rentsList'
 import RentsHead from './rentsTable/rentsHead'
 import { Pagination } from 'flowbite-react';
-import { format } from 'date-fns';
 
 export default function allRentsAdmin() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -14,6 +13,7 @@ export default function allRentsAdmin() {
     const [books, setBooks] = useState([]);
     const [rents, setRents] = useState([]);
     const [user, setUser] = useState([]);
+    const userData = JSON.parse(User);
 
     const onPageChange = (page) => setCurrentPage(page);
 
@@ -58,8 +58,9 @@ export default function allRentsAdmin() {
     }, []);
 
 
-    function getStandardFormattedDateTime(date = new Date()) {
-        return format(date, 'dd-MM-yyyy');
+    function getStandardFormattedDateTime(dateTimeString) {
+        const datePart = dateTimeString.split('T')[0];
+        return datePart.split('-').reverse().join('-');
     }
 
     const indexOfLastAuthor = currentPage * 5;
@@ -67,33 +68,47 @@ export default function allRentsAdmin() {
     const currentRents = rents.slice(indexOfFirstAuthor, indexOfLastAuthor);
     return (
         <>
-            <div className="flex items-center justify-center mt-20" >
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <RentsHead />
-                        {currentRents.map((rents) => (
-                            <RentsList
-                                key={rents.id}
-                                rented_date={getStandardFormattedDateTime(rents.rented_date.slice(0, 10))}
-                                due_date={getStandardFormattedDateTime(rents.due_date.slice(0, 10))}
-                                user_id={user.find(user => user.id === rents.user_id)?.username || "N/A"}
-                                books_id={books.find(book => book.id === rents.book_id)?.title || "N/A"}
-                                id={rents.id} />
-                        ))}
-                    </table>
+            {userData.admin == 1 ? <div>
+                {rents.length == 0 ? (<div>
+                    <div className="mt-20 text-xl text-center flex justify-center flex-col" style={{ height: "65vh" }}>
+                        <h1 className="text-4xl">Don't have Rents yet</h1>
+                        <p className="">Rent some books</p>
+                    </div>
+                </div>) : <div>
+                    <div className="flex items-center justify-center mt-20" >
+                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <RentsHead />
+                                {currentRents.map((rents) => (
+                                    <RentsList
+                                        key={rents.id}
+                                        rented_date={getStandardFormattedDateTime(rents.rented_date)}
+                                        due_date={getStandardFormattedDateTime(rents.due_date)}
+                                        user_id={user.find(user => user.id === rents.user_id)?.username || "N/A"}
+                                        books_id={books.find(book => book.id === rents.book_id)?.title || "N/A"}
+                                        id={rents.id} />
+                                ))}
+                            </table>
+                        </div>
+                    </div>
+                    <div className="flex justify-center mt-4">
+                        <Pagination
+                            layout="pagination"
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={onPageChange}
+                            previousLabel="Back"
+                            nextLabel="Next"
+                            showIcons
+                        />
+                    </div>
+                </div>}
+            </div> : (
+                <div className="mt-20 text-xl text-center flex justify-center flex-col" style={{ height: "65vh" }}>
+                    <h1 className="text-4xl">You don't have Permission for enter this page ✋</h1>
                 </div>
-            </div>
-            <div className="flex justify-center mt-4">
-                <Pagination
-                    layout="pagination"
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={onPageChange}
-                    previousLabel="Back"
-                    nextLabel="Next"
-                    showIcons
-                />
-            </div>
+            )}
+
         </>
     )
 }

@@ -114,18 +114,25 @@ function update(rented_date, due_date, book_id, user_id, id) {
     return new Promise((resolve, reject) => {
         con.connect((err) => {
             if (err) {
+                console.log(err);
                 return reject(err);
             }
-            let sql = `UPDATE rents SET rented_date = '${rented_date}', due_date = '${due_date}', book_id = '${book_id}', user_id = '${user_id}' WHERE id = '${id}'`;
+            const rentedDateFormatted = new Date(rented_date).toISOString().slice(0, 19).replace('T', ' ');
+            const dueDateFormatted = new Date(due_date).toISOString().slice(0, 19).replace('T', ' ');
+
+            let sql = `UPDATE rents SET rented_date = STR_TO_DATE('${rentedDateFormatted}', '%Y-%m-%d %H:%i:%s'), due_date = STR_TO_DATE('${dueDateFormatted}', '%Y-%m-%d %H:%i:%s'), book_id = '${book_id}', user_id = '${user_id}' WHERE id = '${id}'`;
+
             con.query(sql, (err, result) => {
                 if (err) {
+                    console.log(err);
                     return reject(err);
                 }
                 return resolve(result);
             });
         });
     });
-};
+}
+
 
 function quantityAvailable(book_id) {
     return new Promise((resolve, reject) => {

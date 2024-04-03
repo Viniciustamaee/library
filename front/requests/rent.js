@@ -38,9 +38,9 @@ export const insertRent = async (dataForInsert, config) => {
     }
 }
 
-export const updateRents = async (dataForInsert, config) => {
+export const updateRents = async (id, dataForInsert, config) => {
     try {
-        const response = await apiFecth.put(`/${id}`, dataForInsert, config);
+        const response = await apiFecth.put(`/Rents/${id}`, dataForInsert, config);
         return response.data;
     } catch (error) {
         throw error;
@@ -55,3 +55,4 @@ export const dataOneRent = async (id) => {
         throw error;
     }
 }
+

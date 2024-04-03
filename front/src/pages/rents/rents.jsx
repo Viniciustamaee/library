@@ -63,14 +63,15 @@ export default function Rents() {
         fetchRents();
     }, []);
 
-    function getStandardFormattedDateTime(date = new Date()) {
-        return format(date, 'dd-MM-yyyy');
+    function getStandardFormattedDateTime(dateTimeString) {
+        const datePart = dateTimeString.split('T')[0];
+        return datePart.split('-').reverse().join('-');
     }
+
 
     const indexOfLastAuthor = currentPage * 5;
     const indexOfFirstAuthor = indexOfLastAuthor - 5;
     const currentRents = rents.slice(indexOfFirstAuthor, indexOfLastAuthor);
-
     return (
         <>
             {userData.id == id ? <div>
@@ -86,8 +87,8 @@ export default function Rents() {
                                 {currentRents.map((rents) => (
                                     <RentsList
                                         key={rents.id}
-                                        rented_date={getStandardFormattedDateTime(rents.rented_date.slice(0, 10))}
-                                        due_date={getStandardFormattedDateTime(rents.due_date.slice(0, 10))}
+                                        rented_date={getStandardFormattedDateTime(rents.rented_date)}
+                                        due_date={getStandardFormattedDateTime(rents.due_date)}
                                         user_id={user.find(user => user.id === rents.user_id)?.username || "N/A"}
                                         books_id={books.find(book => book.id === rents.book_id)?.title || "N/A"}
                                         id={rents.id} />

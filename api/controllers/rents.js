@@ -74,6 +74,7 @@ module.exports.update = async (req, res) => {
         return res.status(406).json({ "erros": "Insufficient data" })
     }
 
+
     try {
         const bookData = await Rents.oneBook(book_id);
 
