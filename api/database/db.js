@@ -8,17 +8,17 @@ const con = mysql.createConnection({
 });
 
 
-function conectarBancoDeDados() {
+function connectDatabase() {
     con.connect(function (err) {
         if (err) {
             console.error('Err to conenct in dataBase:', err);
-            setTimeout(conectarBancoDeDados, 5000);
+            setTimeout(connectDatabase, 5000);
         } else {
             console.log('Connect dataBase');
         }
     });
 }
 
-conectarBancoDeDados();
+connectDatabase();
 
 module.exports = con

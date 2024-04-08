@@ -74,6 +74,7 @@ function App() {
         <Route path='/author/:id/edit' element={<EditAuthor />} />
       </Routes>
 
+
       <Footer />
       <ToastContainer />
     </>
